@@ -1,0 +1,53 @@
+# Data Contract v0.1 - 서울(108) 시간별 기상 관측
+schema_version: "0.1"
+dataset_id: seoul_hourly_weather
+name: 서울 시간별 기상 관측
+description: 기상청 지점 108(서울)의 1시간 간격 기온·강수량·풍속·습도 관측값
+source: 기상청 기상자료개방포털 (지점 108 서울)
+path: data/preprocessed/weather_example.csv
+format: csv
+grain: 관측소 한 곳(서울 108)의 특정 1시간에 대한 기상 관측값 한 건
+primary_key:
+  - datetime
+  - station_id
+temporal_resolution: hour
+spatial_resolution: station
+columns:
+  station_id:
+    dtype: string
+    nullable: false
+    source_column: 지점
+  station_name:
+    dtype: string
+    nullable: false
+    source_column: 지점명
+  datetime:
+    dtype: datetime
+    nullable: false
+    source_column: 일시
+    transformation: "YYYY-MM-DD HH:MM -> ISO 8601 (KST +09:00)"
+  temperature_c:
+    dtype: float
+    nullable: true
+    unit: Celsius
+    source_column: 기온(°C)
+    constraints: {min: -50, max: 50}
+  precipitation_mm:
+    dtype: float
+    nullable: true
+    unit: mm
+    source_column: 강수량(mm)
+    constraints: {min: 0, max: 1000}
+  wind_speed_ms:
+    dtype: float
+    nullable: true
+    unit: m/s
+    source_column: 풍속(m/s)
+    constraints: {min: 0, max: 60}
+  humidity_pct:
+    dtype: float
+    nullable: true
+    unit: percent
+    source_column: 습도(%)
+    constraints: {min: 0, max: 100}
+notes: QC플래그(0 정상/1 오류/9 결측)는 전처리에서 수치 정제에만 사용하고 결과 컬럼에서 제거

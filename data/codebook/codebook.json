@@ -1,0 +1,121 @@
+{
+  "datasets": [
+    {
+      "contract": {
+        "columns": {
+          "datetime": {
+            "dtype": "datetime",
+            "nullable": false,
+            "source_column": "일시",
+            "transformation": "YYYY-MM-DD HH:MM -> ISO 8601 (KST +09:00)"
+          },
+          "humidity_pct": {
+            "constraints": {
+              "max": 100,
+              "min": 0
+            },
+            "dtype": "float",
+            "nullable": true,
+            "source_column": "습도(%)",
+            "unit": "percent"
+          },
+          "precipitation_mm": {
+            "constraints": {
+              "max": 1000,
+              "min": 0
+            },
+            "dtype": "float",
+            "nullable": true,
+            "source_column": "강수량(mm)",
+            "unit": "mm"
+          },
+          "station_id": {
+            "dtype": "string",
+            "nullable": false,
+            "source_column": "지점"
+          },
+          "station_name": {
+            "dtype": "string",
+            "nullable": false,
+            "source_column": "지점명"
+          },
+          "temperature_c": {
+            "constraints": {
+              "max": 50,
+              "min": -50
+            },
+            "dtype": "float",
+            "nullable": true,
+            "source_column": "기온(°C)",
+            "unit": "Celsius"
+          },
+          "wind_speed_ms": {
+            "constraints": {
+              "max": 60,
+              "min": 0
+            },
+            "dtype": "float",
+            "nullable": true,
+            "source_column": "풍속(m/s)",
+            "unit": "m/s"
+          }
+        },
+        "dataset_id": "seoul_hourly_weather",
+        "description": "기상청 지점 108(서울)의 1시간 간격 기온·강수량·풍속·습도 관측값",
+        "format": "csv",
+        "grain": "관측소 한 곳(서울 108)의 특정 1시간에 대한 기상 관측값 한 건",
+        "name": "서울 시간별 기상 관측",
+        "notes": "QC플래그(0 정상/1 오류/9 결측)는 전처리에서 수치 정제에만 사용하고 결과 컬럼에서 제거",
+        "path": "data/preprocessed/weather_example.csv",
+        "primary_key": [
+          "datetime",
+          "station_id"
+        ],
+        "schema_version": "0.1",
+        "source": "기상청 기상자료개방포털 (지점 108 서울)",
+        "spatial_resolution": "station",
+        "temporal_resolution": "hour"
+      },
+      "contract_file": "weather_example.yaml",
+      "observed": {
+        "column_count": 7,
+        "columns": [
+          "station_id",
+          "station_name",
+          "datetime",
+          "temperature_c",
+          "precipitation_mm",
+          "wind_speed_ms",
+          "humidity_pct"
+        ],
+        "date_ranges": {
+          "datetime": {
+            "max": "2025-12-31T23:00:00+09:00",
+            "min": "2025-07-01T00:00:00+09:00"
+          }
+        },
+        "file_size_bytes": 232300,
+        "null_counts": {
+          "datetime": 0,
+          "humidity_pct": 0,
+          "precipitation_mm": 771,
+          "station_id": 0,
+          "station_name": 0,
+          "temperature_c": 0,
+          "wind_speed_ms": 0
+        },
+        "row_count": 4416,
+        "sha256": "f64ece9ebb126ccee0811efe679da1eb41d6af8da321d02240f6f58b715064c5"
+      },
+      "validation": {
+        "errors": [],
+        "status": "passed"
+      }
+    }
+  ],
+  "schema_version": "0.1",
+  "validation": {
+    "errors": [],
+    "status": "passed"
+  }
+}
