@@ -76,6 +76,7 @@ Data Contract에 정의한 스키마와 제약조건을 강하게 검증할 대�
 
 | 키 | 필수 여부 | 작성 방법 |
 | --- | --- | --- |
+| `schema_version` | 필수 | 계약 형식 버전. v0.1은 문자열 `"0.1"`로 작성 |
 | `dataset_id` | 필수 | `weather_daily`처럼 고유한 `snake_case` 식별자 |
 | `name` | 필수 | 사람이 읽기 쉬운 데이터 이름 |
 | `description` | 필수 | 데이터의 내용과 용도 |
@@ -119,49 +120,52 @@ Data Contract에 정의한 스키마와 제약조건을 강하게 검증할 대�
   별도 매핑 없이 `station_id`를 `region_code`로 바꾸지 않습니다.
 - 앞자리 0을 보존해야 하는 코드는 `string`으로 정의하고, YAML의 코드 값도 따옴표로 감쌉니다.
 - `date` 값은 `YYYY-MM-DD`를 기준으로 합니다. `datetime`의 시간대·허용 형식은 구현 전에 정합니다.
+- `date`는 일반 컬럼 이름입니다. 계약에 별도의 날짜 컬럼 지정 키를 두지 않습니다.
 - 기본키 컬럼은 모두 `columns`에 정의하고 `nullable: false`로 지정합니다.
   복합키는 각 컬럼이 아닌 컬럼 조합의 중복을 검사합니다.
 - `source_column`과 `transformation`은 설명용 메타데이터입니다. 실제 변환 코드는 전처리 스크립트에 작성합니다.
 - `unit`을 적는 것만으로 실제 단위가 입증되지는 않습니다. 원본 설명과 변환 코드를 함께 확인합니다.
 
-다음은 관측소별 일별 기상 데이터의 작성 예시입니다. 출처와 원본 컬럼명은 실제 데이터에 맞게 수정합니다.
+다음은 관측소별 일별 기상 데이터의 작성 예시입니다. 각 줄의 주석은 해당 키나 값의 의미를 설명합니다.
+주석은 계약 데이터에 포함되지 않습니다. 출처와 원본 컬럼명은 실제 데이터에 맞게 수정합니다.
 
 ```yaml
-dataset_id: weather_daily
-name: 관측소별 일별 기상
-description: 관측소별 일 최고기온 데이터
-source: "제공 기관과 원본 URL을 작성"
-path: data/preprocessed/weather_daily.csv
-format: csv
-grain: 관측소 한 곳의 특정 날짜에 대한 기상 관측값 한 건
-primary_key: [date, station_id]
-temporal_resolution: day
-spatial_resolution: station
-columns:
-  date:
-    description: 관측 날짜
-    dtype: date
-    nullable: false
-    source_column: tm
-    transformation: YYYY-MM-DD 형식으로 변환
-  station_id:
-    description: 기상 관측소 코드
-    dtype: string
-    nullable: false
-    source_column: stnId
-  max_temp_c:
-    description: 일 최고기온
-    dtype: float
-    nullable: true
-    unit: Celsius
-    source_column: maxTa
-    transformation: 컬럼명을 변경하고 숫자로 변환
-notes: 관측소와 분석 대상 행정구역의 연결은 별도 매핑이 필요함
+schema_version: "0.1"  # 이 YAML 계약이 따르는 형식의 버전
+dataset_id: weather_daily  # 계약과 코드북에서 사용할 고유한 데이터셋 ID
+name: 관측소별 일별 기상  # 사람이 읽는 데이터셋 이름
+description: 관측소별 일 최고기온 데이터  # 데이터셋의 내용
+source: "제공 기관과 원본 URL을 작성"  # 원본의 출처
+path: data/preprocessed/weather_daily.csv  # 검증·분석에 사용할 전처리 결과 파일
+format: csv  # 전처리 결과 파일의 형식
+grain: 관측소 한 곳의 특정 날짜에 대한 기상 관측값 한 건  # 한 행의 의미
+primary_key: [date, station_id]  # 두 컬럼의 조합으로 한 행을 식별
+temporal_resolution: day  # 데이터의 시간 단위
+spatial_resolution: station  # 데이터의 공간 단위
+columns:  # 전처리 결과에 있어야 할 컬럼과 각 컬럼의 규칙
+  date:  # 프로젝트에서 사용하는 날짜 컬럼 이름
+    description: 관측 날짜  # 컬럼 값의 의미
+    dtype: date  # 기대하는 논리 타입
+    nullable: false  # 결측값을 허용하지 않음
+    source_column: tm  # 대응하는 원본 컬럼 이름
+    transformation: YYYY-MM-DD 형식으로 변환  # 전처리에서 수행할 변환
+  station_id:  # 프로젝트에서 사용하는 관측소 ID 컬럼 이름
+    description: 기상 관측소 코드  # 컬럼 값의 의미
+    dtype: string  # 앞자리 0도 보존할 수 있는 문자열 타입
+    nullable: false  # 기본키 구성 컬럼이므로 결측값을 허용하지 않음
+    source_column: stnId  # 대응하는 원본 컬럼 이름
+  max_temp_c:  # 프로젝트에서 사용하는 일 최고기온 컬럼 이름
+    description: 일 최고기온  # 컬럼 값의 의미
+    dtype: float  # 소수점을 포함할 수 있는 숫자 타입
+    nullable: true  # 관측값이 없을 때 결측값 허용
+    unit: Celsius  # 값의 단위
+    source_column: maxTa  # 대응하는 원본 컬럼 이름
+    transformation: 컬럼명을 변경하고 숫자로 변환  # 전처리에서 수행할 변환
+notes: 관측소와 분석 대상 행정구역의 연결은 별도 매핑이 필요함  # 데이터셋 사용 시 주의점
 ```
 
 기존 `contract/weather.yaml`은 스캐폴드 예시입니다. 실제 적용 전에는 해당 파일의
 grain, 공간 단위, 원본 컬럼 매핑을 확인해야 합니다.
-`freshness`, 계약 버전 키, 테이블별 추가 제약조건은 세부 형식과 검증 의미를 정한 뒤 추가합니다.
+`freshness`와 테이블별 추가 제약조건은 세부 형식과 검증 의미를 정한 뒤 추가합니다.
 
 ### `codebook/`: 완성된 코드북
 

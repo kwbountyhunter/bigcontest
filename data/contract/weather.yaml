@@ -1,4 +1,5 @@
 # Data Contract v0.1 example. Replace the sample values before using real data.
+schema_version: "0.1"
 dataset_id: weather_daily
 name: Daily weather
 description: One row per date and region.
