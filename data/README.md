@@ -1,295 +1,366 @@
 # 데이터 관리 가이드
 
-`data/`는 원본 데이터, 전처리 결과, 데이터 계약과 코드북을 관리하는 디렉터리입니다.
-실제 데이터는 로컬에 저장하고, 데이터의 구조와 처리 방법은 Git으로 공유합니다.
+`data/` 폴더는 우리 프로젝트의 데이터를 다루는 모든 것을 담는 곳입니다.
 
-데이터 관리 흐름은 다음과 같습니다.
+핵심 원칙은 딱 하나입니다.
 
-```text
-raw/ → scripts/preprocessing/<table>.py → preprocessed/
-                                              ↓
-contract/*.yaml ────────────────→ codebook_json_file_maker.py
-                                              ↓
-                                    codebook/codebook.json
-```
+> **데이터 파일 자체는 Git에 올리지 않습니다. 대신 "데이터의 모양(계약)"과 "데이터를 만드는 방법(스크립트)"만 공유합니다.**
 
-`weather_example.yaml`은 계약 초안 예시이며, `weather_example.py`는 전처리 구현 예시입니다.
-코드북 생성기는 아래 v0.1 계약과 로컬 CSV를 검증합니다. 실제 데이터 파일은 별도로 준비해야 합니다.
+이렇게 하면 각자 로컬에 데이터를 내려받아 같은 방법으로 정제하고, 그 결과가
+서로 맞는지 자동으로 검증할 수 있습니다.
 
-## 1. 디렉터리 구조
+## 데이터 흐름 한눈에 보기
 
 ```text
-data/
-├── README.md
-├── codebook/
-│   └── codebook.json                 # 생성기로 자동 생성
-├── contract/
-│   └── weather.yaml                  # 사람이 작성하는 계약
-├── raw/                              # 로컬 원본 데이터
-├── preprocessed/                     # 로컬 전처리 결과
-└── scripts/
-    ├── preprocessing/
-    │   └── weather.py                # 테이블별 전처리 스크립트
-    └── codebook_json_file_maker.py    # 계약·실제 데이터를 비교하고 코드북 생성
+raw/ ──전처리 스크립트──▶ preprocessed/
+(받은 그대로)               (정제된 CSV)
+                                │
+contract/*.yaml ──코드북 생성기──▶ codebook/codebook.json
+(데이터 모양의 약속)                  (검사 결과 보고서)
 ```
 
-빈 데이터 디렉터리는 `.gitkeep`으로 Git에 유지합니다.
+1. **`raw/`**: 외부에서 내려받은 원본 데이터를 그대로 보관합니다.
+2. **`preprocessed/`**: 분석 코드가 실제로 사용하는 정제된 CSV를 보관합니다.
+3. **`contract/*.yaml`**: 각 데이터가 "이렇게 생겼어야 한다"는 약속을 적어둔 파일입니다.
+4. **`codebook/codebook.json`**: 실제 데이터가 약속대로인지 검사한 결과 보고서입니다. 스크립트가 자동 생성합니다.
 
-| 경로 | 역할 | Git 추적 |
+---
+
+## 기억할 것 4가지
+
+| 폴더/파일 | 한 줄 설명 | 누가 만들까 |
 | --- | --- | --- |
-| `raw/` | 외부에서 수집한 원본 파일 보관 | 데이터 제외, `.gitkeep`만 추적 |
-| `preprocessed/` | 분석에 사용할 전처리 완료 파일 보관 | 데이터 제외, `.gitkeep`만 추적 |
-| `contract/` | 기대하는 데이터 구조와 규칙을 YAML로 정의 | 추적 |
-| `codebook/` | 자동 생성된 완성본 `codebook.json` 보관 | 추적 |
-| `scripts/` | 데이터 관련 스크립트 관리 | 추적 |
+| `raw/` | 받은 그대로의 원본 데이터 | 사람(다운로드) |
+| `preprocessed/` | 분석에 쓰는 정제된 CSV | 전처리 스크립트 |
+| `contract/*.yaml` | "이 데이터는 이렇게 생겼어야 해" 약속 | 사람(직접 작성) |
+| `codebook/codebook.json` | 약속대로인지 검사한 보고서 | 코드북 생성기(자동) |
 
-### `raw/`: 원본 데이터
+- **원본(raw)**은 절대 직접 수정하지 않습니다. 정제는 전처리 스크립트가 합니다.
+- **계약(contract)**은 사람이 쓰는 "기대 사항"이고, **코드북(codebook)**은 기계가 만드는 "실제 검사 결과"입니다.
 
-외부에서 내려받거나 수집한 원본을 저장합니다. 출처 확인과 전처리 재현에 사용하므로
-가능한 수정하지 않습니다. 컬럼명 변경, 타입 변환, 결측치 처리 등은 전처리 스크립트에서 수행합니다.
+---
 
-원본 관리에서는 출처, 수집 시각(`downloaded_at`), 파일 크기, SHA-256, 행 수 등
-provenance(데이터가 어디서 왔는지에 대한 이력)를 우선 확인합니다.
-수집 시각은 파일 수정 시각과 구분하며, 파일만 보고 추정하지 않습니다.
-수집 이력의 저장 형식과 자동 수집 기능은 추후 정합니다.
+## 5분 따라하기: `weather_example`
 
-### `preprocessed/`: 전처리 완료 데이터
+예시 데이터셋(서울 시간별 기상 관측)을 그대로 실행해 보면 전체 흐름이 한 번에 이해됩니다.
 
-분석 코드가 실제로 사용하는 데이터를 저장합니다. 정규화, 컬럼명 통일, 타입 변환 등의 결과이며,
-Data Contract에 정의한 스키마와 제약조건을 강하게 검증할 대상입니다.
+### 1. 준비
 
-**전처리 결과는 원본 형식이나 변환 여부와 관계없이 반드시 `preprocessed/`에 CSV 파일(`.csv`)로 저장합니다.**
-CSV는 UTF-8 인코딩, 쉼표 구분, 첫 행 컬럼명을 사용합니다. 계약의 `format`은 `csv`로,
-`path`는 해당 `.csv` 파일 경로로 작성합니다.
-변환이 필요 없는 테이블도 전처리 스크립트를 실행하면 `raw/`에서 읽어 `preprocessed/`로
-CSV로 저장해야 합니다. 이 규칙으로 모든 테이블이 같은 파이프라인을 따르고,
-분석 코드는 일관되게 `preprocessed/`의 파일을 사용할 수 있습니다.
-
-### `contract/`: 사람이 작성하는 데이터 계약
-
-테이블마다 YAML 파일 하나를 작성합니다. 계약은 해당 테이블의 전처리 결과가 갖춰야 할
-구조와 규칙을 정의합니다. 실제로 관측한 행 수나 검증 결과를 수동으로 적는 용도로 사용하지 않습니다.
-
-아래는 v0.1의 작성 기준입니다. 파일명은 `weather.yaml`처럼 테이블을 알아볼 수 있게 짓고,
-`dataset_id`는 모든 계약에서 중복되지 않는 식별자로 사용합니다.
-
-#### 테이블 수준 키
-
-| 키 | 필수 여부 | 작성 방법 |
-| --- | --- | --- |
-| `schema_version` | 필수 | 계약 형식 버전. v0.1은 문자열 `"0.1"`로 작성 |
-| `dataset_id` | 필수 | `weather_daily`처럼 고유한 `snake_case` 식별자 |
-| `name` | 필수 | 사람이 읽기 쉬운 데이터 이름 |
-| `description` | 필수 | 데이터의 내용과 용도 |
-| `source` | 필수 | 제공 기관과 원본 URL 또는 입수 경로를 문자열로 기록 |
-| `path` | 필수 | 프로젝트 루트 기준 전처리 파일 경로. 예: `data/preprocessed/weather_daily.csv` |
-| `format` | 필수 | 전처리 결과의 파일 형식. 항상 `csv`로 작성 |
-| `grain` | 필수 | 한 행이 무엇을 의미하는지 구체적으로 서술 |
-| `primary_key` | 필수 | 한 행을 식별하는 컬럼 목록. 키가 없다면 `[]`로 쓰고 `notes`에 이유 기록 |
-| `temporal_resolution` | 해당 시 | 시간 단위. 예: `day`, `hour`. 해당하지 않으면 생략 |
-| `spatial_resolution` | 해당 시 | 공간 단위. 예: `station`, `district`. 해당하지 않으면 생략 |
-| `columns` | 필수 | 전처리 결과의 모든 컬럼을 이름별로 정의 |
-| `notes` | 선택 | 사용 시 주의점, 예외, 데이터의 한계 |
-
-`grain`은 반드시 데이터 자체의 의미로 작성합니다.
-예를 들어 “일별 기상 데이터”보다 “관측소 한 곳의 특정 날짜에 대한 기상 관측값 한 건”이 명확합니다.
-이 경우 `primary_key`는 `[date, station_id]`가 됩니다.
-같은 날짜·관측소에 여러 관측 유형이 있다면 grain과 기본키에 그 구분도 반영해야 합니다.
-
-#### 컬럼 수준 키
-
-`columns`의 키는 프로젝트 내부에서 사용하는 최종 컬럼명입니다.
-
-| 키 | 필수 여부 | 작성 방법 |
-| --- | --- | --- |
-| `dtype` | 필수 | 논리 타입: `string`, `integer`, `float`, `boolean`, `date`, `datetime` |
-| `nullable` | 필수 | 결측 허용 여부를 YAML 불리언 `true` 또는 `false`로 작성 |
-| `description` | 권장 | 컬럼이 나타내는 값의 의미 |
-| `unit` | 해당 시 | 수치의 단위. 예: `Celsius`, `KRW`, `persons` |
-| `source_column` | 해당 시 | 대응하는 원본 컬럼명. 여러 컬럼을 조합했다면 `transformation`에 설명 |
-| `transformation` | 해당 시 | 원본에서 최종 값으로 변환하는 방법을 설명하는 문자열 |
-| `allowed_values` | 선택 | 허용 값 목록. 예: `["M", "F", "unknown"]` |
-| `constraints` | 선택 | v0.1 초안에서는 `min`, `max`로 허용 범위를 정의. 경계값 포함 |
-| `notes` | 선택 | 컬럼별 예외나 해석 시 주의점 |
-
-작성 시 다음 규칙을 따릅니다.
-
-- 컬럼명은 `snake_case`를 사용하고, 같은 의미에는 같은 이름을 사용합니다.
-  공통 이름 예시는 `date`, `region_code`, `region_name`, `latitude`, `longitude`,
-  `industry_code`, `industry_name`, `time_band`, `sex`, `age_group`입니다.
-- 이름을 통일할 때 의미도 확인합니다. 관측소 코드와 행정구역 코드는 구분하고,
-  별도 매핑 없이 `station_id`를 `region_code`로 바꾸지 않습니다.
-- 앞자리 0을 보존해야 하는 코드는 `string`으로 정의하고, YAML의 코드 값도 따옴표로 감쌉니다.
-- `date` 값은 `YYYY-MM-DD`를 기준으로 합니다. `datetime`은 시간대가 포함된 `YYYY-MM-DDTHH:MM:SS[.ffffff]Z` 또는 `±HH:MM` 오프셋 형식을 사용합니다.
-- `date`는 일반 컬럼 이름입니다. 계약에 별도의 날짜 컬럼 지정 키를 두지 않습니다.
-- 기본키 컬럼은 모두 `columns`에 정의하고 `nullable: false`로 지정합니다.
-  복합키는 각 컬럼이 아닌 컬럼 조합의 중복을 검사합니다.
-- `source_column`과 `transformation`은 설명용 메타데이터입니다. 실제 변환 코드는 전처리 스크립트에 작성합니다.
-- `unit`을 적는 것만으로 실제 단위가 입증되지는 않습니다. 원본 설명과 변환 코드를 함께 확인합니다.
-
-다음은 관측소별 일별 기상 데이터의 작성 예시입니다. 각 줄의 주석은 해당 키나 값의 의미를 설명합니다.
-주석은 계약 데이터에 포함되지 않습니다. 출처와 원본 컬럼명은 실제 데이터에 맞게 수정합니다.
-
-```yaml
-schema_version: "0.1"  # 이 YAML 계약이 따르는 형식의 버전
-dataset_id: weather_daily  # 계약과 코드북에서 사용할 고유한 데이터셋 ID
-name: 관측소별 일별 기상  # 사람이 읽는 데이터셋 이름
-description: 관측소별 일 최고기온 데이터  # 데이터셋의 내용
-source: "제공 기관과 원본 URL을 작성"  # 원본의 출처
-path: data/preprocessed/weather_daily.csv  # 검증·분석에 사용할 전처리 결과 파일
-format: csv  # 전처리 결과 파일의 형식
-grain: 관측소 한 곳의 특정 날짜에 대한 기상 관측값 한 건  # 한 행의 의미
-primary_key: [date, station_id]  # 두 컬럼의 조합으로 한 행을 식별
-temporal_resolution: day  # 데이터의 시간 단위
-spatial_resolution: station  # 데이터의 공간 단위
-columns:  # 전처리 결과에 있어야 할 컬럼과 각 컬럼의 규칙
-  date:  # 프로젝트에서 사용하는 날짜 컬럼 이름
-    description: 관측 날짜  # 컬럼 값의 의미
-    dtype: date  # 기대하는 논리 타입
-    nullable: false  # 결측값을 허용하지 않음
-    source_column: tm  # 대응하는 원본 컬럼 이름
-    transformation: YYYY-MM-DD 형식으로 변환  # 전처리에서 수행할 변환
-  station_id:  # 프로젝트에서 사용하는 관측소 ID 컬럼 이름
-    description: 기상 관측소 코드  # 컬럼 값의 의미
-    dtype: string  # 앞자리 0도 보존할 수 있는 문자열 타입
-    nullable: false  # 기본키 구성 컬럼이므로 결측값을 허용하지 않음
-    source_column: stnId  # 대응하는 원본 컬럼 이름
-  max_temp_c:  # 프로젝트에서 사용하는 일 최고기온 컬럼 이름
-    description: 일 최고기온  # 컬럼 값의 의미
-    dtype: float  # 소수점을 포함할 수 있는 숫자 타입
-    nullable: true  # 관측값이 없을 때 결측값 허용
-    unit: Celsius  # 값의 단위
-    source_column: maxTa  # 대응하는 원본 컬럼 이름
-    transformation: 컬럼명을 변경하고 숫자로 변환  # 전처리에서 수행할 변환
-notes: 관측소와 분석 대상 행정구역의 연결은 별도 매핑이 필요함  # 데이터셋 사용 시 주의점
-```
-
-기존 `contract/weather.yaml`은 스캐폴드 예시입니다. 실제 적용 전에는 해당 파일의
-grain, 공간 단위, 원본 컬럼 매핑을 확인해야 합니다.
-`freshness`와 테이블별 추가 제약조건은 세부 형식과 검증 의미를 정한 뒤 추가합니다.
-
-### `codebook/`: 완성된 코드북
-
-YAML 계약과 실제 로컬 데이터를 기반으로 생성한 `codebook.json`을 저장합니다.
-파일은 Git으로 공유하며, 사람이 직접 수정하지 않습니다.
-
-코드북은 다음 세 영역을 분리합니다.
-
-| 영역 | 의미 | 예시 |
-| --- | --- | --- |
-| `contract` | 우리가 기대하는 데이터 구조 | 경로, grain, 컬럼, 타입, 제약조건 |
-| `observed` | 생성 시점의 실제 로컬 데이터 상태 | 행 수, 컬럼 수, 날짜 범위, 파일 크기, SHA-256 |
-| `validation` | 실제 데이터와 계약을 비교한 결과 | 스키마·기본키 검증 결과, 전체 상태, 실패 사유 |
-
-SHA-256이 같으면 팀원이 가진 파일의 바이트가 같은지 확인할 수 있습니다.
-값이 같더라도 행 순서나 인코딩이 다르면 해시는 달라질 수 있습니다.
-공유된 코드북은 생성에 사용한 파일의 검증 기록이므로, 다른 팀원의 로컬 파일까지
-검증된 것으로 간주하지 않습니다. 자신의 파일 해시를 비교하고 필요하면 다시 검증합니다.
-실제 행 데이터나 민감한 값을 코드북에 포함하지 않습니다.
-
-### `scripts/`: 데이터 관련 스크립트
-
-데이터 수집·전처리·검증 등 데이터 관리에 직접 관련된 스크립트를 둡니다.
-프로젝트 전체의 실행·배포 스크립트를 모으는 용도로 사용하지 않습니다.
-
-`scripts/preprocessing/`에는 테이블마다 스크립트 하나를 작성합니다.
-예를 들어 `weather.py`, `card_payment.py`, `flow_population.py`로 나눕니다.
-각 스크립트는 담당 테이블의 `raw/ → preprocessed/` 변환을 책임집니다.
-입력 파일, 출력 파일, 컬럼 매핑과 변환 규칙을 쉽게 찾을 수 있게 작성하고,
-같은 입력과 설정으로 실행하면 같은 결과를 만들도록 합니다.
-여러 스크립트에 동일한 처리가 실제로 반복될 때 공통 utility 분리를 검토합니다.
-
-`scripts/codebook_json_file_maker.py`는 다음 작업을 수행합니다.
-
-1. `contract/*.yaml`을 읽고 필수 키와 계약 간 `dataset_id` 중복을 확인합니다.
-2. 각 계약의 `path`를 프로젝트 루트 기준으로 해석하여 로컬 데이터를 찾습니다.
-3. 파일 존재 여부, 컬럼 구성, 타입, 기본키, 결측과 허용 값·범위 제약을 검증합니다.
-4. 행 수, 컬럼 수, 날짜 범위, 파일 크기와 SHA-256 등 관측 메타데이터를 계산합니다.
-5. 결과를 모아 `codebook/codebook.json`을 생성합니다.
-
-파일이 없거나 읽기에 실패한 경우에는 성공으로 표시하지 않고 원인을 기록해야 합니다.
-CSV의 타입은 저장된 타입 정보가 없으므로 계약에 맞게 해석 가능한지 검증하도록 설계합니다.
-출력은 데이터셋과 키 순서를 일정하게 유지하여 Git diff로 변경을 확인하기 쉽게 만듭니다.
-
-## 2. 업무별 작업 가이드
-
-### 원본 데이터를 수집·저장할 때
-
-1. 원본 파일을 `raw/`에 저장합니다. 데이터셋이 여러 파일로 구성되면 하위 폴더로 묶습니다.
-2. 출처, 수집 시각, 대상 기간과 입수 방법을 기록합니다. 출처는 계약의 `source`에도 적습니다.
-3. 원본 파일을 직접 편집하지 않고 전처리에서 필요한 변환을 수행합니다.
-4. 실제 데이터 전달은 팀에서 정한 별도 공유 경로를 사용합니다. Git에는 데이터 파일을 올리지 않습니다.
-
-### 새 테이블의 계약을 작성할 때
-
-1. 원본 컬럼과 설명을 확인하고, 분석에 사용할 한 행의 의미를 `grain`으로 정합니다.
-2. 해당 grain에 맞는 `primary_key`와 최종 컬럼명을 정합니다.
-3. `contract/<table>.yaml`을 만들고 필수 키, 타입, 결측 허용 여부를 작성합니다.
-4. 필요한 단위, 원본 컬럼, 변환 설명, 허용 값과 범위 제약을 추가합니다.
-5. 계약의 `path`와 전처리 스크립트의 출력 경로가 일치하는지 확인합니다.
-
-### 전처리를 구현·변경할 때
-
-1. `scripts/preprocessing/<table>.py`에 해당 테이블의 변환을 작성합니다.
-2. `raw/`에서 읽고 계약에 맞게 컬럼명, 타입, 값과 날짜 형식을 처리합니다.
-3. 결과를 UTF-8 CSV로 `preprocessed/`에 저장합니다. 변환이 없어도 스크립트를 통해 CSV로 저장합니다.
-4. 출력 grain과 기본키를 확인합니다. 조인이나 집계로 한 행의 의미가 달라졌다면 계약에도 반영합니다.
-5. 같은 입력으로 결과를 재현할 수 있도록 수동 파일 편집 대신 코드에 처리 방법을 남깁니다.
-
-### 검증하고 코드북을 갱신할 때
-
-다음 순서를 따릅니다.
-
-1. 필요한 원본을 준비하고 해당 전처리 스크립트를 실행합니다.
-2. `codebook_json_file_maker.py`를 실행하여 계약과 전처리 결과를 비교합니다.
-3. 실패 원인을 확인하고 데이터 처리 오류는 전처리 코드에서, 잘못 정의한 기대 구조는 계약에서 수정합니다.
-4. 다시 전처리·검증한 뒤 생성된 `codebook.json`의 변경 내용을 확인합니다.
-5. 계약, 관련 코드와 재생성된 코드북을 함께 커밋합니다.
-
-Python 3.9 이상에서 프로젝트 루트 기준으로 실행합니다.
+Python 3.9 이상이 필요합니다. 필요한 라이브러리는 하나뿐입니다.
 
 ```bash
 python3 -m pip install -r data/requirements.txt
+```
+
+### 2. 예시 데이터 확인
+
+`data/raw/weather_example.csv`는 기상청 지점 108(서울)의 시간별 관측 원본입니다.
+참고용으로 Git에 포함되어 있으니 바로 사용할 수 있습니다.
+
+원본을 열어보면 컬럼명이 한글이고(`지점`, `일시`, `기온(°C)`...), 각 수치 옆에
+`QC플래그` 컬럼이 붙어 있습니다. 이 플래그는 값의 품질을 나타냅니다:
+
+- 빈값 → 정상(0)
+- `1` → 오류
+- `9` → 결측
+
+### 3. 전처리 실행
+
+```bash
+python3 data/scripts/preprocessing/weather_example.py
+```
+
+이 스크립트는 원본(CP949 인코딩)을 읽어 다음을 수행합니다:
+
+- 컬럼명을 영문 `snake_case`로 변경 (`기온(°C)` → `temperature_c`)
+- QC플래그가 오류·결측인 수치를 비워서(null) 처리
+- 강수량은 "정상인데 비어 있는 값"이면 0.0mm로 채움
+- 일시를 ISO 8601 + KST(`+09:00`) 형식으로 변환
+
+결과는 `data/preprocessed/weather_example.csv`(UTF-8 CSV)로 저장됩니다.
+
+### 4. 코드북 생성
+
+```bash
 python3 data/scripts/codebook_json_file_maker.py
 ```
 
-스크립트 위치로 프로젝트 루트를 찾으므로 다른 작업 디렉터리에서도 실행할 수 있습니다.
-`--root`, `--contract-dir`, `--output`으로 루트, 계약 폴더, 출력 위치를 바꿀 수 있습니다.
-계약 폴더와 출력의 상대 경로는 지정한 프로젝트 루트를 기준으로 해석합니다.
-계약 내부 `path`는 프로젝트 루트 내부의 상대 경로여야 합니다.
+약속(계약)과 실제 정제 결과를 비교한 뒤 `data/codebook/codebook.json`을 다시 만듭니다.
 
-- UTF-8 CSV(선택적 BOM), 쉼표 구분, 첫 행 헤더를 지원합니다.
-- 빈 필드만 결측값으로 취급합니다. `NA`, `null` 등은 문자열이며 공백을 자동 제거하지 않습니다.
-- 정수는 부호가 선택적인 정수 문자열, 실수는 유한한 숫자, 불리언은 대소문자 구분 없는 `true`/`false` 또는 `1`/`0`을 허용합니다.
-- 날짜·시간 범위는 타입 검증에 성공한 값으로 계산하며, datetime은 UTC로 정규화합니다.
+```text
+passed: data/codebook/codebook.json
+```
+
+`passed`는 "실제 데이터가 계약대로다"라는 뜻입니다.
+
+### 5. 결과 확인
+
+`codebook.json`에서 아래 세 부분을 보면 됩니다.
+
+| 영역 | 의미 | 예시 |
+| --- | --- | --- |
+| `contract` | 우리가 기대한 데이터 구조 | 컬럼, 타입, 제약조건 |
+| `observed` | 실제 데이터에서 관측한 값 | `row_count: 4416`, 날짜 범위, `sha256` |
+| `validation` | 검사 결과 | `status: passed`, 실패 시 `errors` |
+
+특히 `observed.date_ranges`의 `datetime`을 보면 `2025-07-01T00:00:00+09:00`처럼
+**KST(+09:00)가 그대로 보존**되어 있는 걸 확인할 수 있습니다.
+
+---
+
+## 내 데이터를 추가하는 4단계
+
+새 데이터를 이 구조에 맞게 추가할 때는 아래 순서대로 진행합니다.
+
+### 1단계. 원본 데이터 받기
+
+팀이 공유한 원본 데이터 모음 링크에서 파일을 내려받아 `raw/`에 넣습니다.
+자세한 규칙은 [아래](#협업에서-원본-데이터를-다루는-규칙)를 참고하세요.
+
+### 2단계. 계약 작성
+
+`contract/<table>.yaml` 파일을 만들고 이 데이터가 갖춰야 할 모양을 적습니다.
+구체적인 작성법은 [참고: 계약 작성법](#참고-계약contract-작성법)을 보세요.
+
+### 3단계. 전처리 스크립트 작성
+
+`scripts/preprocessing/<table>.py`에 `raw/ → preprocessed/` 변환을 작성합니다.
+`weather_example.py`를 복사해서 시작하면 가장 빠릅니다.
+
+- `raw/`에서 읽어서 컬럼명·타입·날짜 형식을 계약대로 맞춥니다.
+- 결과를 UTF-8 CSV로 `preprocessed/`에 저장합니다.
+- 변환이 필요 없어도 스크립트를 통해 `preprocessed/`로 CSV를 만듭니다.
+  (모든 테이블이 같은 파이프라인을 따르도록 하기 위함)
+
+### 4단계. 검증하고 커밋하기
+
+```bash
+python3 data/scripts/codebook_json_file_maker.py
+```
+
+- `passed`면 계약·스크립트·코드북을 함께 커밋합니다.
+- 실패하면 원인을 확인합니다. 데이터 처리가 잘못됐으면 **전처리 코드**를,
+  기대 구조를 잘못 적었으면 **계약**을 고칩니다.
+
+커밋에 포함하는 것은 **계약, 전처리 스크립트, 재생성된 코드북**입니다. 데이터 CSV는 제외합니다.
+
+---
+
+## 협업에서 원본 데이터를 다루는 규칙
+
+원본 데이터는 Git이 아니라 **클라우드 링크**로 공유합니다.
+
+1. 데이터 수집이 끝나면, 원본 데이터를 모아둔 **클라우드 폴더 링크**를 팀에 공유합니다.
+2. 각자 그 링크에서 파일을 내려받아 **로컬 `raw/`** 에 넣고, 전처리 스크립트를 실행합니다.
+3. `raw/`의 파일은 **절대 수정하지 않습니다.** 폴더 구조와 파일명도 그대로 유지합니다.
+   (전처리 스크립트가 특정 경로와 이름을 기준으로 읽기 때문)
+4. 원본 데이터는 **Git에 올리지 않습니다.** `.gitignore`가 `raw/`와 `preprocessed/`의
+   데이터 파일을 자동으로 제외합니다.
+   - 예외: `weather_example.csv`(원본·정제 결과)는 예시용으로만 Git에 포함되어 있습니다.
+5. 출처와 수집 시각은 계약의 `source`에 기록해 두면 팀원 누구나 원본을 추적할 수 있습니다.
+
+> 데이터가 어디서 왔는지(출처)는 가능한 한 남겨 두세요. 나중에 재현하거나 문제가
+> 생겼을 때 원본으로 돌아갈 수 있습니다.
+
+---
+
+## 참고: 계약(contract) 작성법
+
+계약은 테이블마다 YAML 파일 하나입니다. 파일명은 `weather_example.yaml`처럼
+테이블을 알아볼 수 있게 짓고, `dataset_id`는 모든 계약에서 중복되지 않게 씁니다.
+
+### 테이블 수준 키
+
+| 키 | 필수 | 작성 방법 |
+| --- | --- | --- |
+| `schema_version` | 필수 | 계약 형식 버전. v0.1은 문자열 `"0.1"` |
+| `dataset_id` | 필수 | `seoul_hourly_weather`처럼 고유한 `snake_case` 식별자 |
+| `name` | 필수 | 사람이 읽기 쉬운 데이터 이름 |
+| `description` | 필수 | 데이터의 내용과 용도 |
+| `source` | 필수 | 제공 기관과 원본 URL 또는 입수 경로 |
+| `path` | 필수 | 프로젝트 루트 기준 전처리 파일 경로. 예: `data/preprocessed/weather_example.csv` |
+| `format` | 필수 | 전처리 결과 형식. 항상 `csv` |
+| `grain` | 필수 | 한 행이 무엇을 의미하는지. "관측소 한 곳의 특정 1시간 관측값 한 건"처럼 구체적으로 |
+| `primary_key` | 필수 | 한 행을 식별하는 컬럼 목록. 키가 없다면 `[]`로 쓰고 `notes`에 이유 기록 |
+| `temporal_resolution` | 해당 시 | 시간 단위. 예: `day`, `hour` |
+| `spatial_resolution` | 해당 시 | 공간 단위. 예: `station`, `district` |
+| `columns` | 필수 | 정제 결과의 모든 컬럼을 이름별로 정의 |
+| `notes` | 선택 | 사용 시 주의점, 예외, 한계 |
+
+`grain`은 데이터 자체의 의미로 씁니다. "일별 기상 데이터"보다
+"관측소 한 곳의 특정 날짜에 대한 기상 관측값 한 건"이 명확합니다.
+이 경우 `primary_key`는 `[date, station_id]`가 됩니다.
+
+### 컬럼 수준 키
+
+`columns`의 키는 프로젝트에서 쓰는 최종 컬럼명입니다.
+
+| 키 | 필수 | 작성 방법 |
+| --- | --- | --- |
+| `dtype` | 필수 | `string`, `integer`, `float`, `boolean`, `date`, `datetime` 중 하나 |
+| `nullable` | 필수 | 결측 허용 여부 (`true`/`false`) |
+| `description` | 권장 | 컬럼이 나타내는 값의 의미 |
+| `unit` | 해당 시 | 수치 단위. 예: `Celsius`, `mm`, `m/s` |
+| `source_column` | 해당 시 | 대응하는 원본 컬럼명 |
+| `transformation` | 해당 시 | 원본에서 최종 값으로 변환하는 방법 설명 |
+| `allowed_values` | 선택 | 허용 값 목록. 예: `["M", "F", "unknown"]` |
+| `constraints` | 선택 | `min`/`max`로 허용 범위 정의. 경계값 포함 |
+| `notes` | 선택 | 컬럼별 예외나 해석 시 주의점 |
+
+작성 시 다음을 지킵니다.
+
+- 컬럼명은 `snake_case`를 쓰고, 같은 의미에는 같은 이름을 씁니다.
+  (`date`, `region_code`, `station_id`, `temperature_c` 등)
+- 이름을 바꿀 때 의미도 확인합니다. 관측소 코드(`station_id`)와 행정구역 코드(`region_code`)는 구분합니다.
+- 앞자리 0을 보존해야 하는 코드는 `string`으로 정의합니다.
+- `date` 값은 `YYYY-MM-DD`, `datetime`은 `YYYY-MM-DDTHH:MM:SS±HH:MM` 형식을 사용합니다.
+- 기본키 컬럼은 모두 `columns`에 정의하고 `nullable: false`로 지정합니다.
+- `source_column`과 `transformation`은 설명용입니다. 실제 변환은 전처리 스크립트가 합니다.
+
+### 완성 예시
+
+`data/contract/weather_example.yaml`이 실제 동작하는 완성 예시입니다.
+
+```yaml
+schema_version: "0.1"
+dataset_id: seoul_hourly_weather
+name: 서울 시간별 기상 관측
+description: 기상청 지점 108(서울)의 1시간 간격 기온·강수량·풍속·습도 관측값
+source: 기상청 기상자료개방포털 (지점 108 서울)
+path: data/preprocessed/weather_example.csv
+format: csv
+grain: 관측소 한 곳(서울 108)의 특정 1시간에 대한 기상 관측값 한 건
+primary_key: [datetime, station_id]
+temporal_resolution: hour
+spatial_resolution: station
+columns:
+  station_id:
+    dtype: string
+    nullable: false
+    source_column: 지점
+  station_name:
+    dtype: string
+    nullable: false
+    source_column: 지점명
+  datetime:
+    dtype: datetime
+    nullable: false
+    source_column: 일시
+    transformation: "YYYY-MM-DD HH:MM -> ISO 8601 (KST +09:00)"
+  temperature_c:
+    dtype: float
+    nullable: true
+    unit: Celsius
+    source_column: 기온(°C)
+    constraints: {min: -50, max: 50}
+  precipitation_mm:
+    dtype: float
+    nullable: true
+    unit: mm
+    source_column: 강수량(mm)
+    constraints: {min: 0, max: 1000}
+  wind_speed_ms:
+    dtype: float
+    nullable: true
+    unit: m/s
+    source_column: 풍속(m/s)
+    constraints: {min: 0, max: 60}
+  humidity_pct:
+    dtype: float
+    nullable: true
+    unit: percent
+    source_column: 습도(%)
+    constraints: {min: 0, max: 100}
+notes: QC플래그(0 정상/1 오류/9 결측)는 전처리에서 수치 정제에만 사용하고 결과 컬럼에서 제거
+```
+
+---
+
+## 참고: 검증 규칙과 명령어
+
+### 코드북 생성기 명령어
+
+```bash
+python3 data/scripts/codebook_json_file_maker.py
+```
+
+스크립트는 프로젝트 루트를 스스로 찾으므로 어느 위치에서 실행해도 됩니다.
+다음 옵션으로 기본 경로를 바꿀 수 있습니다.
+
+| 옵션 | 기본값 | 설명 |
+| --- | --- | --- |
+| `--root` | 스크립트의 프로젝트 루트 | 프로젝트 루트 경로 |
+| `--contract-dir` | `data/contract` | 계약 YAML 폴더 |
+| `--output` | `data/codebook/codebook.json` | 출력 JSON 경로 |
+
+### 검증 규칙 요약
+
+- CSV는 **UTF-8(선택적 BOM), 쉼표 구분, 첫 행 헤더**를 지원합니다.
+- **빈 필드만 결측값**으로 취급합니다. `NA`, `null` 등은 문자열이며 공백을 자동 제거하지 않습니다.
+- 정수는 부호가 선택적인 정수 문자열, 실수는 유한한 숫자, 불리언은 대소문자 구분 없는
+  `true`/`false` 또는 `1`/`0`을 허용합니다.
+- 날짜·시간 범위는 타입 검증에 성공한 값으로 계산합니다.
+  **datetime은 원본이 선언한 오프셋(예: KST `+09:00`)을 그대로 보존합니다.**
 - 컬럼 순서는 검증 대상이 아니지만, 누락·추가·중복 컬럼은 실패입니다.
 - 기본키는 타입 해석 후 조합의 중복을 검사합니다. 문자열 코드의 앞자리 0은 보존합니다.
-- 종료 코드 `0`은 전체 통과, `1`은 검증 실패입니다. 계약이나 데이터가 없을 때도 실패 결과를 JSON에 기록합니다.
-- 데이터셋마다 `validation.errors`에 실패 이유 또는 위반 건수를 기록합니다. 실제 행과 위반 값은 저장하지 않습니다.
-- 출력은 정렬된 JSON이며 실행 시각은 포함하지 않습니다. 동일 계약·파일은 동일 결과를 만듭니다.
-- CSV는 행 단위로 읽습니다. 기본키 중복 검사용 메모리는 고유 키 수에 비례합니다.
+- 종료 코드 `0`은 전체 통과, `1`은 검증 실패입니다. 계약이나 데이터가 없을 때도 실패로 기록합니다.
+- 데이터셋마다 `validation.errors`에 실패 이유를 기록합니다. 실제 행과 값은 저장하지 않습니다.
+- 출력은 정렬된 JSON이며 실행 시각을 포함하지 않습니다. 같은 계약·파일은 같은 결과를 만듭니다.
 
-테스트는 임시 데이터로 실행하며 실제 전처리 파일을 변경하지 않습니다.
+### 코드북의 해시(`sha256`) 확인
+
+`observed.sha256`은 그 데이터 파일의 바이트가 같은지 확인하는 지문입니다.
+값이 같아도 행 순서나 인코딩이 다르면 해시가 달라질 수 있습니다.
+
+공유된 코드북은 생성에 사용한 파일의 검증 기록일 뿐, 다른 팀원의 로컬 파일까지
+검증된 것으로 보면 안 됩니다. 자신의 파일 해시를 비교하고 필요하면 다시 검증하세요.
+
+### 테스트 실행
 
 ```bash
 python3 -m unittest discover -s data/scripts/tests
 ```
-검증을 통과시키기 위해 코드북의 상태를 직접 수정하지 않습니다.
 
-### 분석에 데이터를 사용할 때
+테스트는 임시 데이터로 실행하며 실제 전처리 파일을 변경하지 않습니다.
+검증을 통과시키기 위해 코드북을 직접 수정하지 않습니다.
 
-1. 코드북의 grain, 컬럼 의미, 단위, 검증 결과를 확인합니다.
-2. 로컬 데이터의 SHA-256이 공유된 코드북의 값과 일치하는지 확인합니다.
-3. 계약의 `path`가 가리키는 `preprocessed/` 파일을 사용하고 계약에 맞게 타입을 처리합니다.
+---
 
-`load_dataset(dataset_id)` 형태의 접근 계층은 추후 설계 대상입니다.
+## 디렉터리 구조 정리
 
-### Git으로 공유·리뷰할 때
+```text
+data/
+├── README.md
+├── raw/                              # 원본 데이터 (Git 제외)
+│   └── weather_example.csv           #   예시용으로만 Git 포함
+├── preprocessed/                     # 정제 결과 (Git 제외)
+│   └── weather_example.csv           #   예시용으로만 Git 포함
+├── contract/
+│   └── weather_example.yaml          # 사람이 작성하는 계약
+├── codebook/
+│   └── codebook.json                 # 자동 생성된 검사 보고서
+└── scripts/
+    ├── preprocessing/
+    │   └── weather_example.py        # 테이블별 전처리 스크립트
+    ├── codebook_json_file_maker.py   # 코드북 생성기
+    └── tests/
+        └── test_codebook_json_file_maker.py
+```
 
-계약, 전처리·생성 스크립트, 문서와 생성된 코드북을 공유합니다.
-`.gitignore`는 `raw/`와 `preprocessed/`의 실제 파일을 제외하고 `.gitkeep`만 추적하도록 설정되어 있습니다.
-예외로 `weather_example.csv`(원본·전처리 결과)는 예시 데이터로써 참고할 수 있게 추적합니다.
-커밋 전에 데이터 파일이 포함되지 않았는지 확인하고, 강제 추가(`git add -f`)는 사용하지 않습니다.
+| 경로 | 역할 | Git 추적 |
+| --- | --- | --- |
+| `raw/` | 받은 그대로의 원본 파일 | 데이터 제외 (예시 CSV만 예외) |
+| `preprocessed/` | 분석에 쓰는 정제된 CSV | 데이터 제외 (예시 CSV만 예외) |
+| `contract/` | 데이터 모양의 약속 (YAML) | 추적 |
+| `codebook/` | 자동 생성된 검사 보고서 | 추적 |
+| `scripts/` | 전처리·검증 스크립트 | 추적 |
 
-리뷰에서는 grain과 기본키의 일치, 원본 컬럼 매핑, 단위와 타입 변환,
-검증 실패 여부, 이전 코드북 대비 행 수·날짜 범위·해시의 변화를 확인합니다.
+빈 디렉터리는 `.gitkeep`으로 Git에 유지합니다.
+
+### 아직 정하지 않은 것들
+
+아래 항목은 지금은 자동화하지 않고 수동으로 진행합니다. 필요해지면 추가할 예정입니다.
+
+- **데이터 접근 계층**: `load_dataset(dataset_id)` 형태로 데이터를 불러오는 공통 함수
+- **수집 이력(provenance) 자동 기록**: `downloaded_at`, 파일 크기 등 자동 수집
+- **검증 자동화(CI)**: 커밋 시 자동 검증
