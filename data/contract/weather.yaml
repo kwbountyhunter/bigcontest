@@ -1,0 +1,27 @@
+# Data Contract v0.1 example. Replace the sample values before using real data.
+dataset_id: weather_daily
+name: Daily weather
+description: One row per date and region.
+source: Example public weather data
+path: data/preprocessed/weather_daily.csv
+format: csv
+grain: One row per date and region_code.
+primary_key:
+  - date
+  - region_code
+temporal_resolution: day
+spatial_resolution: region
+columns:
+  date:
+    dtype: date
+    nullable: false
+    source_column: tm
+  region_code:
+    dtype: string
+    nullable: false
+    source_column: stnId
+  max_temp_c:
+    dtype: float
+    nullable: true
+    unit: Celsius
+    source_column: maxTa

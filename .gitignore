@@ -1,0 +1,5 @@
+# Local data is never committed. Keep directory placeholders in Git.
+/data/raw/*
+!/data/raw/.gitkeep
+/data/preprocessed/*
+!/data/preprocessed/.gitkeep
