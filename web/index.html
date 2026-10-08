@@ -1,0 +1,210 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FlowShock Climate ECG</title>
+    <meta name="description" content="Static Climate ECG dashboard for FlowShock aggregate analysis and modeling bundles.">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="signal-noise" aria-hidden="true"></div>
+
+    <header class="hero hero--cardiology shell">
+      <div class="hero__copy">
+        <p class="eyebrow">FlowShock Climate ECG / Civic Cardiology Console</p>
+        <h1><span>상권의 심장 상태를 읽다.</span> Climate stress, diagnosed as a district heartbeat.</h1>
+        <p class="hero__lede">A static civic cardiology view of Shock Pulse, Recovery Clock, Climate Scar, Loss Priority, and Triage Score using only copied aggregate JSON bundles.</p>
+        <div class="hero__notice" role="note">
+          Predictive aggregate decision support, not causal estimates or final policy decisions. This is a same-day/retrospective evaluation artifact; prospective use requires forecast weather inputs and separate validation.
+        </div>
+      </div>
+      <div class="monitor-card heart-console" aria-label="Climate ECG heart diagnosis console">
+        <div class="monitor-card__topline">
+          <span>HEART-AGG</span>
+          <span id="qualityBadge">Loading bundles</span>
+        </div>
+        <div class="heart-stage">
+          <svg viewBox="0 0 720 560" role="img" aria-labelledby="heartTitle heartDesc">
+            <title id="heartTitle">Commercial district heart diagnosis map</title>
+            <desc id="heartDesc">A heart outline with pulse trace and four chambers mapped to Shock Pulse, Recovery Clock, Climate Scar, and Loss Priority.</desc>
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"></feGaussianBlur>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+              <radialGradient id="heartGlow" cx="50%" cy="42%" r="62%">
+                <stop offset="0%" stop-color="var(--color-heart-core)"></stop>
+                <stop offset="62%" stop-color="var(--color-heart-halo)"></stop>
+                <stop offset="100%" stop-color="var(--color-transparent)"></stop>
+              </radialGradient>
+            </defs>
+            <ellipse class="heart-aura" cx="360" cy="290" rx="250" ry="220"></ellipse>
+            <path class="heart-outline" d="M360 494C194 384 106 294 106 188C106 114 158 66 226 66C282 66 325 99 360 151C395 99 438 66 494 66C562 66 614 114 614 188C614 294 526 384 360 494Z"></path>
+            <path class="heart-septum" d="M360 151C326 230 331 331 360 494"></path>
+            <path class="heart-septum heart-septum--right" d="M360 151C394 230 389 331 360 494"></path>
+            <path class="heart-chamber-line" d="M166 236C252 220 315 230 360 282"></path>
+            <path class="heart-chamber-line" d="M554 236C468 220 405 230 360 282"></path>
+            <polyline class="ecg-line ecg-line--ghost" points="88,306 156,306 178,306 198,246 224,372 252,306 316,306 338,306 356,266 382,350 410,306 472,306 494,306 516,218 542,406 570,306 632,306"></polyline>
+            <polyline class="ecg-line" points="88,306 156,306 178,306 198,246 224,372 252,306 316,306 338,306 356,266 382,350 410,306 472,306 494,306 516,218 542,406 570,306 632,306"></polyline>
+            <g class="chamber-label chamber-label--shock">
+              <circle cx="238" cy="188" r="6"></circle>
+              <text x="238" y="176">Shock Pulse</text>
+              <text x="238" y="204">Initial contraction</text>
+            </g>
+            <g class="chamber-label chamber-label--recovery">
+              <circle cx="482" cy="188" r="6"></circle>
+              <text x="482" y="176">Recovery Clock</text>
+              <text x="482" y="204">Delayed rhythm</text>
+            </g>
+            <g class="chamber-label chamber-label--scar">
+              <circle cx="246" cy="402" r="6"></circle>
+              <text x="246" y="390">Climate Scar</text>
+              <text x="246" y="418">Residual tissue</text>
+            </g>
+            <g class="chamber-label chamber-label--loss">
+              <circle cx="474" cy="402" r="6"></circle>
+              <text x="474" y="390">Loss Priority</text>
+              <text x="474" y="418">Support flow</text>
+            </g>
+          </svg>
+        </div>
+        <div class="monitor-card__readouts" id="heroReadouts"></div>
+      </div>
+    </header>
+
+    <section class="shell diagnosis-map" aria-labelledby="diagnosis-map-title">
+      <div class="section-heading">
+        <p class="eyebrow">Diagnosis Pathway / How to read the heart</p>
+        <h2 id="diagnosis-map-title">Four chambers, one retrospective diagnosis.</h2>
+        <p>Start with the pulse, check the recovery rhythm, inspect accumulated scar tissue, then route attention through the loss-priority chamber before reading triage and guardrails.</p>
+      </div>
+      <div class="chamber-grid" aria-label="Climate ECG heart chambers">
+        <a class="chamber-card chamber-card--shock" href="#shock-pulse">
+          <span>01</span>
+          <strong>Shock Pulse</strong>
+          <p>Is the district contracting under weather stress?</p>
+        </a>
+        <a class="chamber-card chamber-card--recovery" href="#recovery-clock">
+          <span>02</span>
+          <strong>Recovery Clock</strong>
+          <p>Does the rhythm stay irregular after the event window?</p>
+        </a>
+        <a class="chamber-card chamber-card--scar" href="#climate-scar">
+          <span>03</span>
+          <strong>Climate Scar</strong>
+          <p>Where do aggregate residual damage candidates persist?</p>
+        </a>
+        <a class="chamber-card chamber-card--loss" href="#loss-priority">
+          <span>04</span>
+          <strong>Loss Priority</strong>
+          <p>Which support slate concentrates modeled baseline-relative loss?</p>
+        </a>
+      </div>
+    </section>
+
+    <nav class="section-rail shell" aria-label="Climate ECG sections">
+      <a href="#overview">Overview</a>
+      <a href="#shock-pulse">Shock Pulse</a>
+      <a href="#recovery-clock">Recovery Clock</a>
+      <a href="#climate-scar">Climate Scar</a>
+      <a href="#loss-priority">Loss Priority</a>
+      <a href="#triage-score">Triage Score</a>
+      <a href="#model-performance">Model Performance</a>
+      <a href="#guardrails">Guardrails</a>
+    </nav>
+
+    <main class="shell dashboard" id="app" aria-live="polite">
+      <section class="panel panel--wide" id="overview">
+        <div class="section-heading">
+          <p class="eyebrow">01 / Intake Chart</p>
+          <h2>Aggregate patient chart</h2>
+          <p>Loaded only from <code>web/public/data/flowshock_analysis_bundle.json</code> and <code>web/public/data/flowshock_modeling_bundle.json</code>.</p>
+        </div>
+        <div class="metric-grid" id="overviewMetrics"></div>
+        <div class="table-wrap" id="regionalTable"></div>
+      </section>
+
+      <section class="panel" id="shock-pulse">
+        <div class="section-heading">
+          <p class="eyebrow">02 / Upper-left Chamber</p>
+          <h2>Shock Pulse contraction</h2>
+          <p>Daily high negative sales-deviation detection under aggregate weather and calendar features.</p>
+        </div>
+        <div class="metric-grid metric-grid--compact" id="shockMetrics"></div>
+        <div class="split-card" id="weatherShockSummary"></div>
+      </section>
+
+      <section class="panel" id="recovery-clock">
+        <div class="section-heading">
+          <p class="eyebrow">03 / Upper-right Chamber</p>
+          <h2>Recovery Clock rhythm</h2>
+          <p>Exploratory event-window model, downweighted in triage and not presented as the main predictor.</p>
+        </div>
+        <div class="metric-grid metric-grid--compact" id="recoveryMetrics"></div>
+      </section>
+
+      <section class="panel panel--wide" id="climate-scar">
+        <div class="section-heading">
+          <p class="eyebrow">04 / Lower-left Chamber</p>
+          <h2>Climate Scar tissue</h2>
+          <p>Observed aggregate associations from the analysis bundle. These are not causal damage estimates.</p>
+        </div>
+        <div class="table-wrap" id="scarTable"></div>
+      </section>
+
+      <section class="panel" id="loss-priority">
+        <div class="section-heading">
+          <p class="eyebrow">05 / Lower-right Chamber</p>
+          <h2>Loss Priority support flow</h2>
+          <p>Ranking layer judged by top-k capture and lift, not audited won-level forecasts.</p>
+        </div>
+        <div class="metric-grid metric-grid--compact" id="lossMetrics"></div>
+        <div class="table-wrap" id="lossPriorityTable"></div>
+      </section>
+
+      <section class="panel" id="triage-score">
+        <div class="section-heading">
+          <p class="eyebrow">06 / Diagnosis Output</p>
+          <h2>Combined heart triage candidates</h2>
+          <p>Combines predicted shock risk, recovery risk, and observed climate scar score for decision support.</p>
+        </div>
+        <div class="table-wrap" id="triageTable"></div>
+      </section>
+
+      <section class="panel panel--wide" id="model-performance">
+        <div class="section-heading">
+          <p class="eyebrow">07 / Retrospective Lab</p>
+          <h2>Model performance panel</h2>
+          <p>Model metrics are extracted from the copied modeling aggregate bundle when available.</p>
+        </div>
+        <div class="table-wrap" id="performanceTable"></div>
+      </section>
+
+      <section class="panel panel--wide panel--guardrails" id="guardrails">
+        <div class="section-heading">
+          <p class="eyebrow">08 / Clinical Guardrails</p>
+          <h2>What this diagnosis does not claim</h2>
+          <p>Visible framing is part of the artifact, not a footnote.</p>
+        </div>
+        <div class="guardrail-grid" id="guardrailCards"></div>
+      </section>
+    </main>
+
+    <footer class="shell footer">
+      <p>Static MVP. No backend, no raw data access, no live/prospective claims.</p>
+    </footer>
+
+    <noscript>
+      <div class="noscript">This dashboard needs JavaScript to read the copied aggregate JSON bundles.</div>
+    </noscript>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
+

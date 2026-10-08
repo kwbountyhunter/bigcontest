@@ -1,0 +1,11 @@
+﻿{
+  "name": "flowshock-climate-ecg-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static FlowShock Climate ECG dashboard using copied aggregate JSON bundles.",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js",
+    "check": "node --check app.js && node --check server.js"
+  }
+}
