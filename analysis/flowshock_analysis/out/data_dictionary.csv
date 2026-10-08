@@ -1,0 +1,120 @@
+﻿table,column,dtype,is_key,description
+daily_baseline_panel.csv,date,object,1,date
+daily_baseline_panel.csv,merchant_region,object,1,Merchant analysis region
+daily_baseline_panel.csv,industry,object,1,Merchant industry category
+daily_baseline_panel.csv,sales_amount,int64,0,sales amount
+daily_baseline_panel.csv,use_count,int64,0,use count
+daily_baseline_panel.csv,daily_rain_mm,float64,0,daily rain mm
+daily_baseline_panel.csv,max_hourly_rain_mm,float64,0,max hourly rain mm
+daily_baseline_panel.csv,rain_hours,int64,0,rain hours
+daily_baseline_panel.csv,temp_mean_c,float64,0,temp mean c
+daily_baseline_panel.csv,humidity_mean_pct,float64,0,humidity mean pct
+daily_baseline_panel.csv,wind_mean_ms,float64,0,wind mean ms
+daily_baseline_panel.csv,weather_hourly_obs,int64,0,weather hourly obs
+daily_baseline_panel.csv,month,int64,0,month
+daily_baseline_panel.csv,day_of_week,int64,0,day of week
+daily_baseline_panel.csv,is_weekend,int64,0,is weekend
+daily_baseline_panel.csv,holiday_name,object,0,holiday name
+daily_baseline_panel.csv,is_holiday,int64,0,is holiday
+daily_baseline_panel.csv,baseline_sales_amount,float64,0,baseline sales amount
+daily_baseline_panel.csv,baseline_use_count,float64,0,baseline use count
+daily_baseline_panel.csv,sales_idx,float64,0,sales idx
+daily_baseline_panel.csv,use_count_idx,float64,0,use count idx
+daily_baseline_panel.csv,sales_dev_pct,float64,0,sales dev pct
+daily_baseline_panel.csv,use_count_dev_pct,float64,0,use count dev pct
+daily_baseline_panel.csv,rain_bin,object,0,rain bin
+rain_bin_response_by_region_industry.csv,merchant_region,object,1,Merchant analysis region
+rain_bin_response_by_region_industry.csv,industry,object,1,Merchant industry category
+rain_bin_response_by_region_industry.csv,rain_bin,object,1,rain bin
+rain_bin_response_by_region_industry.csv,rows,int64,0,rows
+rain_bin_response_by_region_industry.csv,median_sales_dev_pct,float64,0,median sales dev pct
+rain_bin_response_by_region_industry.csv,mean_sales_dev_pct,float64,0,mean sales dev pct
+rain_bin_response_by_region_industry.csv,median_use_count_dev_pct,float64,0,median use count dev pct
+event_window_metrics_by_industry.csv,merchant_region,object,1,Merchant analysis region
+event_window_metrics_by_industry.csv,industry,object,1,Merchant industry category
+event_window_metrics_by_industry.csv,event_group_id,int64,1,event group id
+event_window_metrics_by_industry.csv,event_date,object,1,event date
+event_window_metrics_by_industry.csv,event_rain_mm,float64,0,event rain mm
+event_window_metrics_by_industry.csv,pre3_sales_dev_pct,float64,0,pre3 sales dev pct
+event_window_metrics_by_industry.csv,d0_sales_dev_pct,float64,0,d0 sales dev pct
+event_window_metrics_by_industry.csv,post3_sales_dev_pct,float64,0,post3 sales dev pct
+event_window_metrics_by_industry.csv,rebound_pp,float64,0,rebound pp
+event_window_metrics_by_industry.csv,net_damage_pp,float64,0,net damage pp
+event_window_metrics_by_industry.csv,missing_window_days,int64,0,missing window days
+shock_recovery_metrics_by_industry.csv,merchant_region,object,1,Merchant analysis region
+shock_recovery_metrics_by_industry.csv,industry,object,1,Merchant industry category
+shock_recovery_metrics_by_industry.csv,n_days,int64,0,n days
+shock_recovery_metrics_by_industry.csv,rain_days,int64,0,rain days
+shock_recovery_metrics_by_industry.csv,heavy20_days,int64,0,heavy20 days
+shock_recovery_metrics_by_industry.csv,rain_sales_spearman,float64,0,rain sales spearman
+shock_recovery_metrics_by_industry.csv,median_sales_dev_dry,float64,0,median sales dev dry
+shock_recovery_metrics_by_industry.csv,median_sales_dev_heavy20,float64,0,median sales dev heavy20
+shock_recovery_metrics_by_industry.csv,median_heavy20_minus_dry_pp,float64,0,median heavy20 minus dry pp
+shock_recovery_metrics_by_industry.csv,event_count,int64,0,event count
+shock_recovery_metrics_by_industry.csv,median_event_rain_mm,float64,0,median event rain mm
+shock_recovery_metrics_by_industry.csv,median_pre3_sales_dev_pct,float64,0,median pre3 sales dev pct
+shock_recovery_metrics_by_industry.csv,median_initial_shock_pp,float64,0,median initial shock pp
+shock_recovery_metrics_by_industry.csv,median_post3_sales_dev_pct,float64,0,median post3 sales dev pct
+shock_recovery_metrics_by_industry.csv,median_rebound_pp,float64,0,median rebound pp
+shock_recovery_metrics_by_industry.csv,median_net_damage_pp,float64,0,median net damage pp
+shock_recovery_metrics_by_industry.csv,negative_shock_share,float64,0,negative shock share
+shock_recovery_metrics_by_industry.csv,persistent_damage_share,float64,0,persistent damage share
+shock_recovery_metrics_by_industry.csv,missing_d0_share,float64,0,missing d0 share
+shock_recovery_metrics_by_industry.csv,avg_missing_window_days,float64,0,avg missing window days
+shock_recovery_metrics_by_industry.csv,low_event_count_flag,bool,0,low event count flag
+shock_recovery_metrics_by_industry.csv,baseline_sensitivity_flag,bool,0,baseline sensitivity flag
+timeband_vulnerability_metrics.csv,merchant_region,object,1,Merchant analysis region
+timeband_vulnerability_metrics.csv,industry,object,1,Merchant industry category
+timeband_vulnerability_metrics.csv,time_band,object,1,time band
+timeband_vulnerability_metrics.csv,rows,int64,0,rows
+timeband_vulnerability_metrics.csv,rain_band_rows,int64,0,rain band rows
+timeband_vulnerability_metrics.csv,heavy5_rows,int64,0,heavy5 rows
+timeband_vulnerability_metrics.csv,rain_sales_spearman,float64,0,rain sales spearman
+timeband_vulnerability_metrics.csv,median_sales_dev_dry,float64,0,median sales dev dry
+timeband_vulnerability_metrics.csv,median_sales_dev_heavy5,float64,0,median sales dev heavy5
+timeband_vulnerability_metrics.csv,median_heavy5_minus_dry_pp,float64,0,median heavy5 minus dry pp
+timeband_vulnerability_metrics.csv,weather_missing_rows,int64,0,weather missing rows
+broad_area_inflow_context.csv,month,int64,1,month
+broad_area_inflow_context.csv,merchant_region,object,1,Merchant analysis region
+broad_area_inflow_context.csv,same_broad_area_sales_amount,float64,0,same broad area sales amount
+broad_area_inflow_context.csv,total_sales_amount,int64,0,total sales amount
+broad_area_inflow_context.csv,customer_broad_area_count,int64,0,customer broad area count
+broad_area_inflow_context.csv,same_broad_area_sales_share,float64,0,same broad area sales share
+broad_area_inflow_context.csv,other_broad_area_sales_share,float64,0,other broad area sales share
+broad_area_inflow_context.csv,customer_origin_scope,object,0,"Broad-area origin semantics, not district residence"
+support_priority_by_industry.csv,merchant_region,object,1,Merchant analysis region
+support_priority_by_industry.csv,industry,object,1,Merchant industry category
+support_priority_by_industry.csv,n_days,int64,0,n days
+support_priority_by_industry.csv,rain_days,int64,0,rain days
+support_priority_by_industry.csv,heavy20_days,int64,0,heavy20 days
+support_priority_by_industry.csv,rain_sales_spearman,float64,0,rain sales spearman
+support_priority_by_industry.csv,median_sales_dev_dry,float64,0,median sales dev dry
+support_priority_by_industry.csv,median_sales_dev_heavy20,float64,0,median sales dev heavy20
+support_priority_by_industry.csv,median_heavy20_minus_dry_pp,float64,0,median heavy20 minus dry pp
+support_priority_by_industry.csv,event_count,int64,0,event count
+support_priority_by_industry.csv,median_event_rain_mm,float64,0,median event rain mm
+support_priority_by_industry.csv,median_pre3_sales_dev_pct,float64,0,median pre3 sales dev pct
+support_priority_by_industry.csv,median_initial_shock_pp,float64,0,median initial shock pp
+support_priority_by_industry.csv,median_post3_sales_dev_pct,float64,0,median post3 sales dev pct
+support_priority_by_industry.csv,median_rebound_pp,float64,0,median rebound pp
+support_priority_by_industry.csv,median_net_damage_pp,float64,0,median net damage pp
+support_priority_by_industry.csv,negative_shock_share,float64,0,negative shock share
+support_priority_by_industry.csv,persistent_damage_share,float64,0,persistent damage share
+support_priority_by_industry.csv,missing_d0_share,float64,0,missing d0 share
+support_priority_by_industry.csv,avg_missing_window_days,float64,0,avg missing window days
+support_priority_by_industry.csv,low_event_count_flag,bool,0,low event count flag
+support_priority_by_industry.csv,baseline_sensitivity_flag,bool,0,baseline sensitivity flag
+support_priority_by_industry.csv,strongest_negative_timeband_corr,float64,0,strongest negative timeband corr
+support_priority_by_industry.csv,weakest_timeband_heavy5_minus_dry_pp,float64,0,weakest timeband heavy5 minus dry pp
+support_priority_by_industry.csv,negative_timeband_count,int64,0,negative timeband count
+support_priority_by_industry.csv,avg_other_broad_area_sales_share,float64,0,avg other broad area sales share
+support_priority_by_industry.csv,avg_same_broad_area_sales_share,float64,0,avg same broad area sales share
+support_priority_by_industry.csv,shock_sensitivity_component,float64,0,shock sensitivity component
+support_priority_by_industry.csv,initial_shock_component,float64,0,initial shock component
+support_priority_by_industry.csv,net_damage_component,float64,0,net damage component
+support_priority_by_industry.csv,persistence_component,float64,0,persistence component
+support_priority_by_industry.csv,timeband_component,float64,0,timeband component
+support_priority_by_industry.csv,external_inflow_component,float64,0,external inflow component
+support_priority_by_industry.csv,support_priority_score,float64,0,Candidate support-priority score from aggregate association metrics
+support_priority_by_industry.csv,reliability_flag,object,0,reliability flag
+support_priority_by_industry.csv,interpretation,object,0,Interpretation guardrail for non-causal aggregate metrics

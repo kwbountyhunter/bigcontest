@@ -1,0 +1,204 @@
+{
+  "status": "built",
+  "foundation_dir": "C:\\Users\\ssm05\\OneDrive\\Desktop\\bounty\\analysis\\flowshock_foundation\\out",
+  "foundation_inputs": {
+    "mart_daily_region_industry_weather.csv": {
+      "bytes": 4020321,
+      "sha256": "6fe5f33cf7b1bedcbcce5f3dd0ef2c7e57fbb4d985eb2b32ff655ce44e0aa545"
+    },
+    "mart_timeband_region_industry_weather.csv": {
+      "bytes": 9669056,
+      "sha256": "8ae8a75929b9117f58711e296c0846601f01aff7349f6327a5c684549e54c8ab"
+    },
+    "card2_month_region_customer_inflow.csv": {
+      "bytes": 14834,
+      "sha256": "f143c29940c39df2fe42493936f5bcc411ff525fab3aa0ce03e75f5d48c892d3"
+    },
+    "mart_month_timeband_profile.csv": {
+      "bytes": 3248,
+      "sha256": "def3e79a3ca67fece668bb57a75427460b5af842ad9224ac8e140a97ac0fd1d5"
+    },
+    "manifest.json": {
+      "bytes": 4815,
+      "sha256": "8041fadc7a5e395c3da82941408e05540cc2aacba052e605b2b0fad6bab84be7"
+    },
+    "quality_report.json": {
+      "bytes": 7620,
+      "sha256": "4b055d587e8eaefbe0497ae88237957003c3b0aadef82681bd41f7e61df7dc59"
+    }
+  },
+  "thresholds": {
+    "heavy_rain_mm": 20.0,
+    "timeband_heavy_rain_mm": 5.0,
+    "min_event_count": 5
+  },
+  "score_weights": {
+    "shock_sensitivity": 30,
+    "initial_shock": 20,
+    "net_damage": 15,
+    "persistence": 15,
+    "timeband": 10,
+    "external_inflow": 10
+  },
+  "outputs": {
+    "daily_baseline_panel.csv": {
+      "rows": 30153,
+      "columns": [
+        "date",
+        "merchant_region",
+        "industry",
+        "sales_amount",
+        "use_count",
+        "daily_rain_mm",
+        "max_hourly_rain_mm",
+        "rain_hours",
+        "temp_mean_c",
+        "humidity_mean_pct",
+        "wind_mean_ms",
+        "weather_hourly_obs",
+        "month",
+        "day_of_week",
+        "is_weekend",
+        "holiday_name",
+        "is_holiday",
+        "baseline_sales_amount",
+        "baseline_use_count",
+        "sales_idx",
+        "use_count_idx",
+        "sales_dev_pct",
+        "use_count_dev_pct",
+        "rain_bin"
+      ]
+    },
+    "rain_bin_response_by_region_industry.csv": {
+      "rows": 861,
+      "columns": [
+        "merchant_region",
+        "industry",
+        "rain_bin",
+        "rows",
+        "median_sales_dev_pct",
+        "mean_sales_dev_pct",
+        "median_use_count_dev_pct"
+      ]
+    },
+    "event_window_metrics_by_industry.csv": {
+      "rows": 2946,
+      "columns": [
+        "merchant_region",
+        "industry",
+        "event_group_id",
+        "event_date",
+        "event_rain_mm",
+        "pre3_sales_dev_pct",
+        "d0_sales_dev_pct",
+        "post3_sales_dev_pct",
+        "rebound_pp",
+        "net_damage_pp",
+        "missing_window_days"
+      ]
+    },
+    "shock_recovery_metrics_by_industry.csv": {
+      "rows": 174,
+      "columns": [
+        "merchant_region",
+        "industry",
+        "n_days",
+        "rain_days",
+        "heavy20_days",
+        "rain_sales_spearman",
+        "median_sales_dev_dry",
+        "median_sales_dev_heavy20",
+        "median_heavy20_minus_dry_pp",
+        "event_count",
+        "median_event_rain_mm",
+        "median_pre3_sales_dev_pct",
+        "median_initial_shock_pp",
+        "median_post3_sales_dev_pct",
+        "median_rebound_pp",
+        "median_net_damage_pp",
+        "negative_shock_share",
+        "persistent_damage_share",
+        "missing_d0_share",
+        "avg_missing_window_days",
+        "low_event_count_flag",
+        "baseline_sensitivity_flag"
+      ]
+    },
+    "timeband_vulnerability_metrics.csv": {
+      "rows": 658,
+      "columns": [
+        "merchant_region",
+        "industry",
+        "time_band",
+        "rows",
+        "rain_band_rows",
+        "heavy5_rows",
+        "rain_sales_spearman",
+        "median_sales_dev_dry",
+        "median_sales_dev_heavy5",
+        "median_heavy5_minus_dry_pp",
+        "weather_missing_rows"
+      ]
+    },
+    "broad_area_inflow_context.csv": {
+      "rows": 12,
+      "columns": [
+        "month",
+        "merchant_region",
+        "same_broad_area_sales_amount",
+        "total_sales_amount",
+        "customer_broad_area_count",
+        "same_broad_area_sales_share",
+        "other_broad_area_sales_share",
+        "customer_origin_scope"
+      ]
+    },
+    "support_priority_by_industry.csv": {
+      "rows": 174,
+      "columns": [
+        "merchant_region",
+        "industry",
+        "n_days",
+        "rain_days",
+        "heavy20_days",
+        "rain_sales_spearman",
+        "median_sales_dev_dry",
+        "median_sales_dev_heavy20",
+        "median_heavy20_minus_dry_pp",
+        "event_count",
+        "median_event_rain_mm",
+        "median_pre3_sales_dev_pct",
+        "median_initial_shock_pp",
+        "median_post3_sales_dev_pct",
+        "median_rebound_pp",
+        "median_net_damage_pp",
+        "negative_shock_share",
+        "persistent_damage_share",
+        "missing_d0_share",
+        "avg_missing_window_days",
+        "low_event_count_flag",
+        "baseline_sensitivity_flag",
+        "strongest_negative_timeband_corr",
+        "weakest_timeband_heavy5_minus_dry_pp",
+        "negative_timeband_count",
+        "avg_other_broad_area_sales_share",
+        "avg_same_broad_area_sales_share",
+        "shock_sensitivity_component",
+        "initial_shock_component",
+        "net_damage_component",
+        "persistence_component",
+        "timeband_component",
+        "external_inflow_component",
+        "support_priority_score",
+        "reliability_flag",
+        "interpretation"
+      ]
+    }
+  },
+  "interpretation": "observed aggregate associations, not causal estimates",
+  "grain_policy": {
+    "daily_skt_join_allowed": false,
+    "customer_origin_scope": "broad_area_not_district"
+  }
+}

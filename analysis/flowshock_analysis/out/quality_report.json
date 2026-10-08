@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "passed": 26,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "foundation_quality_passed",
+      "passed": true,
+      "detail": "status=passed"
+    },
+    {
+      "name": "unique_key:daily_baseline_panel.csv",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "nonnegative:daily_baseline_panel.csv",
+      "passed": true,
+      "detail": "negative values=0"
+    },
+    {
+      "name": "unique_key:rain_bin_response_by_region_industry.csv",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "nonnegative:rain_bin_response_by_region_industry.csv",
+      "passed": true,
+      "detail": "negative values=0"
+    },
+    {
+      "name": "unique_key:event_window_metrics_by_industry.csv",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "nonnegative:event_window_metrics_by_industry.csv",
+      "passed": true,
+      "detail": "negative values=0"
+    },
+    {
+      "name": "unique_key:shock_recovery_metrics_by_industry.csv",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "nonnegative:shock_recovery_metrics_by_industry.csv",
+      "passed": true,
+      "detail": "negative values=0"
+    },
+    {
+      "name": "unique_key:timeband_vulnerability_metrics.csv",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "nonnegative:timeband_vulnerability_metrics.csv",
+      "passed": true,
+      "detail": "negative values=0"
+    },
+    {
+      "name": "unique_key:broad_area_inflow_context.csv",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "nonnegative:broad_area_inflow_context.csv",
+      "passed": true,
+      "detail": "negative values=0"
+    },
+    {
+      "name": "unique_key:support_priority_by_industry.csv",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "nonnegative:support_priority_by_industry.csv",
+      "passed": true,
+      "detail": "negative values=0"
+    },
+    {
+      "name": "daily_grain_safety:daily_baseline_panel.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "daily_grain_safety:event_window_metrics_by_industry.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "daily_grain_safety:shock_recovery_metrics_by_industry.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "support_priority_required_flags",
+      "passed": true,
+      "detail": "missing=[]"
+    },
+    {
+      "name": "inflow_scope_column",
+      "passed": true,
+      "detail": "missing=[]"
+    },
+    {
+      "name": "json_field_safety:regional_dashboard.json",
+      "passed": true,
+      "detail": "forbidden_fields=[]"
+    },
+    {
+      "name": "json_field_safety:vulnerability_matrix.json",
+      "passed": true,
+      "detail": "forbidden_fields=[]"
+    },
+    {
+      "name": "json_field_safety:support_priority.json",
+      "passed": true,
+      "detail": "forbidden_fields=[]"
+    },
+    {
+      "name": "json_field_safety:policy_brief.json",
+      "passed": true,
+      "detail": "forbidden_fields=[]"
+    },
+    {
+      "name": "json_field_safety:flowshock_analysis_bundle.json",
+      "passed": true,
+      "detail": "forbidden_fields=[]"
+    },
+    {
+      "name": "manifest_output_rows",
+      "passed": true,
+      "detail": "outputs=7"
+    }
+  ]
+}

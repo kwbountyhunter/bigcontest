@@ -1,0 +1,20 @@
+[
+  {
+    "merchant_region": "강원 춘천시",
+    "days": 184,
+    "industries": 85,
+    "total_sales_amount": 2371719049131,
+    "rain_days": 4705,
+    "heavy20_days": 1533,
+    "median_sales_dev_pct": 0.0
+  },
+  {
+    "merchant_region": "서울 강남구",
+    "days": 184,
+    "industries": 89,
+    "total_sales_amount": 33494137608005,
+    "rain_days": 4910,
+    "heavy20_days": 1204,
+    "median_sales_dev_pct": 0.0
+  }
+]
