@@ -1,0 +1,29 @@
+{
+    "source_name":  "kma_asos_hourly",
+    "station_id":  "101",
+    "year_month":  "202510",
+    "credential_required":  true,
+    "credential_env_var":  "DATA_GO_KR_SERVICE_KEY",
+    "credential_present":  true,
+    "credential_value_stored":  false,
+    "source_page_url":  "https://www.data.go.kr/data/15057210/openapi.do",
+    "request_url":  "https://apis.data.go.kr/1360000/AsosHourlyInfoService/getWthrDataList",
+    "method":  "GET",
+    "retrieved_at_utc":  "2026-10-05T00:25:10.3788882Z",
+    "request_query_sanitized":  {
+                                    "ServiceKey":  "\u003credacted\u003e",
+                                    "pageNo":  "1",
+                                    "numOfRows":  "999",
+                                    "dataType":  "JSON",
+                                    "dataCd":  "ASOS",
+                                    "dateCd":  "HR",
+                                    "startDt":  "20251001",
+                                    "startHh":  "00",
+                                    "endDt":  "20251031",
+                                    "endHh":  "23",
+                                    "stnIds":  "101"
+                                },
+    "raw_file":  "asos_hourly_stn_101_202510.raw.json",
+    "raw_sha256":  "fe75fd23700bbdb9b0e91ada3a335f5438fe4ae85ab66a89ddc190ddefa225c5",
+    "raw_bytes":  378488
+}

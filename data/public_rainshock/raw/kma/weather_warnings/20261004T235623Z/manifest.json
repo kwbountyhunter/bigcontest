@@ -1,0 +1,31 @@
+{
+    "source_name":  "kma_weather_warnings_csv",
+    "credential_required":  false,
+    "credential_env_var":  "",
+    "credential_present":  false,
+    "credential_value_stored":  false,
+    "source_page_url":  "https://data.kma.go.kr/data/weatherReport/wsrList.do?pgmNo=647",
+    "request_url":  "https://data.kma.go.kr/download/fileDownload.do",
+    "method":  "POST",
+    "retrieved_at_utc":  "2026-10-04T23:56:31.1040247Z",
+    "retrieved_at_kst":  "2026-10-05T08:56:31.1050233",
+    "request_body_sanitized":  {
+                                   "delYn":  "N",
+                                   "file":  "\u003cephemeral-temp-path\u003e"
+                               },
+    "response_status":  200,
+    "response_status_description":  "OK",
+    "response_headers_sanitized":  {
+                                       "Access-Control-Allow-Origin":  "*",
+                                       "Content-Disposition":  "attachment; filename=\"FCT_WRN_20261005085626.csv\"",
+                                       "Transfer-Encoding":  "chunked",
+                                       "Content-Type":  "application/x-msdownload;;charset=UTF-8",
+                                       "Date":  "Sun, 04 Oct 2026 23:56:30 GMT",
+                                       "Set-Cookie":  "mwakmasid=wUDYXU9Ep1mhJV4vvihVLxWQt4y7AlgsDBZ9BxOuYsaB9llRTfjalxAITymNkJsd.was02_servlet_engine5;Path=/;HttpOnly"
+                                   },
+    "encoding_detected":  "MS949",
+    "raw_file":  "weather_warnings_20250701_20251231.raw.csv",
+    "raw_sha256":  "b17f70c38255451a002ea15339aed226647d35e5d95d512281a54874afbc1da7",
+    "raw_bytes":  372747,
+    "ephemeral_temp_path_generated_fresh":  true
+}

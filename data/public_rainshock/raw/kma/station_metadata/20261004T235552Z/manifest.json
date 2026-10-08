@@ -1,0 +1,42 @@
+{
+    "source_name":  "kma_station_metadata",
+    "credential_required":  false,
+    "credential_env_var":  "",
+    "credential_present":  false,
+    "credential_value_stored":  false,
+    "source_page_url":  "https://data.kma.go.kr/tmeta/stn/selectStnList.do?pgmNo=123",
+    "request_url":  "https://data.kma.go.kr/tmeta/stn/selectStnListDownload.do",
+    "method":  "POST",
+    "retrieved_at_utc":  "2026-10-04T23:56:13.0727637Z",
+    "retrieved_at_kst":  "2026-10-05T08:56:13.0737628",
+    "request_body_sanitized":  {
+                                   "mddlClssCd":  "",
+                                   "txtStnNm":  "",
+                                   "stnIds":  "",
+                                   "pgmNo":  "123",
+                                   "txtElementNm":  "",
+                                   "serviceSe":  "F00101",
+                                   "fileType":  "csv",
+                                   "schListCnt":  "10",
+                                   "dTreeId":  "",
+                                   "pageIndex":  "1",
+                                   "mddlClssCdDiff":  "",
+                                   "gTreeId":  ""
+                               },
+    "response_status":  200,
+    "response_status_description":  "OK",
+    "response_headers_sanitized":  {
+                                       "Access-Control-Allow-Origin":  "*",
+                                       "Content-Disposition":  "attachment; filename=\"META_%EA%B4%80%EC%B8%A1%EC%A7%80%EC%A0%90%EC%A0%95%EB%B3%B4_20261005085611.csv\"",
+                                       "Connection":  "Keep-Alive",
+                                       "Content-Language":  "ko-KR",
+                                       "Transfer-Encoding":  "chunked",
+                                       "Content-Type":  "text/csv; charset=MS949",
+                                       "Date":  "Sun, 04 Oct 2026 23:56:11 GMT",
+                                       "Set-Cookie":  "JSESSIONID=N3ViNYkcb7A5Nmt3v7KJl5N2lh1nuBoYDCn2MgnxZT8vw0OiTjgPWmqWRRiS1Pe2.was01_servlet_engine6;Path=/;HttpOnly"
+                                   },
+    "encoding_detected":  "MS949",
+    "raw_file":  "station_metadata.raw.csv",
+    "raw_sha256":  "15cd579ee8d2078d7ecf4233b5df31217fcd3c55b818bf9ca5f6dfd8b41f0066",
+    "raw_bytes":  1007720
+}

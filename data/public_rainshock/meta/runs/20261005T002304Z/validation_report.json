@@ -1,0 +1,9 @@
+{
+    "validated_at_utc":  "2026-10-05T00:23:04.2130789Z",
+    "status":  "passed",
+    "errors":  [
+
+               ],
+    "station_metadata_latest":  "C:\\Users\\ssm05\\OneDrive\\Desktop\\bounty\\data\\public_rainshock\\raw\\kma\\station_metadata\\20261004T235552Z\\station_metadata.raw.csv",
+    "weather_warnings_latest":  "C:\\Users\\ssm05\\OneDrive\\Desktop\\bounty\\data\\public_rainshock\\raw\\kma\\weather_warnings\\20261004T235623Z\\weather_warnings_20250701_20251231.raw.csv"
+}

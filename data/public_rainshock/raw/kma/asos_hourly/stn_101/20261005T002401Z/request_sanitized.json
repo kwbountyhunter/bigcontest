@@ -1,0 +1,13 @@
+{
+    "ServiceKey":  "\u003credacted\u003e",
+    "pageNo":  "1",
+    "numOfRows":  "1000",
+    "dataType":  "JSON",
+    "dataCd":  "ASOS",
+    "dateCd":  "HR",
+    "startDt":  "20251201",
+    "startHh":  "00",
+    "endDt":  "20251231",
+    "endHh":  "23",
+    "stnIds":  "101"
+}

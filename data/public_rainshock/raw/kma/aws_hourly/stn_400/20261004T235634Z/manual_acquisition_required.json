@@ -1,0 +1,10 @@
+{
+    "source_name":  "kma_aws_400_historical_manual_placeholder",
+    "station_id":  "400",
+    "status":  "manual_acquisition_required",
+    "reason":  "The public data.go.kr AWS endpoint identified for automatic access is recent-two-day AWS minute data and is not suitable for 2025-07-01..2025-12-31 historical retrieval. Use the KMA Data Open Portal AWS historical data/file-set workflow for station 400 and preserve the raw export here.",
+    "official_portal_page":  "https://data.kma.go.kr/data/grnd/selectAwsRltmList.do?pgmNo=56",
+    "desired_period_start":  "2025-07-01 00:00 KST",
+    "desired_period_end":  "2025-12-31 23:00 KST",
+    "created_at_utc":  "2026-10-04T23:56:34.2880243Z"
+}

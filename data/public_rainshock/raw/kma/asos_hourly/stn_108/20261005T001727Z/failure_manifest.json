@@ -1,0 +1,22 @@
+{
+    "source_name":  "kma_asos_hourly",
+    "station_id":  "108",
+    "status":  "failed_api_request",
+    "credential_env_var":  "DATA_GO_KR_SERVICE_KEY",
+    "credential_value_stored":  false,
+    "error_message":  "원격 서버에서 (403) 사용할 수 없음 오류를 반환했습니다.",
+    "request_query_sanitized":  {
+                                    "ServiceKey":  "\u003credacted\u003e",
+                                    "pageNo":  "1",
+                                    "numOfRows":  "5000",
+                                    "dataType":  "JSON",
+                                    "dataCd":  "ASOS",
+                                    "dateCd":  "HR",
+                                    "startDt":  "20250701",
+                                    "startHh":  "00",
+                                    "endDt":  "20251231",
+                                    "endHh":  "23",
+                                    "stnIds":  "108"
+                                },
+    "failed_at_utc":  "2026-10-05T00:17:27.9886169Z"
+}

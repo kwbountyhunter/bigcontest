@@ -1,0 +1,10 @@
+{
+    "source":  "kma_weather_warnings",
+    "run_id":  "20261004T235623Z",
+    "step1_status":  200,
+    "step2_status":  200,
+    "csv_non_empty":  true,
+    "start_date":  "20250701",
+    "end_date":  "20251231",
+    "temp_path_not_persisted_as_source":  true
+}
