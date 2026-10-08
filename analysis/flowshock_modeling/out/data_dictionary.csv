@@ -1,0 +1,336 @@
+﻿table,column,dtype,description
+model_ready_daily.csv,date,object,date
+model_ready_daily.csv,merchant_region,object,merchant region
+model_ready_daily.csv,industry,object,industry
+model_ready_daily.csv,sales_amount,int64,sales amount
+model_ready_daily.csv,use_count,int64,use count
+model_ready_daily.csv,daily_rain_mm,float64,daily rain mm
+model_ready_daily.csv,max_hourly_rain_mm,float64,max hourly rain mm
+model_ready_daily.csv,rain_hours,int64,rain hours
+model_ready_daily.csv,temp_mean_c,float64,temp mean c
+model_ready_daily.csv,humidity_mean_pct,float64,humidity mean pct
+model_ready_daily.csv,wind_mean_ms,float64,wind mean ms
+model_ready_daily.csv,weather_hourly_obs,int64,weather hourly obs
+model_ready_daily.csv,month,int64,month
+model_ready_daily.csv,day_of_week,int64,day of week
+model_ready_daily.csv,is_weekend,int64,is weekend
+model_ready_daily.csv,holiday_name,object,holiday name
+model_ready_daily.csv,is_holiday,int64,is holiday
+model_ready_daily.csv,baseline_sales_amount,float64,baseline sales amount
+model_ready_daily.csv,baseline_use_count,float64,baseline use count
+model_ready_daily.csv,sales_idx,float64,sales idx
+model_ready_daily.csv,use_count_idx,float64,use count idx
+model_ready_daily.csv,sales_dev_pct,float64,sales dev pct
+model_ready_daily.csv,use_count_dev_pct,float64,use count dev pct
+model_ready_daily.csv,rain_bin,object,rain bin
+model_ready_daily.csv,model_baseline_sales_amount,float64,model baseline sales amount
+model_ready_daily.csv,model_baseline_use_count,float64,model baseline use count
+model_ready_daily.csv,model_sales_idx,float64,model sales idx
+model_ready_daily.csv,model_use_count_idx,float64,model use count idx
+model_ready_daily.csv,model_sales_dev_pct,float64,model sales dev pct
+model_ready_daily.csv,model_use_count_dev_pct,float64,model use count dev pct
+model_ready_daily.csv,baseline_source,object,baseline source
+model_ready_daily.csv,shock_pulse_label,int64,shock pulse label
+model_ready_daily.csv,weather_shock_label,int64,weather shock label
+model_ready_daily.csv,estimated_loss_amount,float64,estimated loss amount
+model_ready_daily.csv,heavy_rain_flag,int64,heavy rain flag
+model_ready_daily.csv,rain_3d_sum,float64,rain 3d sum
+model_ready_daily.csv,rain_7d_sum,float64,rain 7d sum
+model_ready_daily.csv,temp_7d_mean,float64,temp 7d mean
+model_ready_daily.csv,humidity_temp_interaction,float64,humidity temp interaction
+model_ready_daily.csv,wind_rain_interaction,float64,wind rain interaction
+model_ready_daily.csv,rain_bin_industry,object,rain bin industry
+model_ready_daily.csv,rain_bin_region,object,rain bin region
+model_ready_daily.csv,lag1_sales_dev_pct,float64,lag1 sales dev pct
+model_ready_daily.csv,rolling7_sales_dev_mean,float64,rolling7 sales dev mean
+model_ready_daily.csv,rolling7_sales_dev_std,float64,rolling7 sales dev std
+model_ready_daily.csv,prior_shock_count,float64,prior shock count
+model_ready_daily.csv,days_since_prior_shock,float64,days since prior shock
+model_ready_daily.csv,climate_ecg_component,object,climate ecg component
+model_ready_daily.csv,split,object,split
+model_ready_event.csv,merchant_region,object,merchant region
+model_ready_event.csv,industry,object,industry
+model_ready_event.csv,event_group_id,int64,event group id
+model_ready_event.csv,event_date,object,event date
+model_ready_event.csv,event_rain_mm,float64,event rain mm
+model_ready_event.csv,pre3_sales_dev_pct,float64,pre3 sales dev pct
+model_ready_event.csv,d0_sales_dev_pct,float64,d0 sales dev pct
+model_ready_event.csv,post3_sales_dev_pct,float64,post3 sales dev pct
+model_ready_event.csv,rebound_pp,float64,rebound pp
+model_ready_event.csv,net_damage_pp,float64,net damage pp
+model_ready_event.csv,missing_window_days,int64,missing window days
+model_ready_event.csv,recovery_clock_label,int64,recovery clock label
+model_ready_event.csv,climate_scar_score,float64,climate scar score
+model_ready_event.csv,median_heavy20_minus_dry_pp,float64,median heavy20 minus dry pp
+model_ready_event.csv,persistent_damage_share,float64,persistent damage share
+model_ready_event.csv,low_event_count_flag,bool,low event count flag
+model_ready_event.csv,baseline_sensitivity_flag,bool,baseline sensitivity flag
+model_ready_event.csv,weakest_timeband_heavy5_minus_dry_pp,float64,weakest timeband heavy5 minus dry pp
+model_ready_event.csv,negative_timeband_count,int64,negative timeband count
+model_ready_event.csv,avg_other_broad_area_sales_share,float64,avg other broad area sales share
+model_ready_event.csv,support_priority_score,float64,support priority score
+model_ready_event.csv,reliability_flag,object,reliability flag
+model_ready_event.csv,climate_ecg_component,object,climate ecg component
+model_ready_event.csv,split,object,split
+shock_pulse_predictions.csv,date,object,date
+shock_pulse_predictions.csv,merchant_region,object,merchant region
+shock_pulse_predictions.csv,industry,object,industry
+shock_pulse_predictions.csv,sales_amount,int64,sales amount
+shock_pulse_predictions.csv,use_count,int64,use count
+shock_pulse_predictions.csv,daily_rain_mm,float64,daily rain mm
+shock_pulse_predictions.csv,max_hourly_rain_mm,float64,max hourly rain mm
+shock_pulse_predictions.csv,rain_hours,int64,rain hours
+shock_pulse_predictions.csv,temp_mean_c,float64,temp mean c
+shock_pulse_predictions.csv,humidity_mean_pct,float64,humidity mean pct
+shock_pulse_predictions.csv,wind_mean_ms,float64,wind mean ms
+shock_pulse_predictions.csv,weather_hourly_obs,int64,weather hourly obs
+shock_pulse_predictions.csv,month,int64,month
+shock_pulse_predictions.csv,day_of_week,int64,day of week
+shock_pulse_predictions.csv,is_weekend,int64,is weekend
+shock_pulse_predictions.csv,holiday_name,object,holiday name
+shock_pulse_predictions.csv,is_holiday,int64,is holiday
+shock_pulse_predictions.csv,baseline_sales_amount,float64,baseline sales amount
+shock_pulse_predictions.csv,baseline_use_count,float64,baseline use count
+shock_pulse_predictions.csv,sales_idx,float64,sales idx
+shock_pulse_predictions.csv,use_count_idx,float64,use count idx
+shock_pulse_predictions.csv,sales_dev_pct,float64,sales dev pct
+shock_pulse_predictions.csv,use_count_dev_pct,float64,use count dev pct
+shock_pulse_predictions.csv,rain_bin,object,rain bin
+shock_pulse_predictions.csv,model_baseline_sales_amount,float64,model baseline sales amount
+shock_pulse_predictions.csv,model_baseline_use_count,float64,model baseline use count
+shock_pulse_predictions.csv,model_sales_idx,float64,model sales idx
+shock_pulse_predictions.csv,model_use_count_idx,float64,model use count idx
+shock_pulse_predictions.csv,model_sales_dev_pct,float64,model sales dev pct
+shock_pulse_predictions.csv,model_use_count_dev_pct,float64,model use count dev pct
+shock_pulse_predictions.csv,baseline_source,object,baseline source
+shock_pulse_predictions.csv,shock_pulse_label,int64,shock pulse label
+shock_pulse_predictions.csv,weather_shock_label,int64,weather shock label
+shock_pulse_predictions.csv,estimated_loss_amount,float64,estimated loss amount
+shock_pulse_predictions.csv,heavy_rain_flag,int64,heavy rain flag
+shock_pulse_predictions.csv,rain_3d_sum,float64,rain 3d sum
+shock_pulse_predictions.csv,rain_7d_sum,float64,rain 7d sum
+shock_pulse_predictions.csv,temp_7d_mean,float64,temp 7d mean
+shock_pulse_predictions.csv,humidity_temp_interaction,float64,humidity temp interaction
+shock_pulse_predictions.csv,wind_rain_interaction,float64,wind rain interaction
+shock_pulse_predictions.csv,rain_bin_industry,object,rain bin industry
+shock_pulse_predictions.csv,rain_bin_region,object,rain bin region
+shock_pulse_predictions.csv,lag1_sales_dev_pct,float64,lag1 sales dev pct
+shock_pulse_predictions.csv,rolling7_sales_dev_mean,float64,rolling7 sales dev mean
+shock_pulse_predictions.csv,rolling7_sales_dev_std,float64,rolling7 sales dev std
+shock_pulse_predictions.csv,prior_shock_count,float64,prior shock count
+shock_pulse_predictions.csv,days_since_prior_shock,float64,days since prior shock
+shock_pulse_predictions.csv,climate_ecg_component,object,climate ecg component
+shock_pulse_predictions.csv,split,object,split
+shock_pulse_predictions.csv,predicted_shock_pulse_label,int64,predicted shock pulse label
+shock_pulse_predictions.csv,predicted_shock_pulse_label_probability,float64,predicted shock pulse label probability
+shock_pulse_predictions.csv,model_name,object,model name
+shock_pulse_predictions.csv,model_algorithm,object,model algorithm
+shock_pulse_predictions.csv,model_threshold,float64,model threshold
+weather_shock_predictions.csv,date,object,date
+weather_shock_predictions.csv,merchant_region,object,merchant region
+weather_shock_predictions.csv,industry,object,industry
+weather_shock_predictions.csv,sales_amount,int64,sales amount
+weather_shock_predictions.csv,use_count,int64,use count
+weather_shock_predictions.csv,daily_rain_mm,float64,daily rain mm
+weather_shock_predictions.csv,max_hourly_rain_mm,float64,max hourly rain mm
+weather_shock_predictions.csv,rain_hours,int64,rain hours
+weather_shock_predictions.csv,temp_mean_c,float64,temp mean c
+weather_shock_predictions.csv,humidity_mean_pct,float64,humidity mean pct
+weather_shock_predictions.csv,wind_mean_ms,float64,wind mean ms
+weather_shock_predictions.csv,weather_hourly_obs,int64,weather hourly obs
+weather_shock_predictions.csv,month,int64,month
+weather_shock_predictions.csv,day_of_week,int64,day of week
+weather_shock_predictions.csv,is_weekend,int64,is weekend
+weather_shock_predictions.csv,holiday_name,object,holiday name
+weather_shock_predictions.csv,is_holiday,int64,is holiday
+weather_shock_predictions.csv,baseline_sales_amount,float64,baseline sales amount
+weather_shock_predictions.csv,baseline_use_count,float64,baseline use count
+weather_shock_predictions.csv,sales_idx,float64,sales idx
+weather_shock_predictions.csv,use_count_idx,float64,use count idx
+weather_shock_predictions.csv,sales_dev_pct,float64,sales dev pct
+weather_shock_predictions.csv,use_count_dev_pct,float64,use count dev pct
+weather_shock_predictions.csv,rain_bin,object,rain bin
+weather_shock_predictions.csv,model_baseline_sales_amount,float64,model baseline sales amount
+weather_shock_predictions.csv,model_baseline_use_count,float64,model baseline use count
+weather_shock_predictions.csv,model_sales_idx,float64,model sales idx
+weather_shock_predictions.csv,model_use_count_idx,float64,model use count idx
+weather_shock_predictions.csv,model_sales_dev_pct,float64,model sales dev pct
+weather_shock_predictions.csv,model_use_count_dev_pct,float64,model use count dev pct
+weather_shock_predictions.csv,baseline_source,object,baseline source
+weather_shock_predictions.csv,shock_pulse_label,int64,shock pulse label
+weather_shock_predictions.csv,weather_shock_label,int64,weather shock label
+weather_shock_predictions.csv,estimated_loss_amount,float64,estimated loss amount
+weather_shock_predictions.csv,heavy_rain_flag,int64,heavy rain flag
+weather_shock_predictions.csv,rain_3d_sum,float64,rain 3d sum
+weather_shock_predictions.csv,rain_7d_sum,float64,rain 7d sum
+weather_shock_predictions.csv,temp_7d_mean,float64,temp 7d mean
+weather_shock_predictions.csv,humidity_temp_interaction,float64,humidity temp interaction
+weather_shock_predictions.csv,wind_rain_interaction,float64,wind rain interaction
+weather_shock_predictions.csv,rain_bin_industry,object,rain bin industry
+weather_shock_predictions.csv,rain_bin_region,object,rain bin region
+weather_shock_predictions.csv,lag1_sales_dev_pct,float64,lag1 sales dev pct
+weather_shock_predictions.csv,rolling7_sales_dev_mean,float64,rolling7 sales dev mean
+weather_shock_predictions.csv,rolling7_sales_dev_std,float64,rolling7 sales dev std
+weather_shock_predictions.csv,prior_shock_count,float64,prior shock count
+weather_shock_predictions.csv,days_since_prior_shock,float64,days since prior shock
+weather_shock_predictions.csv,climate_ecg_component,object,climate ecg component
+weather_shock_predictions.csv,split,object,split
+weather_shock_predictions.csv,predicted_weather_shock_label,int64,predicted weather shock label
+weather_shock_predictions.csv,predicted_weather_shock_label_probability,float64,predicted weather shock label probability
+weather_shock_predictions.csv,model_name,object,model name
+weather_shock_predictions.csv,model_algorithm,object,model algorithm
+weather_shock_predictions.csv,model_threshold,float64,model threshold
+recovery_clock_predictions.csv,merchant_region,object,merchant region
+recovery_clock_predictions.csv,industry,object,industry
+recovery_clock_predictions.csv,event_group_id,int64,event group id
+recovery_clock_predictions.csv,event_date,object,event date
+recovery_clock_predictions.csv,event_rain_mm,float64,event rain mm
+recovery_clock_predictions.csv,pre3_sales_dev_pct,float64,pre3 sales dev pct
+recovery_clock_predictions.csv,d0_sales_dev_pct,float64,d0 sales dev pct
+recovery_clock_predictions.csv,post3_sales_dev_pct,float64,post3 sales dev pct
+recovery_clock_predictions.csv,rebound_pp,float64,rebound pp
+recovery_clock_predictions.csv,net_damage_pp,float64,net damage pp
+recovery_clock_predictions.csv,missing_window_days,int64,missing window days
+recovery_clock_predictions.csv,recovery_clock_label,int64,recovery clock label
+recovery_clock_predictions.csv,climate_scar_score,float64,climate scar score
+recovery_clock_predictions.csv,median_heavy20_minus_dry_pp,float64,median heavy20 minus dry pp
+recovery_clock_predictions.csv,persistent_damage_share,float64,persistent damage share
+recovery_clock_predictions.csv,low_event_count_flag,bool,low event count flag
+recovery_clock_predictions.csv,baseline_sensitivity_flag,bool,baseline sensitivity flag
+recovery_clock_predictions.csv,weakest_timeband_heavy5_minus_dry_pp,float64,weakest timeband heavy5 minus dry pp
+recovery_clock_predictions.csv,negative_timeband_count,int64,negative timeband count
+recovery_clock_predictions.csv,avg_other_broad_area_sales_share,float64,avg other broad area sales share
+recovery_clock_predictions.csv,support_priority_score,float64,support priority score
+recovery_clock_predictions.csv,reliability_flag,object,reliability flag
+recovery_clock_predictions.csv,climate_ecg_component,object,climate ecg component
+recovery_clock_predictions.csv,split,object,split
+recovery_clock_predictions.csv,predicted_recovery_clock_label,int64,predicted recovery clock label
+recovery_clock_predictions.csv,predicted_recovery_clock_label_probability,float64,predicted recovery clock label probability
+recovery_clock_predictions.csv,model_name,object,model name
+recovery_clock_predictions.csv,model_algorithm,object,model algorithm
+recovery_clock_predictions.csv,model_threshold,float64,model threshold
+loss_priority_predictions.csv,date,object,date
+loss_priority_predictions.csv,merchant_region,object,merchant region
+loss_priority_predictions.csv,industry,object,industry
+loss_priority_predictions.csv,sales_amount,int64,sales amount
+loss_priority_predictions.csv,use_count,int64,use count
+loss_priority_predictions.csv,daily_rain_mm,float64,daily rain mm
+loss_priority_predictions.csv,max_hourly_rain_mm,float64,max hourly rain mm
+loss_priority_predictions.csv,rain_hours,int64,rain hours
+loss_priority_predictions.csv,temp_mean_c,float64,temp mean c
+loss_priority_predictions.csv,humidity_mean_pct,float64,humidity mean pct
+loss_priority_predictions.csv,wind_mean_ms,float64,wind mean ms
+loss_priority_predictions.csv,weather_hourly_obs,int64,weather hourly obs
+loss_priority_predictions.csv,month,int64,month
+loss_priority_predictions.csv,day_of_week,int64,day of week
+loss_priority_predictions.csv,is_weekend,int64,is weekend
+loss_priority_predictions.csv,holiday_name,object,holiday name
+loss_priority_predictions.csv,is_holiday,int64,is holiday
+loss_priority_predictions.csv,baseline_sales_amount,float64,baseline sales amount
+loss_priority_predictions.csv,baseline_use_count,float64,baseline use count
+loss_priority_predictions.csv,sales_idx,float64,sales idx
+loss_priority_predictions.csv,use_count_idx,float64,use count idx
+loss_priority_predictions.csv,sales_dev_pct,float64,sales dev pct
+loss_priority_predictions.csv,use_count_dev_pct,float64,use count dev pct
+loss_priority_predictions.csv,rain_bin,object,rain bin
+loss_priority_predictions.csv,model_baseline_sales_amount,float64,model baseline sales amount
+loss_priority_predictions.csv,model_baseline_use_count,float64,model baseline use count
+loss_priority_predictions.csv,model_sales_idx,float64,model sales idx
+loss_priority_predictions.csv,model_use_count_idx,float64,model use count idx
+loss_priority_predictions.csv,model_sales_dev_pct,float64,model sales dev pct
+loss_priority_predictions.csv,model_use_count_dev_pct,float64,model use count dev pct
+loss_priority_predictions.csv,baseline_source,object,baseline source
+loss_priority_predictions.csv,shock_pulse_label,int64,shock pulse label
+loss_priority_predictions.csv,weather_shock_label,int64,weather shock label
+loss_priority_predictions.csv,estimated_loss_amount,float64,estimated loss amount
+loss_priority_predictions.csv,heavy_rain_flag,int64,heavy rain flag
+loss_priority_predictions.csv,rain_3d_sum,float64,rain 3d sum
+loss_priority_predictions.csv,rain_7d_sum,float64,rain 7d sum
+loss_priority_predictions.csv,temp_7d_mean,float64,temp 7d mean
+loss_priority_predictions.csv,humidity_temp_interaction,float64,humidity temp interaction
+loss_priority_predictions.csv,wind_rain_interaction,float64,wind rain interaction
+loss_priority_predictions.csv,rain_bin_industry,object,rain bin industry
+loss_priority_predictions.csv,rain_bin_region,object,rain bin region
+loss_priority_predictions.csv,lag1_sales_dev_pct,float64,lag1 sales dev pct
+loss_priority_predictions.csv,rolling7_sales_dev_mean,float64,rolling7 sales dev mean
+loss_priority_predictions.csv,rolling7_sales_dev_std,float64,rolling7 sales dev std
+loss_priority_predictions.csv,prior_shock_count,float64,prior shock count
+loss_priority_predictions.csv,days_since_prior_shock,float64,days since prior shock
+loss_priority_predictions.csv,climate_ecg_component,object,climate ecg component
+loss_priority_predictions.csv,split,object,split
+loss_priority_predictions.csv,predicted_estimated_loss_amount,float64,predicted estimated loss amount
+loss_priority_predictions.csv,predicted_shock_pulse_label_probability,float64,predicted shock pulse label probability
+loss_priority_predictions.csv,predicted_support_priority_score,float64,predicted support priority score
+loss_priority_predictions.csv,support_priority_rank,int64,support priority rank
+loss_priority_predictions.csv,support_priority_percentile,float64,support priority percentile
+loss_priority_predictions.csv,model_name,object,model name
+loss_priority_by_region_industry.csv,merchant_region,object,merchant region
+loss_priority_by_region_industry.csv,industry,object,industry
+loss_priority_by_region_industry.csv,predicted_total_loss_priority,float64,predicted total loss priority
+loss_priority_by_region_industry.csv,observed_total_estimated_loss,float64,observed total estimated loss
+loss_priority_by_region_industry.csv,mean_predicted_support_priority_score,float64,mean predicted support priority score
+loss_priority_by_region_industry.csv,mean_predicted_shock_pulse_risk,float64,mean predicted shock pulse risk
+loss_priority_by_region_industry.csv,priority_rank,int64,priority rank
+loss_priority_by_region_industry.csv,ecg_interpretation,object,ecg interpretation
+topk_support_priority_metrics.csv,model_name,object,model name
+topk_support_priority_metrics.csv,split,object,split
+topk_support_priority_metrics.csv,target,object,target
+topk_support_priority_metrics.csv,dependency_mode,object,dependency mode
+topk_support_priority_metrics.csv,mae,float64,mae
+topk_support_priority_metrics.csv,rmse,float64,rmse
+topk_support_priority_metrics.csv,mean_actual_loss,float64,mean actual loss
+topk_support_priority_metrics.csv,mean_predicted_loss,float64,mean predicted loss
+topk_support_priority_metrics.csv,top5_loss_capture,float64,top5 loss capture
+topk_support_priority_metrics.csv,top5_lift,float64,top5 lift
+topk_support_priority_metrics.csv,top5_rows,int64,top5 rows
+topk_support_priority_metrics.csv,top10_loss_capture,float64,top10 loss capture
+topk_support_priority_metrics.csv,top10_lift,float64,top10 lift
+topk_support_priority_metrics.csv,top10_rows,int64,top10 rows
+topk_support_priority_metrics.csv,top20_loss_capture,float64,top20 loss capture
+topk_support_priority_metrics.csv,top20_lift,float64,top20 lift
+topk_support_priority_metrics.csv,top20_rows,int64,top20 rows
+topk_support_priority_metrics.csv,total_loss,float64,total loss
+triage_score_by_region_industry.csv,merchant_region,object,merchant region
+triage_score_by_region_industry.csv,industry,object,industry
+triage_score_by_region_industry.csv,climate_scar_score,float64,climate scar score
+triage_score_by_region_industry.csv,observed_event_count,int64,observed event count
+triage_score_by_region_industry.csv,predicted_shock_pulse_risk,float64,predicted shock pulse risk
+triage_score_by_region_industry.csv,predicted_recovery_clock_risk,float64,predicted recovery clock risk
+triage_score_by_region_industry.csv,normalized_climate_scar,float64,normalized climate scar
+triage_score_by_region_industry.csv,climate_ecg_triage_score,float64,climate ecg triage score
+triage_score_by_region_industry.csv,ecg_interpretation,object,ecg interpretation
+model_performance.csv,model_name,object,model name
+model_performance.csv,split,object,split
+model_performance.csv,target,object,target
+model_performance.csv,dependency_mode,object,dependency mode
+model_performance.csv,threshold,float64,threshold
+model_performance.csv,is_champion,object,is champion
+model_performance.csv,accuracy,float64,accuracy
+model_performance.csv,precision,float64,precision
+model_performance.csv,recall,float64,recall
+model_performance.csv,f1,float64,f1
+model_performance.csv,confusion_matrix,object,confusion matrix
+model_performance.csv,roc_auc,float64,roc auc
+model_performance.csv,pr_auc,float64,pr auc
+model_performance.csv,top10_recall,float64,top10 recall
+model_performance.csv,top20_recall,float64,top20 recall
+model_performance.csv,baseline_f1,float64,baseline f1
+model_performance.csv,baseline_accuracy,float64,baseline accuracy
+model_performance.csv,mae,float64,mae
+model_performance.csv,rmse,float64,rmse
+model_performance.csv,mean_actual_loss,float64,mean actual loss
+model_performance.csv,mean_predicted_loss,float64,mean predicted loss
+model_performance.csv,top5_loss_capture,float64,top5 loss capture
+model_performance.csv,top5_lift,float64,top5 lift
+model_performance.csv,top5_rows,float64,top5 rows
+model_performance.csv,top10_loss_capture,float64,top10 loss capture
+model_performance.csv,top10_lift,float64,top10 lift
+model_performance.csv,top10_rows,float64,top10 rows
+model_performance.csv,top20_loss_capture,float64,top20 loss capture
+model_performance.csv,top20_lift,float64,top20 lift
+model_performance.csv,top20_rows,float64,top20 rows
+model_performance.csv,total_loss,float64,total loss
+feature_importance.csv,model_name,object,model name
+feature_importance.csv,feature,object,feature
+feature_importance.csv,importance,float64,importance
+feature_importance.csv,directional_coefficient,float64,directional coefficient

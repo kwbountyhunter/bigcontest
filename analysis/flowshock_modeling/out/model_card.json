@@ -1,0 +1,551 @@
+{
+  "project_frame": "Climate ECG",
+  "components": {
+    "Shock Pulse": "classifier for daily high negative sales deviation during weather stress",
+    "Recovery Clock": "classifier for delayed or incomplete event-window recovery",
+    "Climate Scar": "observed post-event residual damage score",
+    "Triage Score": "decision-support score combining predicted shock risk, recovery risk, and scar score"
+  },
+  "models": {
+    "shock_pulse": {
+      "target": "shock_pulse_label",
+      "features": [
+        "daily_rain_mm",
+        "max_hourly_rain_mm",
+        "rain_hours",
+        "temp_mean_c",
+        "humidity_mean_pct",
+        "wind_mean_ms",
+        "weather_hourly_obs",
+        "day_of_week",
+        "is_weekend",
+        "is_holiday",
+        "month",
+        "merchant_region",
+        "industry",
+        "rain_bin",
+        "heavy_rain_flag",
+        "rain_3d_sum",
+        "rain_7d_sum",
+        "temp_7d_mean",
+        "humidity_temp_interaction",
+        "wind_rain_interaction",
+        "rain_bin_industry",
+        "rain_bin_region",
+        "lag1_sales_dev_pct",
+        "rolling7_sales_dev_mean",
+        "rolling7_sales_dev_std",
+        "prior_shock_count",
+        "days_since_prior_shock"
+      ],
+      "model_name": "Shock Pulse classifier",
+      "trained": true,
+      "dependency_mode": "sklearn_model_comparison",
+      "champion_algorithm": "random_forest",
+      "champion_validation_f1": 0.5186693822131704,
+      "thresholds": {
+        "logistic_regression": 0.42999999999999994,
+        "random_forest": 0.4799999999999999
+      },
+      "metrics": [
+        {
+          "model_name": "Shock Pulse classifier - logistic_regression",
+          "split": "validation",
+          "target": "shock_pulse_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.42999999999999994,
+          "is_champion": false,
+          "accuracy": 0.6869653767820774,
+          "precision": 0.3830703012912482,
+          "recall": 0.7643129770992366,
+          "f1": 0.5103536158012105,
+          "confusion_matrix": [
+            [
+              2572,
+              1290
+            ],
+            [
+              247,
+              801
+            ]
+          ],
+          "roc_auc": 0.782410134368539,
+          "pr_auc": 0.43402442107096567,
+          "top10_recall": 0.22423664122137404,
+          "top20_recall": 0.4179389312977099,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.7865580448065174
+        },
+        {
+          "model_name": "Shock Pulse classifier - logistic_regression",
+          "split": "test",
+          "target": "shock_pulse_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.42999999999999994,
+          "is_champion": false,
+          "accuracy": 0.6607530061107826,
+          "precision": 0.35473731477323756,
+          "recall": 0.7355679702048417,
+          "f1": 0.4786428355043926,
+          "confusion_matrix": [
+            [
+              2562,
+              1437
+            ],
+            [
+              284,
+              790
+            ]
+          ],
+          "roc_auc": 0.7636923197279768,
+          "pr_auc": 0.42509018587016073,
+          "top10_recall": 0.2309124767225326,
+          "top20_recall": 0.40130353817504655,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.7882909520993495
+        },
+        {
+          "model_name": "Shock Pulse classifier - random_forest",
+          "split": "validation",
+          "target": "shock_pulse_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.4799999999999999,
+          "is_champion": true,
+          "accuracy": 0.7112016293279022,
+          "precision": 0.40252897787144365,
+          "recall": 0.7290076335877863,
+          "f1": 0.5186693822131704,
+          "confusion_matrix": [
+            [
+              2728,
+              1134
+            ],
+            [
+              284,
+              764
+            ]
+          ],
+          "roc_auc": 0.7837464322563557,
+          "pr_auc": 0.46095238432900953,
+          "top10_recall": 0.2566793893129771,
+          "top20_recall": 0.4303435114503817,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.7865580448065174
+        },
+        {
+          "model_name": "Shock Pulse classifier - random_forest",
+          "split": "test",
+          "target": "shock_pulse_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.4799999999999999,
+          "is_champion": true,
+          "accuracy": 0.6865759905381431,
+          "precision": 0.3778409090909091,
+          "recall": 0.7430167597765364,
+          "f1": 0.5009416195856874,
+          "confusion_matrix": [
+            [
+              2685,
+              1314
+            ],
+            [
+              276,
+              798
+            ]
+          ],
+          "roc_auc": 0.784486275200085,
+          "pr_auc": 0.4968653862521623,
+          "top10_recall": 0.2783985102420857,
+          "top20_recall": 0.45623836126629425,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.7882909520993495
+        }
+      ]
+    },
+    "weather_conditioned_shock": {
+      "target": "weather_shock_label",
+      "features": [
+        "daily_rain_mm",
+        "max_hourly_rain_mm",
+        "rain_hours",
+        "temp_mean_c",
+        "humidity_mean_pct",
+        "wind_mean_ms",
+        "weather_hourly_obs",
+        "day_of_week",
+        "is_weekend",
+        "is_holiday",
+        "month",
+        "merchant_region",
+        "industry",
+        "rain_bin",
+        "heavy_rain_flag",
+        "rain_3d_sum",
+        "rain_7d_sum",
+        "temp_7d_mean",
+        "humidity_temp_interaction",
+        "wind_rain_interaction",
+        "rain_bin_industry",
+        "rain_bin_region",
+        "lag1_sales_dev_pct",
+        "rolling7_sales_dev_mean",
+        "rolling7_sales_dev_std",
+        "prior_shock_count",
+        "days_since_prior_shock"
+      ],
+      "model_name": "Weather-conditioned Shock classifier",
+      "trained": true,
+      "dependency_mode": "sklearn_model_comparison",
+      "champion_algorithm": "logistic_regression",
+      "champion_validation_f1": 0.5054945054945055,
+      "thresholds": {
+        "logistic_regression": 0.9299999999999999,
+        "random_forest": 0.59
+      },
+      "metrics": [
+        {
+          "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+          "split": "validation",
+          "target": "weather_shock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.9299999999999999,
+          "is_champion": true,
+          "accuracy": 0.9816700610997964,
+          "precision": 0.40350877192982454,
+          "recall": 0.6764705882352942,
+          "f1": 0.5054945054945055,
+          "confusion_matrix": [
+            [
+              4774,
+              68
+            ],
+            [
+              22,
+              46
+            ]
+          ],
+          "roc_auc": 0.9877481351896397,
+          "pr_auc": 0.40669915977431825,
+          "top10_recall": 1.0,
+          "top20_recall": 1.0,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.9861507128309572
+        },
+        {
+          "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+          "split": "test",
+          "target": "weather_shock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.9299999999999999,
+          "is_champion": true,
+          "accuracy": 0.961364084368224,
+          "precision": 0.32786885245901637,
+          "recall": 0.7142857142857143,
+          "f1": 0.449438202247191,
+          "confusion_matrix": [
+            [
+              4797,
+              164
+            ],
+            [
+              32,
+              80
+            ]
+          ],
+          "roc_auc": 0.9701277104270453,
+          "pr_auc": 0.3237724590805554,
+          "top10_recall": 0.9285714285714286,
+          "top20_recall": 1.0,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.9779223339246994
+        },
+        {
+          "model_name": "Weather-conditioned Shock classifier - random_forest",
+          "split": "validation",
+          "target": "weather_shock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.59,
+          "is_champion": false,
+          "accuracy": 0.9698574338085539,
+          "precision": 0.2802197802197802,
+          "recall": 0.75,
+          "f1": 0.408,
+          "confusion_matrix": [
+            [
+              4711,
+              131
+            ],
+            [
+              17,
+              51
+            ]
+          ],
+          "roc_auc": 0.9817679860048109,
+          "pr_auc": 0.37650313794430784,
+          "top10_recall": 1.0,
+          "top20_recall": 1.0,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.9861507128309572
+        },
+        {
+          "model_name": "Weather-conditioned Shock classifier - random_forest",
+          "split": "test",
+          "target": "weather_shock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.59,
+          "is_champion": false,
+          "accuracy": 0.9737827715355806,
+          "precision": 0.4036697247706422,
+          "recall": 0.39285714285714285,
+          "f1": 0.39819004524886875,
+          "confusion_matrix": [
+            [
+              4896,
+              65
+            ],
+            [
+              68,
+              44
+            ]
+          ],
+          "roc_auc": 0.974829563452069,
+          "pr_auc": 0.41168879316930956,
+          "top10_recall": 1.0,
+          "top20_recall": 1.0,
+          "baseline_f1": 0.0,
+          "baseline_accuracy": 0.9779223339246994
+        }
+      ]
+    },
+    "recovery_clock": {
+      "target": "recovery_clock_label",
+      "features": [
+        "event_rain_mm",
+        "pre3_sales_dev_pct",
+        "missing_window_days",
+        "merchant_region",
+        "industry"
+      ],
+      "model_name": "Recovery Clock classifier",
+      "trained": true,
+      "dependency_mode": "sklearn_model_comparison",
+      "champion_algorithm": "logistic_regression",
+      "champion_validation_f1": 0.7192982456140351,
+      "thresholds": {
+        "logistic_regression": 0.07,
+        "random_forest": 0.4099999999999999
+      },
+      "metrics": [
+        {
+          "model_name": "Recovery Clock classifier - logistic_regression",
+          "split": "validation",
+          "target": "recovery_clock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.07,
+          "is_champion": true,
+          "accuracy": 0.5782537067545305,
+          "precision": 0.563573883161512,
+          "recall": 0.9939393939393939,
+          "f1": 0.7192982456140351,
+          "confusion_matrix": [
+            [
+              23,
+              254
+            ],
+            [
+              2,
+              328
+            ]
+          ],
+          "roc_auc": 0.5393501805054152,
+          "pr_auc": 0.5832400531576092,
+          "top10_recall": 0.1,
+          "top20_recall": 0.21818181818181817,
+          "baseline_f1": 0.7043756670224119,
+          "baseline_accuracy": 0.5436573311367381
+        },
+        {
+          "model_name": "Recovery Clock classifier - logistic_regression",
+          "split": "test",
+          "target": "recovery_clock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.07,
+          "is_champion": true,
+          "accuracy": 0.6274007682458387,
+          "precision": 0.614441416893733,
+          "recall": 0.9825708061002179,
+          "f1": 0.7560771165129925,
+          "confusion_matrix": [
+            [
+              39,
+              283
+            ],
+            [
+              8,
+              451
+            ]
+          ],
+          "roc_auc": 0.5805491278637058,
+          "pr_auc": 0.659030318883152,
+          "top10_recall": 0.11328976034858387,
+          "top20_recall": 0.22004357298474944,
+          "baseline_f1": 0.7403225806451613,
+          "baseline_accuracy": 0.587708066581306
+        },
+        {
+          "model_name": "Recovery Clock classifier - random_forest",
+          "split": "validation",
+          "target": "recovery_clock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.4099999999999999,
+          "is_champion": false,
+          "accuracy": 0.5799011532125206,
+          "precision": 0.5659050966608085,
+          "recall": 0.9757575757575757,
+          "f1": 0.7163515016685206,
+          "confusion_matrix": [
+            [
+              30,
+              247
+            ],
+            [
+              8,
+              322
+            ]
+          ],
+          "roc_auc": 0.5655891040367576,
+          "pr_auc": 0.617214593797673,
+          "top10_recall": 0.1303030303030303,
+          "top20_recall": 0.2515151515151515,
+          "baseline_f1": 0.7043756670224119,
+          "baseline_accuracy": 0.5436573311367381
+        },
+        {
+          "model_name": "Recovery Clock classifier - random_forest",
+          "split": "test",
+          "target": "recovery_clock_label",
+          "dependency_mode": "sklearn",
+          "threshold": 0.4099999999999999,
+          "is_champion": false,
+          "accuracy": 0.6197183098591549,
+          "precision": 0.6137640449438202,
+          "recall": 0.9520697167755992,
+          "f1": 0.7463706233988044,
+          "confusion_matrix": [
+            [
+              47,
+              275
+            ],
+            [
+              22,
+              437
+            ]
+          ],
+          "roc_auc": 0.6045650144115617,
+          "pr_auc": 0.661631872216424,
+          "top10_recall": 0.1111111111111111,
+          "top20_recall": 0.22440087145969498,
+          "baseline_f1": 0.7403225806451613,
+          "baseline_accuracy": 0.587708066581306
+        }
+      ]
+    },
+    "loss_priority": {
+      "model_name": "Loss Priority regressor",
+      "trained": true,
+      "target": "estimated_loss_amount",
+      "features": [
+        "daily_rain_mm",
+        "max_hourly_rain_mm",
+        "rain_hours",
+        "temp_mean_c",
+        "humidity_mean_pct",
+        "wind_mean_ms",
+        "weather_hourly_obs",
+        "day_of_week",
+        "is_weekend",
+        "is_holiday",
+        "month",
+        "merchant_region",
+        "industry",
+        "rain_bin",
+        "heavy_rain_flag",
+        "rain_3d_sum",
+        "rain_7d_sum",
+        "temp_7d_mean",
+        "humidity_temp_interaction",
+        "wind_rain_interaction",
+        "rain_bin_industry",
+        "rain_bin_region",
+        "lag1_sales_dev_pct",
+        "rolling7_sales_dev_mean",
+        "rolling7_sales_dev_std",
+        "prior_shock_count",
+        "days_since_prior_shock"
+      ],
+      "prediction_cap_source": "train_period_estimated_loss_amount_p99",
+      "prediction_cap": 1250243200.2850091,
+      "metrics": [
+        {
+          "model_name": "Loss Priority regressor - ridge_log_loss",
+          "split": "validation",
+          "target": "estimated_loss_amount",
+          "dependency_mode": "sklearn",
+          "mae": 59068005.51219342,
+          "rmse": 637196718.5922436,
+          "mean_actual_loss": 58921643.46323829,
+          "mean_predicted_loss": 150269.41241696564,
+          "top5_loss_capture": 0.21985315317768858,
+          "top5_lift": 4.388125943505898,
+          "top5_rows": 246,
+          "top10_loss_capture": 0.3019752636905863,
+          "top10_lift": 3.0197526369058627,
+          "top10_rows": 491,
+          "top20_loss_capture": 0.6411493451979096,
+          "top20_lift": 3.2057467259895476,
+          "top20_rows": 982,
+          "total_loss": 289305269404.5
+        },
+        {
+          "model_name": "Loss Priority regressor - ridge_log_loss",
+          "split": "test",
+          "target": "estimated_loss_amount",
+          "dependency_mode": "sklearn",
+          "mae": 82534825.51735328,
+          "rmse": 1008815606.730268,
+          "mean_actual_loss": 82532567.48354031,
+          "mean_predicted_loss": 19724.31695989212,
+          "top5_loss_capture": 0.265535059489203,
+          "top5_lift": 5.3033832944438055,
+          "top5_rows": 254,
+          "top10_loss_capture": 0.36574878292418206,
+          "top10_lift": 3.652447983807826,
+          "top10_rows": 508,
+          "top20_loss_capture": 0.4429859223039439,
+          "top20_lift": 2.2140567328550813,
+          "top20_rows": 1015,
+          "total_loss": 418687714844.0
+        }
+      ]
+    }
+  },
+  "split_policy": {
+    "shock_pulse": "fixed chronological split: train through 2025-10-31, validation through 2025-11-30, test in 2025-12",
+    "recovery_clock": "fractional chronological split over available heavy-rain event dates because events do not span all months"
+  },
+  "leakage_policy": "daily targets and loss estimates use train-period region-industry-weekday median baselines; same-day sales-derived columns are labels/outcomes and excluded from Shock Pulse features; lag/history features are strictly shifted before the prediction row",
+  "performance_framing": {
+    "primary_model": "Shock Pulse classifier",
+    "weather_conditioned_note": "Weather-conditioned Shock is a rare-target weather-filtered view. Present PR-AUC, precision, base rate, and top-k recall before ROC-AUC; do not describe high ROC-AUC as near-perfect prediction.",
+    "primary_metric_note": "Use ROC-AUC, F1, and recall/precision tradeoff rather than accuracy alone because the majority baseline has high accuracy but zero positive-class F1.",
+    "recovery_clock_note": "Recovery Clock remains exploratory because event samples are smaller and the signal is broad; it is downweighted in triage even when tuned F1 is competitive with the majority baseline.",
+    "loss_priority_note": "Loss Priority ranks rows for support triage by combining log-scale predicted baseline-relative loss with Shock Pulse risk. Judge it primarily by top-k loss capture and lift, not calibrated won-level accuracy. Treat estimated_loss_amount as modeled baseline-relative loss, not audited financial damage.",
+    "prediction_file_note": "Prediction CSVs are same-day/retrospective aggregate evaluation artifacts and include observed labels/outcomes for validation, not prospective deployment outputs. Prospective use requires forecast weather inputs."
+  },
+  "triage_weights": {
+    "predicted_shock_pulse_risk": 55,
+    "predicted_recovery_clock_risk_exploratory": 15,
+    "normalized_climate_scar": 30
+  },
+  "interpretation": "predictive aggregate decision support, not causal estimates or final policy decisions"
+}

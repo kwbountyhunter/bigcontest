@@ -1,0 +1,87 @@
+{
+  "status": "passed",
+  "passed": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "analysis_quality_passed",
+      "passed": true,
+      "detail": "analysis quality must pass"
+    },
+    {
+      "name": "no_raw_input_paths",
+      "passed": true,
+      "detail": "raw_like_paths=[]"
+    },
+    {
+      "name": "daily_model_columns",
+      "passed": true,
+      "detail": "missing=[]"
+    },
+    {
+      "name": "event_model_columns",
+      "passed": true,
+      "detail": "missing=[]"
+    },
+    {
+      "name": "loss_priority_prediction_columns",
+      "passed": true,
+      "detail": "missing=[]"
+    },
+    {
+      "name": "topk_support_priority_metric_columns",
+      "passed": true,
+      "detail": "missing=[]"
+    },
+    {
+      "name": "daily_chronological_split",
+      "passed": true,
+      "detail": "bounds={'test': {'min': Timestamp('2025-12-01 00:00:00'), 'max': Timestamp('2025-12-31 00:00:00')}, 'train': {'min': Timestamp('2025-07-01 00:00:00'), 'max': Timestamp('2025-10-31 00:00:00')}, 'validation': {'min': Timestamp('2025-11-01 00:00:00'), 'max': Timestamp('2025-11-30 00:00:00')}}"
+    },
+    {
+      "name": "event_chronological_split",
+      "passed": true,
+      "detail": "bounds={'test': {'min': Timestamp('2025-09-28 00:00:00'), 'max': Timestamp('2025-10-13 00:00:00')}, 'train': {'min': Timestamp('2025-07-15 00:00:00'), 'max': Timestamp('2025-09-04 00:00:00')}, 'validation': {'min': Timestamp('2025-09-06 00:00:00'), 'max': Timestamp('2025-09-20 00:00:00')}}"
+    },
+    {
+      "name": "loss_priority_evaluation_split",
+      "passed": true,
+      "detail": "bounds={'test': {'min': Timestamp('2025-12-01 00:00:00'), 'max': Timestamp('2025-12-31 00:00:00')}, 'validation': {'min': Timestamp('2025-11-01 00:00:00'), 'max': Timestamp('2025-11-30 00:00:00')}}; unexpected=[]"
+    },
+    {
+      "name": "train_only_baseline_policy",
+      "passed": true,
+      "detail": "baseline_mismatches=0; source_ok=True"
+    },
+    {
+      "name": "shifted_history_features",
+      "passed": true,
+      "detail": "lag_matches=True; prior_shock_matches=True"
+    },
+    {
+      "name": "shock_pulse_no_leakage_features",
+      "passed": true,
+      "detail": "forbidden_features=[]"
+    },
+    {
+      "name": "loss_priority_no_leakage_features",
+      "passed": true,
+      "detail": "forbidden_features=[]"
+    },
+    {
+      "name": "triage_unique_key",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "loss_priority_unique_key",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "non_causal_interpretation",
+      "passed": true,
+      "detail": "predictive aggregate decision support, not causal estimates or final policy decisions"
+    }
+  ]
+}

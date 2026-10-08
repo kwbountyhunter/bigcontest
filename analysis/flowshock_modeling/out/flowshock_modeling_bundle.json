@@ -1,0 +1,2383 @@
+{
+  "metadata": {
+    "schema_version": "1.0",
+    "project_frame": "Climate ECG",
+    "source": "C:\\Users\\ssm05\\OneDrive\\Desktop\\bounty\\analysis\\flowshock_analysis\\out",
+    "interpretation": "predictive aggregate decision support, not causal estimates or final policy decisions"
+  },
+  "model_card": {
+    "project_frame": "Climate ECG",
+    "components": {
+      "Shock Pulse": "classifier for daily high negative sales deviation during weather stress",
+      "Recovery Clock": "classifier for delayed or incomplete event-window recovery",
+      "Climate Scar": "observed post-event residual damage score",
+      "Triage Score": "decision-support score combining predicted shock risk, recovery risk, and scar score"
+    },
+    "models": {
+      "shock_pulse": {
+        "target": "shock_pulse_label",
+        "features": [
+          "daily_rain_mm",
+          "max_hourly_rain_mm",
+          "rain_hours",
+          "temp_mean_c",
+          "humidity_mean_pct",
+          "wind_mean_ms",
+          "weather_hourly_obs",
+          "day_of_week",
+          "is_weekend",
+          "is_holiday",
+          "month",
+          "merchant_region",
+          "industry",
+          "rain_bin",
+          "heavy_rain_flag",
+          "rain_3d_sum",
+          "rain_7d_sum",
+          "temp_7d_mean",
+          "humidity_temp_interaction",
+          "wind_rain_interaction",
+          "rain_bin_industry",
+          "rain_bin_region",
+          "lag1_sales_dev_pct",
+          "rolling7_sales_dev_mean",
+          "rolling7_sales_dev_std",
+          "prior_shock_count",
+          "days_since_prior_shock"
+        ],
+        "model_name": "Shock Pulse classifier",
+        "trained": true,
+        "dependency_mode": "sklearn_model_comparison",
+        "champion_algorithm": "random_forest",
+        "champion_validation_f1": 0.5186693822131704,
+        "thresholds": {
+          "logistic_regression": 0.42999999999999994,
+          "random_forest": 0.4799999999999999
+        },
+        "metrics": [
+          {
+            "model_name": "Shock Pulse classifier - logistic_regression",
+            "split": "validation",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.42999999999999994,
+            "is_champion": false,
+            "accuracy": 0.6869653767820774,
+            "precision": 0.3830703012912482,
+            "recall": 0.7643129770992366,
+            "f1": 0.5103536158012105,
+            "confusion_matrix": [
+              [
+                2572,
+                1290
+              ],
+              [
+                247,
+                801
+              ]
+            ],
+            "roc_auc": 0.782410134368539,
+            "pr_auc": 0.43402442107096567,
+            "top10_recall": 0.22423664122137404,
+            "top20_recall": 0.4179389312977099,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7865580448065174
+          },
+          {
+            "model_name": "Shock Pulse classifier - logistic_regression",
+            "split": "test",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.42999999999999994,
+            "is_champion": false,
+            "accuracy": 0.6607530061107826,
+            "precision": 0.35473731477323756,
+            "recall": 0.7355679702048417,
+            "f1": 0.4786428355043926,
+            "confusion_matrix": [
+              [
+                2562,
+                1437
+              ],
+              [
+                284,
+                790
+              ]
+            ],
+            "roc_auc": 0.7636923197279768,
+            "pr_auc": 0.42509018587016073,
+            "top10_recall": 0.2309124767225326,
+            "top20_recall": 0.40130353817504655,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7882909520993495
+          },
+          {
+            "model_name": "Shock Pulse classifier - random_forest",
+            "split": "validation",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4799999999999999,
+            "is_champion": true,
+            "accuracy": 0.7112016293279022,
+            "precision": 0.40252897787144365,
+            "recall": 0.7290076335877863,
+            "f1": 0.5186693822131704,
+            "confusion_matrix": [
+              [
+                2728,
+                1134
+              ],
+              [
+                284,
+                764
+              ]
+            ],
+            "roc_auc": 0.7837464322563557,
+            "pr_auc": 0.46095238432900953,
+            "top10_recall": 0.2566793893129771,
+            "top20_recall": 0.4303435114503817,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7865580448065174
+          },
+          {
+            "model_name": "Shock Pulse classifier - random_forest",
+            "split": "test",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4799999999999999,
+            "is_champion": true,
+            "accuracy": 0.6865759905381431,
+            "precision": 0.3778409090909091,
+            "recall": 0.7430167597765364,
+            "f1": 0.5009416195856874,
+            "confusion_matrix": [
+              [
+                2685,
+                1314
+              ],
+              [
+                276,
+                798
+              ]
+            ],
+            "roc_auc": 0.784486275200085,
+            "pr_auc": 0.4968653862521623,
+            "top10_recall": 0.2783985102420857,
+            "top20_recall": 0.45623836126629425,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7882909520993495
+          }
+        ]
+      },
+      "weather_conditioned_shock": {
+        "target": "weather_shock_label",
+        "features": [
+          "daily_rain_mm",
+          "max_hourly_rain_mm",
+          "rain_hours",
+          "temp_mean_c",
+          "humidity_mean_pct",
+          "wind_mean_ms",
+          "weather_hourly_obs",
+          "day_of_week",
+          "is_weekend",
+          "is_holiday",
+          "month",
+          "merchant_region",
+          "industry",
+          "rain_bin",
+          "heavy_rain_flag",
+          "rain_3d_sum",
+          "rain_7d_sum",
+          "temp_7d_mean",
+          "humidity_temp_interaction",
+          "wind_rain_interaction",
+          "rain_bin_industry",
+          "rain_bin_region",
+          "lag1_sales_dev_pct",
+          "rolling7_sales_dev_mean",
+          "rolling7_sales_dev_std",
+          "prior_shock_count",
+          "days_since_prior_shock"
+        ],
+        "model_name": "Weather-conditioned Shock classifier",
+        "trained": true,
+        "dependency_mode": "sklearn_model_comparison",
+        "champion_algorithm": "logistic_regression",
+        "champion_validation_f1": 0.5054945054945055,
+        "thresholds": {
+          "logistic_regression": 0.9299999999999999,
+          "random_forest": 0.59
+        },
+        "metrics": [
+          {
+            "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+            "split": "validation",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.9299999999999999,
+            "is_champion": true,
+            "accuracy": 0.9816700610997964,
+            "precision": 0.40350877192982454,
+            "recall": 0.6764705882352942,
+            "f1": 0.5054945054945055,
+            "confusion_matrix": [
+              [
+                4774,
+                68
+              ],
+              [
+                22,
+                46
+              ]
+            ],
+            "roc_auc": 0.9877481351896397,
+            "pr_auc": 0.40669915977431825,
+            "top10_recall": 1.0,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9861507128309572
+          },
+          {
+            "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+            "split": "test",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.9299999999999999,
+            "is_champion": true,
+            "accuracy": 0.961364084368224,
+            "precision": 0.32786885245901637,
+            "recall": 0.7142857142857143,
+            "f1": 0.449438202247191,
+            "confusion_matrix": [
+              [
+                4797,
+                164
+              ],
+              [
+                32,
+                80
+              ]
+            ],
+            "roc_auc": 0.9701277104270453,
+            "pr_auc": 0.3237724590805554,
+            "top10_recall": 0.9285714285714286,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9779223339246994
+          },
+          {
+            "model_name": "Weather-conditioned Shock classifier - random_forest",
+            "split": "validation",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.59,
+            "is_champion": false,
+            "accuracy": 0.9698574338085539,
+            "precision": 0.2802197802197802,
+            "recall": 0.75,
+            "f1": 0.408,
+            "confusion_matrix": [
+              [
+                4711,
+                131
+              ],
+              [
+                17,
+                51
+              ]
+            ],
+            "roc_auc": 0.9817679860048109,
+            "pr_auc": 0.37650313794430784,
+            "top10_recall": 1.0,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9861507128309572
+          },
+          {
+            "model_name": "Weather-conditioned Shock classifier - random_forest",
+            "split": "test",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.59,
+            "is_champion": false,
+            "accuracy": 0.9737827715355806,
+            "precision": 0.4036697247706422,
+            "recall": 0.39285714285714285,
+            "f1": 0.39819004524886875,
+            "confusion_matrix": [
+              [
+                4896,
+                65
+              ],
+              [
+                68,
+                44
+              ]
+            ],
+            "roc_auc": 0.974829563452069,
+            "pr_auc": 0.41168879316930956,
+            "top10_recall": 1.0,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9779223339246994
+          }
+        ]
+      },
+      "recovery_clock": {
+        "target": "recovery_clock_label",
+        "features": [
+          "event_rain_mm",
+          "pre3_sales_dev_pct",
+          "missing_window_days",
+          "merchant_region",
+          "industry"
+        ],
+        "model_name": "Recovery Clock classifier",
+        "trained": true,
+        "dependency_mode": "sklearn_model_comparison",
+        "champion_algorithm": "logistic_regression",
+        "champion_validation_f1": 0.7192982456140351,
+        "thresholds": {
+          "logistic_regression": 0.07,
+          "random_forest": 0.4099999999999999
+        },
+        "metrics": [
+          {
+            "model_name": "Recovery Clock classifier - logistic_regression",
+            "split": "validation",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.07,
+            "is_champion": true,
+            "accuracy": 0.5782537067545305,
+            "precision": 0.563573883161512,
+            "recall": 0.9939393939393939,
+            "f1": 0.7192982456140351,
+            "confusion_matrix": [
+              [
+                23,
+                254
+              ],
+              [
+                2,
+                328
+              ]
+            ],
+            "roc_auc": 0.5393501805054152,
+            "pr_auc": 0.5832400531576092,
+            "top10_recall": 0.1,
+            "top20_recall": 0.21818181818181817,
+            "baseline_f1": 0.7043756670224119,
+            "baseline_accuracy": 0.5436573311367381
+          },
+          {
+            "model_name": "Recovery Clock classifier - logistic_regression",
+            "split": "test",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.07,
+            "is_champion": true,
+            "accuracy": 0.6274007682458387,
+            "precision": 0.614441416893733,
+            "recall": 0.9825708061002179,
+            "f1": 0.7560771165129925,
+            "confusion_matrix": [
+              [
+                39,
+                283
+              ],
+              [
+                8,
+                451
+              ]
+            ],
+            "roc_auc": 0.5805491278637058,
+            "pr_auc": 0.659030318883152,
+            "top10_recall": 0.11328976034858387,
+            "top20_recall": 0.22004357298474944,
+            "baseline_f1": 0.7403225806451613,
+            "baseline_accuracy": 0.587708066581306
+          },
+          {
+            "model_name": "Recovery Clock classifier - random_forest",
+            "split": "validation",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4099999999999999,
+            "is_champion": false,
+            "accuracy": 0.5799011532125206,
+            "precision": 0.5659050966608085,
+            "recall": 0.9757575757575757,
+            "f1": 0.7163515016685206,
+            "confusion_matrix": [
+              [
+                30,
+                247
+              ],
+              [
+                8,
+                322
+              ]
+            ],
+            "roc_auc": 0.5655891040367576,
+            "pr_auc": 0.617214593797673,
+            "top10_recall": 0.1303030303030303,
+            "top20_recall": 0.2515151515151515,
+            "baseline_f1": 0.7043756670224119,
+            "baseline_accuracy": 0.5436573311367381
+          },
+          {
+            "model_name": "Recovery Clock classifier - random_forest",
+            "split": "test",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4099999999999999,
+            "is_champion": false,
+            "accuracy": 0.6197183098591549,
+            "precision": 0.6137640449438202,
+            "recall": 0.9520697167755992,
+            "f1": 0.7463706233988044,
+            "confusion_matrix": [
+              [
+                47,
+                275
+              ],
+              [
+                22,
+                437
+              ]
+            ],
+            "roc_auc": 0.6045650144115617,
+            "pr_auc": 0.661631872216424,
+            "top10_recall": 0.1111111111111111,
+            "top20_recall": 0.22440087145969498,
+            "baseline_f1": 0.7403225806451613,
+            "baseline_accuracy": 0.587708066581306
+          }
+        ]
+      },
+      "loss_priority": {
+        "model_name": "Loss Priority regressor",
+        "trained": true,
+        "target": "estimated_loss_amount",
+        "features": [
+          "daily_rain_mm",
+          "max_hourly_rain_mm",
+          "rain_hours",
+          "temp_mean_c",
+          "humidity_mean_pct",
+          "wind_mean_ms",
+          "weather_hourly_obs",
+          "day_of_week",
+          "is_weekend",
+          "is_holiday",
+          "month",
+          "merchant_region",
+          "industry",
+          "rain_bin",
+          "heavy_rain_flag",
+          "rain_3d_sum",
+          "rain_7d_sum",
+          "temp_7d_mean",
+          "humidity_temp_interaction",
+          "wind_rain_interaction",
+          "rain_bin_industry",
+          "rain_bin_region",
+          "lag1_sales_dev_pct",
+          "rolling7_sales_dev_mean",
+          "rolling7_sales_dev_std",
+          "prior_shock_count",
+          "days_since_prior_shock"
+        ],
+        "prediction_cap_source": "train_period_estimated_loss_amount_p99",
+        "prediction_cap": 1250243200.2850091,
+        "metrics": [
+          {
+            "model_name": "Loss Priority regressor - ridge_log_loss",
+            "split": "validation",
+            "target": "estimated_loss_amount",
+            "dependency_mode": "sklearn",
+            "mae": 59068005.51219342,
+            "rmse": 637196718.5922436,
+            "mean_actual_loss": 58921643.46323829,
+            "mean_predicted_loss": 150269.41241696564,
+            "top5_loss_capture": 0.21985315317768858,
+            "top5_lift": 4.388125943505898,
+            "top5_rows": 246,
+            "top10_loss_capture": 0.3019752636905863,
+            "top10_lift": 3.0197526369058627,
+            "top10_rows": 491,
+            "top20_loss_capture": 0.6411493451979096,
+            "top20_lift": 3.2057467259895476,
+            "top20_rows": 982,
+            "total_loss": 289305269404.5
+          },
+          {
+            "model_name": "Loss Priority regressor - ridge_log_loss",
+            "split": "test",
+            "target": "estimated_loss_amount",
+            "dependency_mode": "sklearn",
+            "mae": 82534825.51735328,
+            "rmse": 1008815606.730268,
+            "mean_actual_loss": 82532567.48354031,
+            "mean_predicted_loss": 19724.31695989212,
+            "top5_loss_capture": 0.265535059489203,
+            "top5_lift": 5.3033832944438055,
+            "top5_rows": 254,
+            "top10_loss_capture": 0.36574878292418206,
+            "top10_lift": 3.652447983807826,
+            "top10_rows": 508,
+            "top20_loss_capture": 0.4429859223039439,
+            "top20_lift": 2.2140567328550813,
+            "top20_rows": 1015,
+            "total_loss": 418687714844.0
+          }
+        ]
+      }
+    },
+    "split_policy": {
+      "shock_pulse": "fixed chronological split: train through 2025-10-31, validation through 2025-11-30, test in 2025-12",
+      "recovery_clock": "fractional chronological split over available heavy-rain event dates because events do not span all months"
+    },
+    "leakage_policy": "daily targets and loss estimates use train-period region-industry-weekday median baselines; same-day sales-derived columns are labels/outcomes and excluded from Shock Pulse features; lag/history features are strictly shifted before the prediction row",
+    "performance_framing": {
+      "primary_model": "Shock Pulse classifier",
+      "weather_conditioned_note": "Weather-conditioned Shock is a rare-target weather-filtered view. Present PR-AUC, precision, base rate, and top-k recall before ROC-AUC; do not describe high ROC-AUC as near-perfect prediction.",
+      "primary_metric_note": "Use ROC-AUC, F1, and recall/precision tradeoff rather than accuracy alone because the majority baseline has high accuracy but zero positive-class F1.",
+      "recovery_clock_note": "Recovery Clock remains exploratory because event samples are smaller and the signal is broad; it is downweighted in triage even when tuned F1 is competitive with the majority baseline.",
+      "loss_priority_note": "Loss Priority ranks rows for support triage by combining log-scale predicted baseline-relative loss with Shock Pulse risk. Judge it primarily by top-k loss capture and lift, not calibrated won-level accuracy. Treat estimated_loss_amount as modeled baseline-relative loss, not audited financial damage.",
+      "prediction_file_note": "Prediction CSVs are same-day/retrospective aggregate evaluation artifacts and include observed labels/outcomes for validation, not prospective deployment outputs. Prospective use requires forecast weather inputs."
+    },
+    "triage_weights": {
+      "predicted_shock_pulse_risk": 55,
+      "predicted_recovery_clock_risk_exploratory": 15,
+      "normalized_climate_scar": 30
+    },
+    "interpretation": "predictive aggregate decision support, not causal estimates or final policy decisions"
+  },
+  "performance": {
+    "models": [
+      {
+        "model_name": "Shock Pulse classifier",
+        "trained": true,
+        "dependency_mode": "sklearn_model_comparison",
+        "champion_algorithm": "random_forest",
+        "champion_validation_f1": 0.5186693822131704,
+        "thresholds": {
+          "logistic_regression": 0.42999999999999994,
+          "random_forest": 0.4799999999999999
+        },
+        "metrics": [
+          {
+            "model_name": "Shock Pulse classifier - logistic_regression",
+            "split": "validation",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.42999999999999994,
+            "is_champion": false,
+            "accuracy": 0.6869653767820774,
+            "precision": 0.3830703012912482,
+            "recall": 0.7643129770992366,
+            "f1": 0.5103536158012105,
+            "confusion_matrix": [
+              [
+                2572,
+                1290
+              ],
+              [
+                247,
+                801
+              ]
+            ],
+            "roc_auc": 0.782410134368539,
+            "pr_auc": 0.43402442107096567,
+            "top10_recall": 0.22423664122137404,
+            "top20_recall": 0.4179389312977099,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7865580448065174
+          },
+          {
+            "model_name": "Shock Pulse classifier - logistic_regression",
+            "split": "test",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.42999999999999994,
+            "is_champion": false,
+            "accuracy": 0.6607530061107826,
+            "precision": 0.35473731477323756,
+            "recall": 0.7355679702048417,
+            "f1": 0.4786428355043926,
+            "confusion_matrix": [
+              [
+                2562,
+                1437
+              ],
+              [
+                284,
+                790
+              ]
+            ],
+            "roc_auc": 0.7636923197279768,
+            "pr_auc": 0.42509018587016073,
+            "top10_recall": 0.2309124767225326,
+            "top20_recall": 0.40130353817504655,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7882909520993495
+          },
+          {
+            "model_name": "Shock Pulse classifier - random_forest",
+            "split": "validation",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4799999999999999,
+            "is_champion": true,
+            "accuracy": 0.7112016293279022,
+            "precision": 0.40252897787144365,
+            "recall": 0.7290076335877863,
+            "f1": 0.5186693822131704,
+            "confusion_matrix": [
+              [
+                2728,
+                1134
+              ],
+              [
+                284,
+                764
+              ]
+            ],
+            "roc_auc": 0.7837464322563557,
+            "pr_auc": 0.46095238432900953,
+            "top10_recall": 0.2566793893129771,
+            "top20_recall": 0.4303435114503817,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7865580448065174
+          },
+          {
+            "model_name": "Shock Pulse classifier - random_forest",
+            "split": "test",
+            "target": "shock_pulse_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4799999999999999,
+            "is_champion": true,
+            "accuracy": 0.6865759905381431,
+            "precision": 0.3778409090909091,
+            "recall": 0.7430167597765364,
+            "f1": 0.5009416195856874,
+            "confusion_matrix": [
+              [
+                2685,
+                1314
+              ],
+              [
+                276,
+                798
+              ]
+            ],
+            "roc_auc": 0.784486275200085,
+            "pr_auc": 0.4968653862521623,
+            "top10_recall": 0.2783985102420857,
+            "top20_recall": 0.45623836126629425,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.7882909520993495
+          }
+        ]
+      },
+      {
+        "model_name": "Weather-conditioned Shock classifier",
+        "trained": true,
+        "dependency_mode": "sklearn_model_comparison",
+        "champion_algorithm": "logistic_regression",
+        "champion_validation_f1": 0.5054945054945055,
+        "thresholds": {
+          "logistic_regression": 0.9299999999999999,
+          "random_forest": 0.59
+        },
+        "metrics": [
+          {
+            "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+            "split": "validation",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.9299999999999999,
+            "is_champion": true,
+            "accuracy": 0.9816700610997964,
+            "precision": 0.40350877192982454,
+            "recall": 0.6764705882352942,
+            "f1": 0.5054945054945055,
+            "confusion_matrix": [
+              [
+                4774,
+                68
+              ],
+              [
+                22,
+                46
+              ]
+            ],
+            "roc_auc": 0.9877481351896397,
+            "pr_auc": 0.40669915977431825,
+            "top10_recall": 1.0,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9861507128309572
+          },
+          {
+            "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+            "split": "test",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.9299999999999999,
+            "is_champion": true,
+            "accuracy": 0.961364084368224,
+            "precision": 0.32786885245901637,
+            "recall": 0.7142857142857143,
+            "f1": 0.449438202247191,
+            "confusion_matrix": [
+              [
+                4797,
+                164
+              ],
+              [
+                32,
+                80
+              ]
+            ],
+            "roc_auc": 0.9701277104270453,
+            "pr_auc": 0.3237724590805554,
+            "top10_recall": 0.9285714285714286,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9779223339246994
+          },
+          {
+            "model_name": "Weather-conditioned Shock classifier - random_forest",
+            "split": "validation",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.59,
+            "is_champion": false,
+            "accuracy": 0.9698574338085539,
+            "precision": 0.2802197802197802,
+            "recall": 0.75,
+            "f1": 0.408,
+            "confusion_matrix": [
+              [
+                4711,
+                131
+              ],
+              [
+                17,
+                51
+              ]
+            ],
+            "roc_auc": 0.9817679860048109,
+            "pr_auc": 0.37650313794430784,
+            "top10_recall": 1.0,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9861507128309572
+          },
+          {
+            "model_name": "Weather-conditioned Shock classifier - random_forest",
+            "split": "test",
+            "target": "weather_shock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.59,
+            "is_champion": false,
+            "accuracy": 0.9737827715355806,
+            "precision": 0.4036697247706422,
+            "recall": 0.39285714285714285,
+            "f1": 0.39819004524886875,
+            "confusion_matrix": [
+              [
+                4896,
+                65
+              ],
+              [
+                68,
+                44
+              ]
+            ],
+            "roc_auc": 0.974829563452069,
+            "pr_auc": 0.41168879316930956,
+            "top10_recall": 1.0,
+            "top20_recall": 1.0,
+            "baseline_f1": 0.0,
+            "baseline_accuracy": 0.9779223339246994
+          }
+        ]
+      },
+      {
+        "model_name": "Recovery Clock classifier",
+        "trained": true,
+        "dependency_mode": "sklearn_model_comparison",
+        "champion_algorithm": "logistic_regression",
+        "champion_validation_f1": 0.7192982456140351,
+        "thresholds": {
+          "logistic_regression": 0.07,
+          "random_forest": 0.4099999999999999
+        },
+        "metrics": [
+          {
+            "model_name": "Recovery Clock classifier - logistic_regression",
+            "split": "validation",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.07,
+            "is_champion": true,
+            "accuracy": 0.5782537067545305,
+            "precision": 0.563573883161512,
+            "recall": 0.9939393939393939,
+            "f1": 0.7192982456140351,
+            "confusion_matrix": [
+              [
+                23,
+                254
+              ],
+              [
+                2,
+                328
+              ]
+            ],
+            "roc_auc": 0.5393501805054152,
+            "pr_auc": 0.5832400531576092,
+            "top10_recall": 0.1,
+            "top20_recall": 0.21818181818181817,
+            "baseline_f1": 0.7043756670224119,
+            "baseline_accuracy": 0.5436573311367381
+          },
+          {
+            "model_name": "Recovery Clock classifier - logistic_regression",
+            "split": "test",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.07,
+            "is_champion": true,
+            "accuracy": 0.6274007682458387,
+            "precision": 0.614441416893733,
+            "recall": 0.9825708061002179,
+            "f1": 0.7560771165129925,
+            "confusion_matrix": [
+              [
+                39,
+                283
+              ],
+              [
+                8,
+                451
+              ]
+            ],
+            "roc_auc": 0.5805491278637058,
+            "pr_auc": 0.659030318883152,
+            "top10_recall": 0.11328976034858387,
+            "top20_recall": 0.22004357298474944,
+            "baseline_f1": 0.7403225806451613,
+            "baseline_accuracy": 0.587708066581306
+          },
+          {
+            "model_name": "Recovery Clock classifier - random_forest",
+            "split": "validation",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4099999999999999,
+            "is_champion": false,
+            "accuracy": 0.5799011532125206,
+            "precision": 0.5659050966608085,
+            "recall": 0.9757575757575757,
+            "f1": 0.7163515016685206,
+            "confusion_matrix": [
+              [
+                30,
+                247
+              ],
+              [
+                8,
+                322
+              ]
+            ],
+            "roc_auc": 0.5655891040367576,
+            "pr_auc": 0.617214593797673,
+            "top10_recall": 0.1303030303030303,
+            "top20_recall": 0.2515151515151515,
+            "baseline_f1": 0.7043756670224119,
+            "baseline_accuracy": 0.5436573311367381
+          },
+          {
+            "model_name": "Recovery Clock classifier - random_forest",
+            "split": "test",
+            "target": "recovery_clock_label",
+            "dependency_mode": "sklearn",
+            "threshold": 0.4099999999999999,
+            "is_champion": false,
+            "accuracy": 0.6197183098591549,
+            "precision": 0.6137640449438202,
+            "recall": 0.9520697167755992,
+            "f1": 0.7463706233988044,
+            "confusion_matrix": [
+              [
+                47,
+                275
+              ],
+              [
+                22,
+                437
+              ]
+            ],
+            "roc_auc": 0.6045650144115617,
+            "pr_auc": 0.661631872216424,
+            "top10_recall": 0.1111111111111111,
+            "top20_recall": 0.22440087145969498,
+            "baseline_f1": 0.7403225806451613,
+            "baseline_accuracy": 0.587708066581306
+          }
+        ]
+      },
+      {
+        "model_name": "Loss Priority regressor",
+        "trained": true,
+        "target": "estimated_loss_amount",
+        "features": [
+          "daily_rain_mm",
+          "max_hourly_rain_mm",
+          "rain_hours",
+          "temp_mean_c",
+          "humidity_mean_pct",
+          "wind_mean_ms",
+          "weather_hourly_obs",
+          "day_of_week",
+          "is_weekend",
+          "is_holiday",
+          "month",
+          "merchant_region",
+          "industry",
+          "rain_bin",
+          "heavy_rain_flag",
+          "rain_3d_sum",
+          "rain_7d_sum",
+          "temp_7d_mean",
+          "humidity_temp_interaction",
+          "wind_rain_interaction",
+          "rain_bin_industry",
+          "rain_bin_region",
+          "lag1_sales_dev_pct",
+          "rolling7_sales_dev_mean",
+          "rolling7_sales_dev_std",
+          "prior_shock_count",
+          "days_since_prior_shock"
+        ],
+        "prediction_cap_source": "train_period_estimated_loss_amount_p99",
+        "prediction_cap": 1250243200.2850091,
+        "metrics": [
+          {
+            "model_name": "Loss Priority regressor - ridge_log_loss",
+            "split": "validation",
+            "target": "estimated_loss_amount",
+            "dependency_mode": "sklearn",
+            "mae": 59068005.51219342,
+            "rmse": 637196718.5922436,
+            "mean_actual_loss": 58921643.46323829,
+            "mean_predicted_loss": 150269.41241696564,
+            "top5_loss_capture": 0.21985315317768858,
+            "top5_lift": 4.388125943505898,
+            "top5_rows": 246,
+            "top10_loss_capture": 0.3019752636905863,
+            "top10_lift": 3.0197526369058627,
+            "top10_rows": 491,
+            "top20_loss_capture": 0.6411493451979096,
+            "top20_lift": 3.2057467259895476,
+            "top20_rows": 982,
+            "total_loss": 289305269404.5
+          },
+          {
+            "model_name": "Loss Priority regressor - ridge_log_loss",
+            "split": "test",
+            "target": "estimated_loss_amount",
+            "dependency_mode": "sklearn",
+            "mae": 82534825.51735328,
+            "rmse": 1008815606.730268,
+            "mean_actual_loss": 82532567.48354031,
+            "mean_predicted_loss": 19724.31695989212,
+            "top5_loss_capture": 0.265535059489203,
+            "top5_lift": 5.3033832944438055,
+            "top5_rows": 254,
+            "top10_loss_capture": 0.36574878292418206,
+            "top10_lift": 3.652447983807826,
+            "top10_rows": 508,
+            "top20_loss_capture": 0.4429859223039439,
+            "top20_lift": 2.2140567328550813,
+            "top20_rows": 1015,
+            "total_loss": 418687714844.0
+          }
+        ]
+      }
+    ],
+    "performance_rows": [
+      {
+        "model_name": "Shock Pulse classifier - logistic_regression",
+        "split": "validation",
+        "target": "shock_pulse_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.43,
+        "is_champion": false,
+        "accuracy": 0.6869653768,
+        "precision": 0.3830703013,
+        "recall": 0.7643129771,
+        "f1": 0.5103536158,
+        "confusion_matrix": [
+          [
+            2572,
+            1290
+          ],
+          [
+            247,
+            801
+          ]
+        ],
+        "roc_auc": 0.7824101344,
+        "pr_auc": 0.4340244211,
+        "top10_recall": 0.2242366412,
+        "top20_recall": 0.4179389313,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.7865580448,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Shock Pulse classifier - logistic_regression",
+        "split": "test",
+        "target": "shock_pulse_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.43,
+        "is_champion": false,
+        "accuracy": 0.6607530061,
+        "precision": 0.3547373148,
+        "recall": 0.7355679702,
+        "f1": 0.4786428355,
+        "confusion_matrix": [
+          [
+            2562,
+            1437
+          ],
+          [
+            284,
+            790
+          ]
+        ],
+        "roc_auc": 0.7636923197,
+        "pr_auc": 0.4250901859,
+        "top10_recall": 0.2309124767,
+        "top20_recall": 0.4013035382,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.7882909521,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Shock Pulse classifier - random_forest",
+        "split": "validation",
+        "target": "shock_pulse_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.48,
+        "is_champion": true,
+        "accuracy": 0.7112016293,
+        "precision": 0.4025289779,
+        "recall": 0.7290076336,
+        "f1": 0.5186693822,
+        "confusion_matrix": [
+          [
+            2728,
+            1134
+          ],
+          [
+            284,
+            764
+          ]
+        ],
+        "roc_auc": 0.7837464323,
+        "pr_auc": 0.4609523843,
+        "top10_recall": 0.2566793893,
+        "top20_recall": 0.4303435115,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.7865580448,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Shock Pulse classifier - random_forest",
+        "split": "test",
+        "target": "shock_pulse_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.48,
+        "is_champion": true,
+        "accuracy": 0.6865759905,
+        "precision": 0.3778409091,
+        "recall": 0.7430167598,
+        "f1": 0.5009416196,
+        "confusion_matrix": [
+          [
+            2685,
+            1314
+          ],
+          [
+            276,
+            798
+          ]
+        ],
+        "roc_auc": 0.7844862752,
+        "pr_auc": 0.4968653863,
+        "top10_recall": 0.2783985102,
+        "top20_recall": 0.4562383613,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.7882909521,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+        "split": "validation",
+        "target": "weather_shock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.93,
+        "is_champion": true,
+        "accuracy": 0.9816700611,
+        "precision": 0.4035087719,
+        "recall": 0.6764705882,
+        "f1": 0.5054945055,
+        "confusion_matrix": [
+          [
+            4774,
+            68
+          ],
+          [
+            22,
+            46
+          ]
+        ],
+        "roc_auc": 0.9877481352,
+        "pr_auc": 0.4066991598,
+        "top10_recall": 1.0,
+        "top20_recall": 1.0,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.9861507128,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+        "split": "test",
+        "target": "weather_shock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.93,
+        "is_champion": true,
+        "accuracy": 0.9613640844,
+        "precision": 0.3278688525,
+        "recall": 0.7142857143,
+        "f1": 0.4494382022,
+        "confusion_matrix": [
+          [
+            4797,
+            164
+          ],
+          [
+            32,
+            80
+          ]
+        ],
+        "roc_auc": 0.9701277104,
+        "pr_auc": 0.3237724591,
+        "top10_recall": 0.9285714286,
+        "top20_recall": 1.0,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.9779223339,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Weather-conditioned Shock classifier - random_forest",
+        "split": "validation",
+        "target": "weather_shock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.59,
+        "is_champion": false,
+        "accuracy": 0.9698574338,
+        "precision": 0.2802197802,
+        "recall": 0.75,
+        "f1": 0.408,
+        "confusion_matrix": [
+          [
+            4711,
+            131
+          ],
+          [
+            17,
+            51
+          ]
+        ],
+        "roc_auc": 0.981767986,
+        "pr_auc": 0.3765031379,
+        "top10_recall": 1.0,
+        "top20_recall": 1.0,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.9861507128,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Weather-conditioned Shock classifier - random_forest",
+        "split": "test",
+        "target": "weather_shock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.59,
+        "is_champion": false,
+        "accuracy": 0.9737827715,
+        "precision": 0.4036697248,
+        "recall": 0.3928571429,
+        "f1": 0.3981900452,
+        "confusion_matrix": [
+          [
+            4896,
+            65
+          ],
+          [
+            68,
+            44
+          ]
+        ],
+        "roc_auc": 0.9748295635,
+        "pr_auc": 0.4116887932,
+        "top10_recall": 1.0,
+        "top20_recall": 1.0,
+        "baseline_f1": 0.0,
+        "baseline_accuracy": 0.9779223339,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Recovery Clock classifier - logistic_regression",
+        "split": "validation",
+        "target": "recovery_clock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.07,
+        "is_champion": true,
+        "accuracy": 0.5782537068,
+        "precision": 0.5635738832,
+        "recall": 0.9939393939,
+        "f1": 0.7192982456,
+        "confusion_matrix": [
+          [
+            23,
+            254
+          ],
+          [
+            2,
+            328
+          ]
+        ],
+        "roc_auc": 0.5393501805,
+        "pr_auc": 0.5832400532,
+        "top10_recall": 0.1,
+        "top20_recall": 0.2181818182,
+        "baseline_f1": 0.704375667,
+        "baseline_accuracy": 0.5436573311,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Recovery Clock classifier - logistic_regression",
+        "split": "test",
+        "target": "recovery_clock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.07,
+        "is_champion": true,
+        "accuracy": 0.6274007682,
+        "precision": 0.6144414169,
+        "recall": 0.9825708061,
+        "f1": 0.7560771165,
+        "confusion_matrix": [
+          [
+            39,
+            283
+          ],
+          [
+            8,
+            451
+          ]
+        ],
+        "roc_auc": 0.5805491279,
+        "pr_auc": 0.6590303189,
+        "top10_recall": 0.1132897603,
+        "top20_recall": 0.220043573,
+        "baseline_f1": 0.7403225806,
+        "baseline_accuracy": 0.5877080666,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Recovery Clock classifier - random_forest",
+        "split": "validation",
+        "target": "recovery_clock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.41,
+        "is_champion": false,
+        "accuracy": 0.5799011532,
+        "precision": 0.5659050967,
+        "recall": 0.9757575758,
+        "f1": 0.7163515017,
+        "confusion_matrix": [
+          [
+            30,
+            247
+          ],
+          [
+            8,
+            322
+          ]
+        ],
+        "roc_auc": 0.565589104,
+        "pr_auc": 0.6172145938,
+        "top10_recall": 0.1303030303,
+        "top20_recall": 0.2515151515,
+        "baseline_f1": 0.704375667,
+        "baseline_accuracy": 0.5436573311,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Recovery Clock classifier - random_forest",
+        "split": "test",
+        "target": "recovery_clock_label",
+        "dependency_mode": "sklearn",
+        "threshold": 0.41,
+        "is_champion": false,
+        "accuracy": 0.6197183099,
+        "precision": 0.6137640449,
+        "recall": 0.9520697168,
+        "f1": 0.7463706234,
+        "confusion_matrix": [
+          [
+            47,
+            275
+          ],
+          [
+            22,
+            437
+          ]
+        ],
+        "roc_auc": 0.6045650144,
+        "pr_auc": 0.6616318722,
+        "top10_recall": 0.1111111111,
+        "top20_recall": 0.2244008715,
+        "baseline_f1": 0.7403225806,
+        "baseline_accuracy": 0.5877080666,
+        "mae": null,
+        "rmse": null,
+        "mean_actual_loss": null,
+        "mean_predicted_loss": null,
+        "top5_loss_capture": null,
+        "top5_lift": null,
+        "top5_rows": null,
+        "top10_loss_capture": null,
+        "top10_lift": null,
+        "top10_rows": null,
+        "top20_loss_capture": null,
+        "top20_lift": null,
+        "top20_rows": null,
+        "total_loss": null
+      },
+      {
+        "model_name": "Loss Priority regressor - ridge_log_loss",
+        "split": "validation",
+        "target": "estimated_loss_amount",
+        "dependency_mode": "sklearn",
+        "threshold": null,
+        "is_champion": null,
+        "accuracy": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "confusion_matrix": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "top10_recall": null,
+        "top20_recall": null,
+        "baseline_f1": null,
+        "baseline_accuracy": null,
+        "mae": 59068005.51219342,
+        "rmse": 637196718.5922436,
+        "mean_actual_loss": 58921643.46323829,
+        "mean_predicted_loss": 150269.4124169656,
+        "top5_loss_capture": 0.2198531532,
+        "top5_lift": 4.3881259435,
+        "top5_rows": 246.0,
+        "top10_loss_capture": 0.3019752637,
+        "top10_lift": 3.0197526369,
+        "top10_rows": 491.0,
+        "top20_loss_capture": 0.6411493452,
+        "top20_lift": 3.205746726,
+        "top20_rows": 982.0,
+        "total_loss": 289305269404.5
+      },
+      {
+        "model_name": "Loss Priority regressor - ridge_log_loss",
+        "split": "test",
+        "target": "estimated_loss_amount",
+        "dependency_mode": "sklearn",
+        "threshold": null,
+        "is_champion": null,
+        "accuracy": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "confusion_matrix": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "top10_recall": null,
+        "top20_recall": null,
+        "baseline_f1": null,
+        "baseline_accuracy": null,
+        "mae": 82534825.51735328,
+        "rmse": 1008815606.730268,
+        "mean_actual_loss": 82532567.48354031,
+        "mean_predicted_loss": 19724.3169598921,
+        "top5_loss_capture": 0.2655350595,
+        "top5_lift": 5.3033832944,
+        "top5_rows": 254.0,
+        "top10_loss_capture": 0.3657487829,
+        "top10_lift": 3.6524479838,
+        "top10_rows": 508.0,
+        "top20_loss_capture": 0.4429859223,
+        "top20_lift": 2.2140567329,
+        "top20_rows": 1015.0,
+        "total_loss": 418687714844.0
+      }
+    ],
+    "topk_support_priority_metrics": [
+      {
+        "model_name": "Loss Priority regressor - ridge_log_loss",
+        "split": "validation",
+        "target": "estimated_loss_amount",
+        "dependency_mode": "sklearn",
+        "mae": 59068005.51219342,
+        "rmse": 637196718.5922436,
+        "mean_actual_loss": 58921643.46323829,
+        "mean_predicted_loss": 150269.4124169656,
+        "top5_loss_capture": 0.2198531532,
+        "top5_lift": 4.3881259435,
+        "top5_rows": 246,
+        "top10_loss_capture": 0.3019752637,
+        "top10_lift": 3.0197526369,
+        "top10_rows": 491,
+        "top20_loss_capture": 0.6411493452,
+        "top20_lift": 3.205746726,
+        "top20_rows": 982,
+        "total_loss": 289305269404.5
+      },
+      {
+        "model_name": "Loss Priority regressor - ridge_log_loss",
+        "split": "test",
+        "target": "estimated_loss_amount",
+        "dependency_mode": "sklearn",
+        "mae": 82534825.51735328,
+        "rmse": 1008815606.730268,
+        "mean_actual_loss": 82532567.48354031,
+        "mean_predicted_loss": 19724.3169598921,
+        "top5_loss_capture": 0.2655350595,
+        "top5_lift": 5.3033832944,
+        "top5_rows": 254,
+        "top10_loss_capture": 0.3657487829,
+        "top10_lift": 3.6524479838,
+        "top10_rows": 508,
+        "top20_loss_capture": 0.4429859223,
+        "top20_lift": 2.2140567329,
+        "top20_rows": 1015,
+        "total_loss": 418687714844.0
+      }
+    ]
+  },
+  "triage_top20": [
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "수제용품점",
+      "climate_scar_score": 102.3058396567,
+      "observed_event_count": 14,
+      "predicted_shock_pulse_risk": 0.5370479069,
+      "predicted_recovery_clock_risk": 0.6303337564,
+      "normalized_climate_scar": 1.0,
+      "climate_ecg_triage_score": 68.9926412253,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "회계/변리서비스",
+      "climate_scar_score": 97.9768951445,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5590520818,
+      "predicted_recovery_clock_risk": 0.5753866244,
+      "normalized_climate_scar": 0.9576862423,
+      "climate_ecg_triage_score": 68.1092511356,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "수입자동차",
+      "climate_scar_score": 52.2101411502,
+      "observed_event_count": 14,
+      "predicted_shock_pulse_risk": 0.551429607,
+      "predicted_recovery_clock_risk": 0.634780389,
+      "normalized_climate_scar": 0.5103339294,
+      "climate_ecg_triage_score": 55.1603521036,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "보험",
+      "climate_scar_score": 47.7668288911,
+      "observed_event_count": 14,
+      "predicted_shock_pulse_risk": 0.4739588694,
+      "predicted_recovery_clock_risk": 0.5697570668,
+      "normalized_climate_scar": 0.4669022712,
+      "climate_ecg_triage_score": 48.6211619553,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "여행사/항공사",
+      "climate_scar_score": 30.8042947754,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5121373706,
+      "predicted_recovery_clock_risk": 0.6812763564,
+      "normalized_climate_scar": 0.3011000631,
+      "climate_ecg_triage_score": 47.4197026205,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "여행사/항공사",
+      "climate_scar_score": 26.6364321587,
+      "observed_event_count": 14,
+      "predicted_shock_pulse_risk": 0.4785326802,
+      "predicted_recovery_clock_risk": 0.8528852275,
+      "normalized_climate_scar": 0.2603608186,
+      "climate_ecg_triage_score": 46.9234003803,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "유치원",
+      "climate_scar_score": 29.6408063452,
+      "observed_event_count": 14,
+      "predicted_shock_pulse_risk": 0.5304122318,
+      "predicted_recovery_clock_risk": 0.5258624933,
+      "normalized_climate_scar": 0.2897274138,
+      "climate_ecg_triage_score": 45.7524325642,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "체인점",
+      "climate_scar_score": 29.0868327438,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5618119169,
+      "predicted_recovery_clock_risk": 0.3892351379,
+      "normalized_climate_scar": 0.2843125362,
+      "climate_ecg_triage_score": 45.267558584,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "미용서비스",
+      "climate_scar_score": 21.9633923218,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5503152887,
+      "predicted_recovery_clock_risk": 0.5344731463,
+      "normalized_climate_scar": 0.2146836622,
+      "climate_ecg_triage_score": 44.7249479413,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "상품권/복권",
+      "climate_scar_score": 12.1459334581,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5692778495,
+      "predicted_recovery_clock_risk": 0.6336196067,
+      "normalized_climate_scar": 0.1187218002,
+      "climate_ecg_triage_score": 44.3762298282,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "종합레저타운/놀이동산",
+      "climate_scar_score": 0.8489990438,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5854325348,
+      "predicted_recovery_clock_risk": 0.6974605193,
+      "normalized_climate_scar": 0.0082986372,
+      "climate_ecg_triage_score": 42.9096563201,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "서점",
+      "climate_scar_score": 23.4252388787,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5321143759,
+      "predicted_recovery_clock_risk": 0.4472349724,
+      "normalized_climate_scar": 0.2289726467,
+      "climate_ecg_triage_score": 42.8439946595,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "유치원",
+      "climate_scar_score": 12.9181667767,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.555965386,
+      "predicted_recovery_clock_risk": 0.5446816638,
+      "normalized_climate_scar": 0.1262700821,
+      "climate_ecg_triage_score": 42.5364236495,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "고속버스/철도/여객선",
+      "climate_scar_score": 2.6266647934,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5693570591,
+      "predicted_recovery_clock_risk": 0.6778512831,
+      "normalized_climate_scar": 0.0256746321,
+      "climate_ecg_triage_score": 42.2526464585,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "수제용품점",
+      "climate_scar_score": 2.86288719,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5592919931,
+      "predicted_recovery_clock_risk": 0.6719768745,
+      "normalized_climate_scar": 0.0279836146,
+      "climate_ecg_triage_score": 41.6802211759,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "인테리어/건축자재/주방기구",
+      "climate_scar_score": 22.86058336,
+      "observed_event_count": 14,
+      "predicted_shock_pulse_risk": 0.4864480038,
+      "predicted_recovery_clock_risk": 0.5380968562,
+      "normalized_climate_scar": 0.2234533575,
+      "climate_ecg_triage_score": 41.5296937745,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "완구/아동용자전거",
+      "climate_scar_score": 10.8110178452,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5443197186,
+      "predicted_recovery_clock_risk": 0.5546743304,
+      "normalized_climate_scar": 0.1056735166,
+      "climate_ecg_triage_score": 41.4279049765,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "영화/공연",
+      "climate_scar_score": 11.9809372101,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.5466108941,
+      "predicted_recovery_clock_risk": 0.5232077244,
+      "normalized_climate_scar": 0.1171090257,
+      "climate_ecg_triage_score": 41.4249858161,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "스포츠시설",
+      "climate_scar_score": 12.5880498637,
+      "observed_event_count": 20,
+      "predicted_shock_pulse_risk": 0.6092480051,
+      "predicted_recovery_clock_risk": 0.2773657031,
+      "normalized_climate_scar": 0.123043317,
+      "climate_ecg_triage_score": 41.3604253384,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "체인점",
+      "climate_scar_score": 6.0842415781,
+      "observed_event_count": 14,
+      "predicted_shock_pulse_risk": 0.53215101,
+      "predicted_recovery_clock_risk": 0.6532874501,
+      "normalized_climate_scar": 0.0594711074,
+      "climate_ecg_triage_score": 40.8517505209,
+      "ecg_interpretation": "exploratory_predictive_decision_support_not_causal_or_final_policy_decision"
+    }
+  ],
+  "loss_priority_top20": [
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "중고차판매",
+      "predicted_total_loss_priority": 353636320.96558553,
+      "observed_total_estimated_loss": 873334.0,
+      "mean_predicted_support_priority_score": 117878773.65519518,
+      "mean_predicted_shock_pulse_risk": 0.4347175363,
+      "priority_rank": 1,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "컴퓨터/소프트웨어",
+      "predicted_total_loss_priority": 14563795.578618651,
+      "observed_total_estimated_loss": 3563064288.0,
+      "mean_predicted_support_priority_score": 238750.7471904697,
+      "mean_predicted_shock_pulse_risk": 0.2999182058,
+      "priority_rank": 2,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "ZZ_나머지",
+      "predicted_total_loss_priority": 3312948.111174014,
+      "observed_total_estimated_loss": 110705545527.5,
+      "mean_predicted_support_priority_score": 54310.6247733445,
+      "mean_predicted_shock_pulse_risk": 0.4235068992,
+      "priority_rank": 3,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "치과병원",
+      "predicted_total_loss_priority": 2914355.942260128,
+      "observed_total_estimated_loss": 6145170065.0,
+      "mean_predicted_support_priority_score": 47776.3269222972,
+      "mean_predicted_shock_pulse_risk": 0.4246333001,
+      "priority_rank": 4,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "고속버스/철도/여객선",
+      "predicted_total_loss_priority": 2341969.8939979137,
+      "observed_total_estimated_loss": 1861834606.5,
+      "mean_predicted_support_priority_score": 38392.949081933,
+      "mean_predicted_shock_pulse_risk": 0.3864878866,
+      "priority_rank": 5,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "종합병원",
+      "predicted_total_loss_priority": 2013697.550695057,
+      "observed_total_estimated_loss": 2537135357.0,
+      "mean_predicted_support_priority_score": 33011.435257296,
+      "mean_predicted_shock_pulse_risk": 0.3880626828,
+      "priority_rank": 6,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "정육점",
+      "predicted_total_loss_priority": 1164778.6825124046,
+      "observed_total_estimated_loss": 592634791.0,
+      "mean_predicted_support_priority_score": 19094.7325002034,
+      "mean_predicted_shock_pulse_risk": 0.3930840491,
+      "priority_rank": 7,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "약국",
+      "predicted_total_loss_priority": 994237.7506628935,
+      "observed_total_estimated_loss": 1832294077.5,
+      "mean_predicted_support_priority_score": 16298.9795190638,
+      "mean_predicted_shock_pulse_risk": 0.340507461,
+      "priority_rank": 8,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "예식장/결혼서비스",
+      "predicted_total_loss_priority": 965419.0522299439,
+      "observed_total_estimated_loss": 2381285207.5,
+      "mean_predicted_support_priority_score": 15826.5418398351,
+      "mean_predicted_shock_pulse_risk": 0.4327412379,
+      "priority_rank": 9,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "실내/실외골프장",
+      "predicted_total_loss_priority": 892850.054564054,
+      "observed_total_estimated_loss": 403363481.0,
+      "mean_predicted_support_priority_score": 14636.8861403943,
+      "mean_predicted_shock_pulse_risk": 0.4828418383,
+      "priority_rank": 10,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "미용실",
+      "predicted_total_loss_priority": 811720.9484797817,
+      "observed_total_estimated_loss": 2333918407.5,
+      "mean_predicted_support_priority_score": 13306.9007947505,
+      "mean_predicted_shock_pulse_risk": 0.3355727725,
+      "priority_rank": 11,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "유치원",
+      "predicted_total_loss_priority": 810104.7464827044,
+      "observed_total_estimated_loss": 1056786890.5,
+      "mean_predicted_support_priority_score": 14466.1561871912,
+      "mean_predicted_shock_pulse_risk": 0.5304122318,
+      "priority_rank": 12,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "일반병원",
+      "predicted_total_loss_priority": 790972.4714724394,
+      "observed_total_estimated_loss": 10056589346.0,
+      "mean_predicted_support_priority_score": 12966.761827417,
+      "mean_predicted_shock_pulse_risk": 0.3461708296,
+      "priority_rank": 13,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "의복/의류",
+      "predicted_total_loss_priority": 727614.5787668733,
+      "observed_total_estimated_loss": 3424816592.0,
+      "mean_predicted_support_priority_score": 11928.1078486373,
+      "mean_predicted_shock_pulse_risk": 0.3818902229,
+      "priority_rank": 14,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "기타식품",
+      "predicted_total_loss_priority": 722673.3448191925,
+      "observed_total_estimated_loss": 2082044825.5,
+      "mean_predicted_support_priority_score": 11847.1040134294,
+      "mean_predicted_shock_pulse_risk": 0.4270279896,
+      "priority_rank": 15,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "미용실",
+      "predicted_total_loss_priority": 697062.3422625542,
+      "observed_total_estimated_loss": 452015264.0,
+      "mean_predicted_support_priority_score": 11427.2515125009,
+      "mean_predicted_shock_pulse_risk": 0.3808703161,
+      "priority_rank": 16,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "편의점",
+      "predicted_total_loss_priority": 674082.7138665274,
+      "observed_total_estimated_loss": 2060709867.5,
+      "mean_predicted_support_priority_score": 11050.5362928939,
+      "mean_predicted_shock_pulse_risk": 0.26121289,
+      "priority_rank": 17,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "세탁소",
+      "predicted_total_loss_priority": 598721.9499886071,
+      "observed_total_estimated_loss": 146538592.5,
+      "mean_predicted_support_priority_score": 9815.1139342395,
+      "mean_predicted_shock_pulse_risk": 0.4105663798,
+      "priority_rank": 18,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "강원 춘천시",
+      "industry": "세금공과금",
+      "predicted_total_loss_priority": 588869.6746002295,
+      "observed_total_estimated_loss": 7108262.0,
+      "mean_predicted_support_priority_score": 14362.6749902495,
+      "mean_predicted_shock_pulse_risk": 0.568081792,
+      "priority_rank": 19,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    },
+    {
+      "merchant_region": "서울 강남구",
+      "industry": "LPG가스",
+      "predicted_total_loss_priority": 566990.1419769005,
+      "observed_total_estimated_loss": 580839160.5,
+      "mean_predicted_support_priority_score": 9294.9203602771,
+      "mean_predicted_shock_pulse_risk": 0.346032149,
+      "priority_rank": 20,
+      "ecg_interpretation": "loss_priority_predictive_ranking_not_causal_or_final_policy_decision"
+    }
+  ],
+  "feature_importance_top40": [
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|학교등록금",
+      "importance": 6.2500462093,
+      "directional_coefficient": 6.2500462093
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0-5|학교등록금",
+      "importance": 5.352875293,
+      "directional_coefficient": -5.352875293
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|실내/실외골프장",
+      "importance": 5.2480290272,
+      "directional_coefficient": 5.2480290272
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|미용서비스",
+      "importance": 4.8396575055,
+      "directional_coefficient": -4.8396575055
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|중고차판매",
+      "importance": 4.8169786146,
+      "directional_coefficient": -4.8169786146
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|가전",
+      "importance": 4.7213226884,
+      "directional_coefficient": 4.7213226884
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|한식",
+      "importance": 4.186778956,
+      "directional_coefficient": 4.186778956
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0|통신요금(PC통신,무선호출)",
+      "importance": 4.1814932352,
+      "directional_coefficient": -4.1814932352
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__industry_통신요금(PC통신,무선호출)",
+      "importance": 4.1814932352,
+      "directional_coefficient": -4.1814932352
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0|커피전문점",
+      "importance": 3.9385651625,
+      "directional_coefficient": -3.9385651625
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|실내/실외골프장",
+      "importance": 3.691242383,
+      "directional_coefficient": -3.691242383
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|컴퓨터/소프트웨어",
+      "importance": 3.5843519682,
+      "directional_coefficient": -3.5843519682
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|가전",
+      "importance": 3.559303175,
+      "directional_coefficient": -3.559303175
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|ZZ_나머지",
+      "importance": 3.5206385467,
+      "directional_coefficient": 3.5206385467
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|LPG가스",
+      "importance": 3.5116633375,
+      "directional_coefficient": 3.5116633375
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|기타요식",
+      "importance": 3.4009806735,
+      "directional_coefficient": 3.4009806735
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|주차장",
+      "importance": 3.3734473742,
+      "directional_coefficient": -3.3734473742
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|가구",
+      "importance": 3.3318791772,
+      "directional_coefficient": -3.3318791772
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|안마/마사지",
+      "importance": 3.2996123101,
+      "directional_coefficient": -3.2996123101
+    },
+    {
+      "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+      "feature": "cat__rain_bin_0",
+      "importance": 3.1990793831,
+      "directional_coefficient": -3.1990793831
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|시계/귀금속",
+      "importance": 3.1237271025,
+      "directional_coefficient": 3.1237271025
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0-5|중고차판매",
+      "importance": 3.1177599275,
+      "directional_coefficient": 3.1177599275
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0|주유소",
+      "importance": 3.1139181298,
+      "directional_coefficient": -3.1139181298
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|시계/귀금속",
+      "importance": 3.0940478805,
+      "directional_coefficient": -3.0940478805
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|가구",
+      "importance": 3.06587821,
+      "directional_coefficient": 3.06587821
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0-5|컴퓨터/소프트웨어",
+      "importance": 3.0413614615,
+      "directional_coefficient": 3.0413614615
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|커피전문점",
+      "importance": 3.0247637116,
+      "directional_coefficient": 3.0247637116
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0-5|백화점",
+      "importance": 2.9962621701,
+      "directional_coefficient": 2.9962621701
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|화장품",
+      "importance": 2.9926130602,
+      "directional_coefficient": 2.9926130602
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__industry_ZZ_나머지",
+      "importance": 2.971191156,
+      "directional_coefficient": 2.971191156
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|LPG가스",
+      "importance": 2.9706151511,
+      "directional_coefficient": -2.9706151511
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|악기/음반",
+      "importance": 2.9603886358,
+      "directional_coefficient": -2.9603886358
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_20-50|유흥업소",
+      "importance": 2.9374490146,
+      "directional_coefficient": -2.9374490146
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|세금공과금",
+      "importance": 2.9088136661,
+      "directional_coefficient": -2.9088136661
+    },
+    {
+      "model_name": "Weather-conditioned Shock classifier - logistic_regression",
+      "feature": "cat__rain_bin_5-20",
+      "importance": 2.8922044016,
+      "directional_coefficient": 2.8922044016
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|호텔/콘도",
+      "importance": 2.8674135413,
+      "directional_coefficient": -2.8674135413
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_5-20|한식",
+      "importance": 2.8265298613,
+      "directional_coefficient": -2.8265298613
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__industry_보건소",
+      "importance": 2.7977884214,
+      "directional_coefficient": -2.7977884214
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_0-5|오토바이",
+      "importance": 2.7970557271,
+      "directional_coefficient": -2.7970557271
+    },
+    {
+      "model_name": "Loss Priority regressor - ridge_log_loss",
+      "feature": "cat__rain_bin_industry_50+|영화/공연",
+      "importance": 2.7319371028,
+      "directional_coefficient": -2.7319371028
+    }
+  ],
+  "quality": {
+    "status": "passed",
+    "passed": 16,
+    "failed": 0,
+    "checks": [
+      {
+        "name": "analysis_quality_passed",
+        "passed": true,
+        "detail": "analysis quality must pass"
+      },
+      {
+        "name": "no_raw_input_paths",
+        "passed": true,
+        "detail": "raw_like_paths=[]"
+      },
+      {
+        "name": "daily_model_columns",
+        "passed": true,
+        "detail": "missing=[]"
+      },
+      {
+        "name": "event_model_columns",
+        "passed": true,
+        "detail": "missing=[]"
+      },
+      {
+        "name": "loss_priority_prediction_columns",
+        "passed": true,
+        "detail": "missing=[]"
+      },
+      {
+        "name": "topk_support_priority_metric_columns",
+        "passed": true,
+        "detail": "missing=[]"
+      },
+      {
+        "name": "daily_chronological_split",
+        "passed": true,
+        "detail": "bounds={'test': {'min': Timestamp('2025-12-01 00:00:00'), 'max': Timestamp('2025-12-31 00:00:00')}, 'train': {'min': Timestamp('2025-07-01 00:00:00'), 'max': Timestamp('2025-10-31 00:00:00')}, 'validation': {'min': Timestamp('2025-11-01 00:00:00'), 'max': Timestamp('2025-11-30 00:00:00')}}"
+      },
+      {
+        "name": "event_chronological_split",
+        "passed": true,
+        "detail": "bounds={'test': {'min': Timestamp('2025-09-28 00:00:00'), 'max': Timestamp('2025-10-13 00:00:00')}, 'train': {'min': Timestamp('2025-07-15 00:00:00'), 'max': Timestamp('2025-09-04 00:00:00')}, 'validation': {'min': Timestamp('2025-09-06 00:00:00'), 'max': Timestamp('2025-09-20 00:00:00')}}"
+      },
+      {
+        "name": "loss_priority_evaluation_split",
+        "passed": true,
+        "detail": "bounds={'test': {'min': Timestamp('2025-12-01 00:00:00'), 'max': Timestamp('2025-12-31 00:00:00')}, 'validation': {'min': Timestamp('2025-11-01 00:00:00'), 'max': Timestamp('2025-11-30 00:00:00')}}; unexpected=[]"
+      },
+      {
+        "name": "train_only_baseline_policy",
+        "passed": true,
+        "detail": "baseline_mismatches=0; source_ok=True"
+      },
+      {
+        "name": "shifted_history_features",
+        "passed": true,
+        "detail": "lag_matches=True; prior_shock_matches=True"
+      },
+      {
+        "name": "shock_pulse_no_leakage_features",
+        "passed": true,
+        "detail": "forbidden_features=[]"
+      },
+      {
+        "name": "loss_priority_no_leakage_features",
+        "passed": true,
+        "detail": "forbidden_features=[]"
+      },
+      {
+        "name": "triage_unique_key",
+        "passed": true,
+        "detail": "duplicate keys=0"
+      },
+      {
+        "name": "loss_priority_unique_key",
+        "passed": true,
+        "detail": "duplicate keys=0"
+      },
+      {
+        "name": "non_causal_interpretation",
+        "passed": true,
+        "detail": "predictive aggregate decision support, not causal estimates or final policy decisions"
+      }
+    ]
+  }
+}
