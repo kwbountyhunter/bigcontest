@@ -1,0 +1,90 @@
+﻿table,column,dtype,temporal_grain,is_key,description
+calendar_daily.csv,date,object,day,1,Calendar date in YYYY-MM-DD format
+calendar_daily.csv,month,int64,day,0,Calendar month in YYYYMM format
+calendar_daily.csv,day_of_week,int32,day,0,day of week
+calendar_daily.csv,is_weekend,int64,day,0,is weekend
+calendar_daily.csv,holiday_name,object,day,0,holiday name
+calendar_daily.csv,is_holiday,int64,day,0,is holiday
+weather_region_daily.csv,date,object,day,1,Calendar date in YYYY-MM-DD format
+weather_region_daily.csv,daily_rain_mm,float64,day,0,daily rain mm
+weather_region_daily.csv,max_hourly_rain_mm,float64,day,0,max hourly rain mm
+weather_region_daily.csv,rain_hours,int64,day,0,rain hours
+weather_region_daily.csv,temp_mean_c,float64,day,0,temp mean c
+weather_region_daily.csv,humidity_mean_pct,float64,day,0,humidity mean pct
+weather_region_daily.csv,wind_mean_ms,float64,day,0,wind mean ms
+weather_region_daily.csv,weather_hourly_obs,int64,day,0,weather hourly obs
+weather_region_daily.csv,merchant_region,object,day,1,Merchant analysis region
+weather_region_timeband.csv,date,object,day,1,Calendar date in YYYY-MM-DD format
+weather_region_timeband.csv,time_band,object,day,1,Canonical six-hour time band
+weather_region_timeband.csv,rain_timeband_mm,float64,day,0,rain timeband mm
+weather_region_timeband.csv,max_hourly_rain_timeband_mm,float64,day,0,max hourly rain timeband mm
+weather_region_timeband.csv,rain_hours_timeband,float64,day,0,rain hours timeband
+weather_region_timeband.csv,weather_timeband_obs,float64,day,0,weather timeband obs
+weather_region_timeband.csv,weather_timeband_missing,int64,day,0,weather timeband missing
+weather_region_timeband.csv,merchant_region,object,day,1,Merchant analysis region
+card1_day_region_industry.csv,date,object,day,1,Calendar date in YYYY-MM-DD format
+card1_day_region_industry.csv,merchant_region,object,day,1,Merchant analysis region
+card1_day_region_industry.csv,industry,object,day,1,Merchant industry category
+card1_day_region_industry.csv,sales_amount,int64,day,0,Aggregated card sales amount
+card1_day_region_industry.csv,use_count,int64,day,0,Aggregated card use count
+card1_timeband_region_industry.csv,date,object,day,1,Calendar date in YYYY-MM-DD format
+card1_timeband_region_industry.csv,time_band,object,day,1,Canonical six-hour time band
+card1_timeband_region_industry.csv,merchant_region,object,day,1,Merchant analysis region
+card1_timeband_region_industry.csv,industry,object,day,1,Merchant industry category
+card1_timeband_region_industry.csv,sales_amount,int64,day,0,Aggregated card sales amount
+card1_timeband_region_industry.csv,use_count,int64,day,0,Aggregated card use count
+card2_month_region_customer_inflow.csv,month,int64,month,1,Calendar month in YYYYMM format
+card2_month_region_customer_inflow.csv,merchant_region,object,month,1,Merchant analysis region
+card2_month_region_customer_inflow.csv,customer_broad_area,object,month,1,Customer broad-area/province category; not district residence
+card2_month_region_customer_inflow.csv,sales_amount,int64,month,0,Aggregated card sales amount
+card2_month_region_customer_inflow.csv,use_count,int64,month,0,Aggregated card use count
+card2_month_region_customer_inflow.csv,sales_share_within_region_month,float64,month,0,sales share within region month
+skt_month_timeband_profile.csv,month,int64,month,1,Calendar month in YYYYMM format
+skt_month_timeband_profile.csv,time_band,object,month,1,Canonical six-hour time band
+skt_month_timeband_profile.csv,flow_pop,float64,month,0,Aggregated SKT floating-population measure
+skt_month_age_sex_profile.csv,month,int64,month,1,Calendar month in YYYYMM format
+skt_month_age_sex_profile.csv,sex,object,month,1,sex
+skt_month_age_sex_profile.csv,age_band,object,month,1,age band
+skt_month_age_sex_profile.csv,flow_pop,float64,month,0,Aggregated SKT floating-population measure
+skt_month_weekday_profile.csv,month,int64,month,1,Calendar month in YYYYMM format
+skt_month_weekday_profile.csv,weekday,object,month,1,weekday
+skt_month_weekday_profile.csv,flow_pop,float64,month,0,Aggregated SKT floating-population measure
+mart_daily_region_industry_weather.csv,date,object,day,1,Calendar date in YYYY-MM-DD format
+mart_daily_region_industry_weather.csv,merchant_region,object,day,1,Merchant analysis region
+mart_daily_region_industry_weather.csv,industry,object,day,1,Merchant industry category
+mart_daily_region_industry_weather.csv,sales_amount,int64,day,0,Aggregated card sales amount
+mart_daily_region_industry_weather.csv,use_count,int64,day,0,Aggregated card use count
+mart_daily_region_industry_weather.csv,daily_rain_mm,float64,day,0,daily rain mm
+mart_daily_region_industry_weather.csv,max_hourly_rain_mm,float64,day,0,max hourly rain mm
+mart_daily_region_industry_weather.csv,rain_hours,int64,day,0,rain hours
+mart_daily_region_industry_weather.csv,temp_mean_c,float64,day,0,temp mean c
+mart_daily_region_industry_weather.csv,humidity_mean_pct,float64,day,0,humidity mean pct
+mart_daily_region_industry_weather.csv,wind_mean_ms,float64,day,0,wind mean ms
+mart_daily_region_industry_weather.csv,weather_hourly_obs,int64,day,0,weather hourly obs
+mart_daily_region_industry_weather.csv,month,int64,day,0,Calendar month in YYYYMM format
+mart_daily_region_industry_weather.csv,day_of_week,int32,day,0,day of week
+mart_daily_region_industry_weather.csv,is_weekend,int64,day,0,is weekend
+mart_daily_region_industry_weather.csv,holiday_name,object,day,0,holiday name
+mart_daily_region_industry_weather.csv,is_holiday,int64,day,0,is holiday
+mart_timeband_region_industry_weather.csv,date,object,day,1,Calendar date in YYYY-MM-DD format
+mart_timeband_region_industry_weather.csv,time_band,object,day,1,Canonical six-hour time band
+mart_timeband_region_industry_weather.csv,merchant_region,object,day,1,Merchant analysis region
+mart_timeband_region_industry_weather.csv,industry,object,day,1,Merchant industry category
+mart_timeband_region_industry_weather.csv,sales_amount,int64,day,0,Aggregated card sales amount
+mart_timeband_region_industry_weather.csv,use_count,int64,day,0,Aggregated card use count
+mart_timeband_region_industry_weather.csv,rain_timeband_mm,float64,day,0,rain timeband mm
+mart_timeband_region_industry_weather.csv,max_hourly_rain_timeband_mm,float64,day,0,max hourly rain timeband mm
+mart_timeband_region_industry_weather.csv,rain_hours_timeband,float64,day,0,rain hours timeband
+mart_timeband_region_industry_weather.csv,weather_timeband_obs,float64,day,0,weather timeband obs
+mart_timeband_region_industry_weather.csv,weather_timeband_missing,int64,day,0,weather timeband missing
+mart_timeband_region_industry_weather.csv,month,int64,day,0,Calendar month in YYYYMM format
+mart_timeband_region_industry_weather.csv,day_of_week,int32,day,0,day of week
+mart_timeband_region_industry_weather.csv,is_weekend,int64,day,0,is weekend
+mart_timeband_region_industry_weather.csv,holiday_name,object,day,0,holiday name
+mart_timeband_region_industry_weather.csv,is_holiday,int64,day,0,is holiday
+mart_month_timeband_profile.csv,month,int64,month,1,Calendar month in YYYYMM format
+mart_month_timeband_profile.csv,time_band,object,month,1,Canonical six-hour time band
+mart_month_timeband_profile.csv,card_sales_share,float64,month,0,card sales share
+mart_month_timeband_profile.csv,skt_flow_share,float64,month,0,skt flow share
+mart_month_timeband_profile.csv,aggregate_flow_to_sales_ratio,float64,month,0,aggregate flow to sales ratio
+mart_month_timeband_profile.csv,interpretation_scope,object,month,0,interpretation scope

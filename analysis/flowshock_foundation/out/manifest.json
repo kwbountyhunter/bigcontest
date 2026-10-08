@@ -1,0 +1,212 @@
+{
+  "status": "built",
+  "period": {
+    "start": "2025-07-01",
+    "end": "2025-12-31"
+  },
+  "raw_sources": {
+    "card1": {
+      "raw_rows": 1044710,
+      "raw_sales_amount": 35865856657136.0,
+      "raw_use_count": 612350360.0,
+      "industry_count": 91
+    },
+    "card2": {
+      "raw_rows": 1806800,
+      "raw_sales_amount": 30151084828052.0,
+      "raw_use_count": 571833984.0
+    },
+    "skt_time": {
+      "time_raw_rows": 663350,
+      "age_raw_rows": 596252,
+      "weekday_raw_rows": 842073,
+      "exact_duplicates": {
+        "time": {
+          "202507": 0,
+          "202508": 0,
+          "202509": 0,
+          "202510": 0,
+          "202511": 0,
+          "202512": 92545
+        },
+        "age": {
+          "202507": 0,
+          "202508": 0,
+          "202509": 0,
+          "202510": 0,
+          "202511": 0,
+          "202512": 0
+        },
+        "weekday": {
+          "202507": 0,
+          "202508": 0,
+          "202509": 0,
+          "202510": 0,
+          "202511": 0,
+          "202512": 121267
+        }
+      },
+      "time_blocks": 2793
+    },
+    "weather": {
+      "aws400": 4359,
+      "asos101": 4416
+    }
+  },
+  "outputs": {
+    "calendar_daily.csv": {
+      "rows": 184,
+      "columns": [
+        "date",
+        "month",
+        "day_of_week",
+        "is_weekend",
+        "holiday_name",
+        "is_holiday"
+      ]
+    },
+    "weather_region_daily.csv": {
+      "rows": 368,
+      "columns": [
+        "date",
+        "daily_rain_mm",
+        "max_hourly_rain_mm",
+        "rain_hours",
+        "temp_mean_c",
+        "humidity_mean_pct",
+        "wind_mean_ms",
+        "weather_hourly_obs",
+        "merchant_region"
+      ]
+    },
+    "weather_region_timeband.csv": {
+      "rows": 1472,
+      "columns": [
+        "date",
+        "time_band",
+        "rain_timeband_mm",
+        "max_hourly_rain_timeband_mm",
+        "rain_hours_timeband",
+        "weather_timeband_obs",
+        "weather_timeband_missing",
+        "merchant_region"
+      ]
+    },
+    "card1_day_region_industry.csv": {
+      "rows": 30153,
+      "columns": [
+        "date",
+        "merchant_region",
+        "industry",
+        "sales_amount",
+        "use_count"
+      ]
+    },
+    "card1_timeband_region_industry.csv": {
+      "rows": 100939,
+      "columns": [
+        "date",
+        "time_band",
+        "merchant_region",
+        "industry",
+        "sales_amount",
+        "use_count"
+      ]
+    },
+    "card2_month_region_customer_inflow.csv": {
+      "rows": 204,
+      "columns": [
+        "month",
+        "merchant_region",
+        "customer_broad_area",
+        "sales_amount",
+        "use_count",
+        "sales_share_within_region_month"
+      ]
+    },
+    "skt_month_timeband_profile.csv": {
+      "rows": 24,
+      "columns": [
+        "month",
+        "time_band",
+        "flow_pop"
+      ]
+    },
+    "skt_month_age_sex_profile.csv": {
+      "rows": 72,
+      "columns": [
+        "month",
+        "sex",
+        "age_band",
+        "flow_pop"
+      ]
+    },
+    "skt_month_weekday_profile.csv": {
+      "rows": 42,
+      "columns": [
+        "month",
+        "weekday",
+        "flow_pop"
+      ]
+    },
+    "mart_daily_region_industry_weather.csv": {
+      "rows": 30153,
+      "columns": [
+        "date",
+        "merchant_region",
+        "industry",
+        "sales_amount",
+        "use_count",
+        "daily_rain_mm",
+        "max_hourly_rain_mm",
+        "rain_hours",
+        "temp_mean_c",
+        "humidity_mean_pct",
+        "wind_mean_ms",
+        "weather_hourly_obs",
+        "month",
+        "day_of_week",
+        "is_weekend",
+        "holiday_name",
+        "is_holiday"
+      ]
+    },
+    "mart_timeband_region_industry_weather.csv": {
+      "rows": 100939,
+      "columns": [
+        "date",
+        "time_band",
+        "merchant_region",
+        "industry",
+        "sales_amount",
+        "use_count",
+        "rain_timeband_mm",
+        "max_hourly_rain_timeband_mm",
+        "rain_hours_timeband",
+        "weather_timeband_obs",
+        "weather_timeband_missing",
+        "month",
+        "day_of_week",
+        "is_weekend",
+        "holiday_name",
+        "is_holiday"
+      ]
+    },
+    "mart_month_timeband_profile.csv": {
+      "rows": 24,
+      "columns": [
+        "month",
+        "time_band",
+        "card_sales_share",
+        "skt_flow_share",
+        "aggregate_flow_to_sales_ratio",
+        "interpretation_scope"
+      ]
+    }
+  },
+  "grain_policy": {
+    "daily_skt_join_allowed": false,
+    "monthly_timeband_profile_comparison_allowed": true,
+    "customer_origin_scope": "broad_area_not_district"
+  }
+}

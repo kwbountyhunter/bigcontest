@@ -1,0 +1,277 @@
+{
+  "status": "passed",
+  "passed": 54,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "raw_row_count:card1",
+      "passed": true,
+      "detail": "actual=1044710, expected=1044710"
+    },
+    {
+      "name": "raw_row_count:card2",
+      "passed": true,
+      "detail": "actual=1806800, expected=1806800"
+    },
+    {
+      "name": "raw_row_count:skt_time",
+      "passed": true,
+      "detail": "actual=663350, expected=663350"
+    },
+    {
+      "name": "unique_key:calendar_daily.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:calendar_daily.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:calendar_daily.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:weather_region_daily.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:weather_region_daily.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:weather_region_daily.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:weather_region_timeband.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:weather_region_timeband.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:weather_region_timeband.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:card1_day_region_industry.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:card1_day_region_industry.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:card1_day_region_industry.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:card1_timeband_region_industry.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:card1_timeband_region_industry.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:card1_timeband_region_industry.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:card2_month_region_customer_inflow.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:card2_month_region_customer_inflow.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:card2_month_region_customer_inflow.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:skt_month_timeband_profile.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:skt_month_timeband_profile.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:skt_month_timeband_profile.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:skt_month_age_sex_profile.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:skt_month_age_sex_profile.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:skt_month_age_sex_profile.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:skt_month_weekday_profile.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:skt_month_weekday_profile.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:skt_month_weekday_profile.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:mart_daily_region_industry_weather.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:mart_daily_region_industry_weather.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:mart_daily_region_industry_weather.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:mart_timeband_region_industry_weather.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:mart_timeband_region_industry_weather.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:mart_timeband_region_industry_weather.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "unique_key:mart_month_timeband_profile.csv",
+      "passed": true,
+      "detail": "duplicate keys: 0"
+    },
+    {
+      "name": "nonnegative:mart_month_timeband_profile.csv",
+      "passed": true,
+      "detail": "negative values: 0"
+    },
+    {
+      "name": "grain_safety:mart_month_timeband_profile.csv",
+      "passed": true,
+      "detail": "safe"
+    },
+    {
+      "name": "region_domain:card1_daily",
+      "passed": true,
+      "detail": "actual=['강원 춘천시', '서울 강남구'], expected=['강원 춘천시', '서울 강남구']"
+    },
+    {
+      "name": "timeband_domain:card1",
+      "passed": true,
+      "detail": "actual=['00_05', '06_11', '12_17', '18_23'], expected=['00_05', '06_11', '12_17', '18_23']"
+    },
+    {
+      "name": "month_domain:skt",
+      "passed": true,
+      "detail": "actual=['202507', '202508', '202509', '202510', '202511', '202512'], expected=['202507', '202508', '202509', '202510', '202511', '202512']"
+    },
+    {
+      "name": "timeband_domain:skt",
+      "passed": true,
+      "detail": "actual=['00_05', '06_11', '12_17', '18_23'], expected=['00_05', '06_11', '12_17', '18_23']"
+    },
+    {
+      "name": "reconciliation:card1_daily_sales",
+      "passed": true,
+      "detail": "actual=35865856657136.0, expected=35865856657136.0"
+    },
+    {
+      "name": "reconciliation:card1_timeband_sales",
+      "passed": true,
+      "detail": "actual=35865856657136.0, expected=35865856657136.0"
+    },
+    {
+      "name": "reconciliation:card1_daily_use_count",
+      "passed": true,
+      "detail": "actual=612350360.0, expected=612350360.0"
+    },
+    {
+      "name": "reconciliation:card2_monthly_sales",
+      "passed": true,
+      "detail": "actual=30151084828052.0, expected=30151084828052.0"
+    },
+    {
+      "name": "reconciliation:card2_monthly_use_count",
+      "passed": true,
+      "detail": "actual=571833984.0, expected=571833984.0"
+    },
+    {
+      "name": "weather_daily_coverage",
+      "passed": true,
+      "detail": "coverage={'강원 춘천시': 184, '서울 강남구': 184}"
+    },
+    {
+      "name": "weather_timeband_coverage",
+      "passed": true,
+      "detail": "rows=1472, expected=1472"
+    },
+    {
+      "name": "daily_join_cardinality",
+      "passed": true,
+      "detail": "mart=30153, card=30153"
+    },
+    {
+      "name": "timeband_join_cardinality",
+      "passed": true,
+      "detail": "mart=100939, card=100939"
+    },
+    {
+      "name": "mart_timeband_weather_not_null",
+      "passed": true,
+      "detail": "null joined weather values=0"
+    },
+    {
+      "name": "dictionary_coverage",
+      "passed": true,
+      "detail": "covered=89, expected=89"
+    }
+  ]
+}
