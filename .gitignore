@@ -1,0 +1,46 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Node / web
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Local tooling and agent artifacts
+.playwright-mcp/
+.sisyphus/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Requested exclusions
+*.pdf
+*.ipynb
+
+# Exclude file over GitHub's 100 MB limit
+data/신한카드_데이터/신한카드_빅콘테스트2026_데이터2.txt
