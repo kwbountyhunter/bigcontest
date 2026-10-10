@@ -1,210 +1,245 @@
 ﻿<!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FlowShock Climate ECG</title>
-    <meta name="description" content="Static Climate ECG dashboard for FlowShock aggregate analysis and modeling bundles.">
-    <link rel="icon" href="data:,">
+    <meta name="theme-color" content="#180f19">
+    <meta name="description" content="FlowShock Climate ECG: real aggregate analysis and modeling bundles rendered as a Korean climate heart diagnostic web MVP.">
+    <title>FlowShock Climate ECG - 상권의 기후 심전도</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <div class="ambient-grid" aria-hidden="true"></div>
-    <div class="signal-noise" aria-hidden="true"></div>
+    <a class="skip" href="#main">본문으로 이동</a>
 
-    <header class="hero hero--cardiology shell">
-      <div class="hero__copy">
-        <p class="eyebrow">FlowShock Climate ECG / Civic Cardiology Console</p>
-        <h1><span>상권의 심장 상태를 읽다.</span> Climate stress, diagnosed as a district heartbeat.</h1>
-        <p class="hero__lede">A static civic cardiology view of Shock Pulse, Recovery Clock, Climate Scar, Loss Priority, and Triage Score using only copied aggregate JSON bundles.</p>
-        <div class="hero__notice" role="note">
-          Predictive aggregate decision support, not causal estimates or final policy decisions. This is a same-day/retrospective evaluation artifact; prospective use requires forecast weather inputs and separate validation.
-        </div>
-      </div>
-      <div class="monitor-card heart-console" aria-label="Climate ECG heart diagnosis console">
-        <div class="monitor-card__topline">
-          <span>HEART-AGG</span>
-          <span id="qualityBadge">Loading bundles</span>
-        </div>
-        <div class="heart-stage">
-          <svg viewBox="0 0 720 560" role="img" aria-labelledby="heartTitle heartDesc">
-            <title id="heartTitle">Commercial district heart diagnosis map</title>
-            <desc id="heartDesc">A heart outline with pulse trace and four chambers mapped to Shock Pulse, Recovery Clock, Climate Scar, and Loss Priority.</desc>
-            <defs>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur"></feGaussianBlur>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"></feMergeNode>
-                  <feMergeNode in="SourceGraphic"></feMergeNode>
-                </feMerge>
-              </filter>
-              <radialGradient id="heartGlow" cx="50%" cy="42%" r="62%">
-                <stop offset="0%" stop-color="var(--color-heart-core)"></stop>
-                <stop offset="62%" stop-color="var(--color-heart-halo)"></stop>
-                <stop offset="100%" stop-color="var(--color-transparent)"></stop>
-              </radialGradient>
-            </defs>
-            <ellipse class="heart-aura" cx="360" cy="290" rx="250" ry="220"></ellipse>
-            <path class="heart-outline" d="M360 494C194 384 106 294 106 188C106 114 158 66 226 66C282 66 325 99 360 151C395 99 438 66 494 66C562 66 614 114 614 188C614 294 526 384 360 494Z"></path>
-            <path class="heart-septum" d="M360 151C326 230 331 331 360 494"></path>
-            <path class="heart-septum heart-septum--right" d="M360 151C394 230 389 331 360 494"></path>
-            <path class="heart-chamber-line" d="M166 236C252 220 315 230 360 282"></path>
-            <path class="heart-chamber-line" d="M554 236C468 220 405 230 360 282"></path>
-            <polyline class="ecg-line ecg-line--ghost" points="88,306 156,306 178,306 198,246 224,372 252,306 316,306 338,306 356,266 382,350 410,306 472,306 494,306 516,218 542,406 570,306 632,306"></polyline>
-            <polyline class="ecg-line" points="88,306 156,306 178,306 198,246 224,372 252,306 316,306 338,306 356,266 382,350 410,306 472,306 494,306 516,218 542,406 570,306 632,306"></polyline>
-            <g class="chamber-label chamber-label--shock">
-              <circle cx="238" cy="188" r="6"></circle>
-              <text x="238" y="176">Shock Pulse</text>
-              <text x="238" y="204">Initial contraction</text>
-            </g>
-            <g class="chamber-label chamber-label--recovery">
-              <circle cx="482" cy="188" r="6"></circle>
-              <text x="482" y="176">Recovery Clock</text>
-              <text x="482" y="204">Delayed rhythm</text>
-            </g>
-            <g class="chamber-label chamber-label--scar">
-              <circle cx="246" cy="402" r="6"></circle>
-              <text x="246" y="390">Climate Scar</text>
-              <text x="246" y="418">Residual tissue</text>
-            </g>
-            <g class="chamber-label chamber-label--loss">
-              <circle cx="474" cy="402" r="6"></circle>
-              <text x="474" y="390">Loss Priority</text>
-              <text x="474" y="418">Support flow</text>
-            </g>
-          </svg>
-        </div>
-        <div class="monitor-card__readouts" id="heroReadouts"></div>
+    <header class="site-header">
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="FlowShock Climate ECG 홈">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="currentColor"></rect><path d="M5 19h6l3-7 5 14 4-10 3 3h5" fill="none" stroke="var(--color-rose-1)" stroke-width="2"></path></svg>
+          <span>FlowShock</span><i>ECG</i>
+        </a>
+        <nav class="main-nav" id="mainNav" aria-label="주 메뉴">
+          <a href="#diagnosis">진단 흐름</a>
+          <a href="#evidence">모델 근거</a>
+          <a href="#priority">우선순위 보드</a>
+          <a href="#scar">흉터 신호</a>
+          <a href="#guardrails">가드레일</a>
+        </nav>
+        <a class="nav-cta" href="#priority">보드 열기 <span aria-hidden="true">↗</span></a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="메뉴 열기">☰</button>
       </div>
     </header>
 
-    <section class="shell diagnosis-map" aria-labelledby="diagnosis-map-title">
-      <div class="section-heading">
-        <p class="eyebrow">Diagnosis Pathway / How to read the heart</p>
-        <h2 id="diagnosis-map-title">Four chambers, one retrospective diagnosis.</h2>
-        <p>Start with the pulse, check the recovery rhythm, inspect accumulated scar tissue, then route attention through the loss-priority chamber before reading triage and guardrails.</p>
-      </div>
-      <div class="chamber-grid" aria-label="Climate ECG heart chambers">
-        <a class="chamber-card chamber-card--shock" href="#shock-pulse">
-          <span>01</span>
-          <strong>Shock Pulse</strong>
-          <p>Is the district contracting under weather stress?</p>
-        </a>
-        <a class="chamber-card chamber-card--recovery" href="#recovery-clock">
-          <span>02</span>
-          <strong>Recovery Clock</strong>
-          <p>Does the rhythm stay irregular after the event window?</p>
-        </a>
-        <a class="chamber-card chamber-card--scar" href="#climate-scar">
-          <span>03</span>
-          <strong>Climate Scar</strong>
-          <p>Where do aggregate residual damage candidates persist?</p>
-        </a>
-        <a class="chamber-card chamber-card--loss" href="#loss-priority">
-          <span>04</span>
-          <strong>Loss Priority</strong>
-          <p>Which support slate concentrates modeled baseline-relative loss?</p>
-        </a>
-      </div>
-    </section>
+    <main id="main">
+      <section class="vitals-hero" id="top" data-signal="risk" aria-labelledby="heroTitle">
+        <div class="vitals-grid" aria-hidden="true"></div>
+        <div class="vitals-ambient" aria-hidden="true"></div>
+        <div class="wrap vitals-shell">
+          <div class="vitals-intro">
+            <div>
+              <p class="eyebrow">CLIMATE ECG / FLOW OF LOCAL ECONOMIES</p>
+              <h1 id="heroTitle">상권의 <em>심장박동</em>을 읽다.</h1>
+              <p>기후 스트레스에 흔들리는 상권의 충격, 회복 지연, 반복 취약성, 지원 우선순위를 하나의 심전도로 보여줍니다.</p>
+            </div>
+            <span class="demo-label"><i aria-hidden="true"></i>상태 색상·맥동은 presentation-only · 실제 지역 위험도 아님</span>
+          </div>
 
-    <nav class="section-rail shell" aria-label="Climate ECG sections">
-      <a href="#overview">Overview</a>
-      <a href="#shock-pulse">Shock Pulse</a>
-      <a href="#recovery-clock">Recovery Clock</a>
-      <a href="#climate-scar">Climate Scar</a>
-      <a href="#loss-priority">Loss Priority</a>
-      <a href="#triage-score">Triage Score</a>
-      <a href="#model-performance">Model Performance</a>
-      <a href="#guardrails">Guardrails</a>
-    </nav>
+          <div class="vitals-scene">
+            <aside class="vitals-status" aria-label="프레젠테이션 상태">
+              <span class="tiny">SIGNAL STATUS</span>
+              <div id="signalStateIcon" class="signal-state-icon" aria-hidden="true">!</div>
+              <div class="signal-live" aria-live="polite" aria-atomic="true">
+                <h2 id="signalStateTitle">위험 신호</h2>
+                <p id="signalStateCopy">큰 충격과 회복 지연이 함께 나타나는 상황의 시각화 예시입니다.</p>
+              </div>
+              <span class="state-note">색 · 맥동 · 파형만 바뀌며 실제 후보 점수와 연결하지 않습니다.</span>
+            </aside>
 
-    <main class="shell dashboard" id="app" aria-live="polite">
-      <section class="panel panel--wide" id="overview">
-        <div class="section-heading">
-          <p class="eyebrow">01 / Intake Chart</p>
-          <h2>Aggregate patient chart</h2>
-          <p>Loaded only from <code>web/public/data/flowshock_analysis_bundle.json</code> and <code>web/public/data/flowshock_modeling_bundle.json</code>.</p>
+            <div class="heart-scene" aria-label="Climate ECG 심장 시각화">
+              <div class="heart-orbit orbit-a" aria-hidden="true"></div>
+              <div class="heart-orbit orbit-b" aria-hidden="true"></div>
+              <div class="heart-halo" aria-hidden="true"></div>
+              <svg class="anatomical-heart" viewBox="0 0 320 390" role="img" aria-labelledby="heartSvgTitle heartSvgDesc">
+                <title id="heartSvgTitle">기후 심전도 심장 시각화</title>
+                <desc id="heartSvgDesc">해부학적 스타일의 심장 위로 기후 스트레스 ECG 파형이 흐르는 설명용 그래픽입니다.</desc>
+                <defs>
+                  <linearGradient id="heartBody" x1=".12" y1="0" x2=".95" y2=".9" gradientUnits="objectBoundingBox"><stop offset="0" class="heart-light"></stop><stop offset=".38" class="heart-middle"></stop><stop offset="1" class="heart-shadow"></stop></linearGradient>
+                  <linearGradient id="heartVessel" x1="0" y1="0" x2="1" y2="1"><stop class="vessel-light"></stop><stop offset="1" class="vessel-shadow"></stop></linearGradient>
+                  <radialGradient id="heartShine" cx=".25" cy=".22" r=".8"><stop stop-color="#fff" stop-opacity=".36"></stop><stop offset=".6" stop-color="#fff" stop-opacity="0"></stop></radialGradient>
+                </defs>
+                <g class="heart-vessels">
+                  <path d="M160 151C147 108 143 66 157 35C168 14 183 13 190 29L181 72C179 93 193 108 198 132" fill="url(#heartVessel)"></path>
+                  <path d="M179 113C188 73 211 61 231 73L254 95L241 120L219 100C207 98 203 119 205 145" fill="url(#heartVessel)"></path>
+                  <path d="M131 145L119 74C117 57 123 49 136 51L149 52L157 133" fill="url(#heartVessel)"></path>
+                  <path d="M191 86L204 38C207 25 224 27 223 42L213 85" fill="url(#heartVessel)"></path>
+                  <path d="M204 91L238 52C246 43 257 51 251 60L226 103" fill="url(#heartVessel)"></path>
+                  <path d="M112 156C91 136 73 129 52 142L47 159C70 156 83 167 93 187" fill="url(#heartVessel)"></path>
+                  <ellipse cx="174" cy="28" rx="11" ry="5" fill="var(--heart-deep)" opacity=".7"></ellipse><ellipse cx="132" cy="53" rx="10" ry="4" fill="var(--heart-deep)" opacity=".65"></ellipse>
+                </g>
+                <path d="M159 132C181 100 222 108 248 139C285 181 276 237 252 283C229 327 209 351 187 370C168 376 128 345 95 310C56 269 38 231 47 195C55 165 77 145 98 137C119 130 140 130 159 132Z" fill="url(#heartBody)"></path>
+                <path d="M159 132C181 100 222 108 248 139C285 181 276 237 252 283C229 327 209 351 187 370C168 376 128 345 95 310C56 269 38 231 47 195C55 165 77 145 98 137C119 130 140 130 159 132Z" fill="url(#heartShine)"></path>
+                <path d="M171 147C165 188 193 206 189 244C188 287 165 313 183 361" fill="none" stroke="var(--heart-deep)" stroke-width="8" opacity=".24" stroke-linecap="round"></path>
+                <path d="M174 146C170 187 197 205 193 244C188 291 169 321 188 365" fill="none" stroke="var(--heart-vein)" stroke-width="2.8" opacity=".65" stroke-linecap="round"></path>
+                <path d="M180 180C150 184 119 191 87 220M187 216C153 228 128 245 111 278M190 259C219 260 229 280 224 306M183 294C162 283 141 290 136 317" fill="none" stroke="var(--heart-vein)" stroke-width="2" opacity=".45" stroke-linecap="round"></path>
+                <path d="M119 152C91 167 74 191 77 221" fill="none" stroke="#fff" stroke-width="6" opacity=".12" stroke-linecap="round"></path>
+                <path d="M215 146C247 174 251 214 238 248" fill="none" stroke="var(--heart-deep)" stroke-width="15" opacity=".10" stroke-linecap="round"></path>
+              </svg>
+              <span class="heart-coordinate coord-top">FS / CLIMATE HEART</span>
+              <span class="heart-coordinate coord-bottom">PRESENTATION SIGNAL · NOT MEDICAL OR CAUSAL DATA</span>
+            </div>
+
+            <svg class="ecg-overlay" viewBox="0 0 900 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs><filter id="ecgGlow"><feGaussianBlur stdDeviation="3"></feGaussianBlur></filter></defs>
+              <path class="ecg-baseline" d="M0 100H900"></path>
+              <g class="ecg-stream">
+                <path class="ecg-glow" d="M0 100H63Q77 100 88 88Q99 76 110 100H136L148 122L164 15L186 178L201 112L216 100H251Q270 67 289 110H360L375 99L390 108H431L446 122L462 15L484 178L499 112L514 100H549Q568 67 587 110H660L675 99L690 108H731L746 122L762 15L784 178L799 112L814 100H849Q868 67 887 100H900"></path>
+                <path class="ecg-main" d="M0 100H63Q77 100 88 88Q99 76 110 100H136L148 122L164 15L186 178L201 112L216 100H251Q270 67 289 110H360L375 99L390 108H431L446 122L462 15L484 178L499 112L514 100H549Q568 67 587 110H660L675 99L690 108H731L746 122L762 15L784 178L799 112L814 100H849Q868 67 887 100H900"></path>
+                <g transform="translate(900 0)"><path class="ecg-glow" d="M0 100H63Q77 100 88 88Q99 76 110 100H136L148 122L164 15L186 178L201 112L216 100H251Q270 67 289 110H360L375 99L390 108H431L446 122L462 15L484 178L499 112L514 100H549Q568 67 587 110H660L675 99L690 108H731L746 122L762 15L784 178L799 112L814 100H849Q868 67 887 100H900"></path><path class="ecg-main" d="M0 100H63Q77 100 88 88Q99 76 110 100H136L148 122L164 15L186 178L201 112L216 100H251Q270 67 289 110H360L375 99L390 108H431L446 122L462 15L484 178L499 112L514 100H549Q568 67 587 110H660L675 99L690 108H731L746 122L762 15L784 178L799 112L814 100H849Q868 67 887 100H900"></path></g>
+              </g>
+            </svg>
+
+            <aside class="vitals-readings" aria-label="실제 번들 핵심 지표">
+              <span class="tiny">BUNDLE READINGS</span>
+              <div><span>Shock Pulse F1</span><strong id="heroShockF1">Loading</strong></div>
+              <div><span>Top10 Capture</span><strong id="heroCapture10">Loading</strong></div>
+              <div><span>Quality Checks</span><strong id="heroQuality">Loading</strong></div>
+              <p>런타임 데이터는 public aggregate bundle 2개만 사용합니다.</p>
+            </aside>
+          </div>
+
+          <div class="vitals-bottom">
+            <div class="signal-picker">
+              <span>상태 시각화</span>
+              <div role="group" aria-label="프레젠테이션 상태 선택">
+                <button type="button" data-signal-state="stable" aria-pressed="false"><i aria-hidden="true"></i>안정</button>
+                <button type="button" data-signal-state="watch" aria-pressed="false"><i aria-hidden="true"></i>주의</button>
+                <button type="button" data-signal-state="risk" class="active" aria-pressed="true"><i aria-hidden="true"></i>위험</button>
+              </div>
+              <button id="motionToggle" class="motion-toggle" type="button" aria-pressed="false" aria-label="심장과 심전도 움직임 멈추기">Ⅱ <span>멈추기</span></button>
+            </div>
+            <a class="vitals-cta" href="#diagnosis">진단 흐름 보기 <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="vitals-disclaimer">심장·파형·색상은 설명을 위한 presentation-only 상태입니다. 이 앱은 비인과적 예측·순위화 도구이며, 당일 관측 기반 회고적 평가입니다. 사전 예측에는 예보 기상 데이터와 별도 검증이 필요합니다.</p>
         </div>
-        <div class="metric-grid" id="overviewMetrics"></div>
-        <div class="table-wrap" id="regionalTable"></div>
       </section>
 
-      <section class="panel" id="shock-pulse">
-        <div class="section-heading">
-          <p class="eyebrow">02 / Upper-left Chamber</p>
-          <h2>Shock Pulse contraction</h2>
-          <p>Daily high negative sales-deviation detection under aggregate weather and calendar features.</p>
-        </div>
-        <div class="metric-grid metric-grid--compact" id="shockMetrics"></div>
-        <div class="split-card" id="weatherShockSummary"></div>
+      <section class="metrics-band wrap" aria-label="프로젝트 핵심 지표">
+        <article class="metric-item"><span class="tiny">SHOCK PULSE · TEST F1</span><strong id="bandShockF1">Loading</strong><span>충격 감지 모델의 균형 성능</span></article>
+        <article class="metric-item"><span class="tiny">LOSS PRIORITY · TOP 10%</span><strong><span id="bandCapture10">Loading</span><small>%</small></strong><span>상위 10% 후보군의 baseline-relative modeled loss 포착 비중</span></article>
+        <article class="metric-item quality"><span class="tiny">MODELING QUALITY</span><strong><span id="bandQualityPassed">Loading</span><small>passed</small></strong><span><i class="status-dot" aria-hidden="true"></i> <span id="bandQualityFailed">0</span> failed</span></article>
+        <div class="metric-note"><span>READ THE SIGNAL.<br>PRIORITIZE THE CARE.</span><p>출처: 현재 public aggregate bundles<br>새 학습·실시간 예측 없음</p></div>
       </section>
 
-      <section class="panel" id="recovery-clock">
-        <div class="section-heading">
-          <p class="eyebrow">03 / Upper-right Chamber</p>
-          <h2>Recovery Clock rhythm</h2>
-          <p>Exploratory event-window model, downweighted in triage and not presented as the main predictor.</p>
+      <section class="problem wrap section" aria-labelledby="questionTitle">
+        <p class="section-kicker">01 / THE QUESTION</p>
+        <div class="problem-layout">
+          <h2 id="questionTitle">같은 날씨.<br>다른 상권의 반응.</h2>
+          <div>
+            <p class="lead">평균적인 변화만 보면, 정작 취약한 지역·업종의 신호를 놓칠 수 있습니다.</p>
+            <p class="body-copy">FlowShock는 매출 반응을 하나의 생체 신호처럼 읽습니다. 충격 맥박, 회복 시계, 기후 흉터, 손실 우선순위, 최종 Triage를 같은 화면에서 연결합니다.</p>
+            <div class="question-callout"><span>우리가 던지는 질문</span><strong>“어디를 먼저 살펴봐야 할까?”</strong><span class="callout-arrow" aria-hidden="true">↗</span></div>
+          </div>
         </div>
-        <div class="metric-grid metric-grid--compact" id="recoveryMetrics"></div>
       </section>
 
-      <section class="panel panel--wide" id="climate-scar">
-        <div class="section-heading">
-          <p class="eyebrow">04 / Lower-left Chamber</p>
-          <h2>Climate Scar tissue</h2>
-          <p>Observed aggregate associations from the analysis bundle. These are not causal damage estimates.</p>
+      <section id="diagnosis" class="diagnosis section" aria-labelledby="diagnosisTitle">
+        <div class="wrap">
+          <p class="section-kicker">02 / THE DIAGNOSTIC JOURNEY</p>
+          <div class="section-heading">
+            <h2 id="diagnosisTitle">숫자를 넘어,<br>하나의 진단 흐름으로.</h2>
+            <p>다섯 단계를 눌러 실제 번들 지표와 해석 경계를 함께 확인하세요.</p>
+          </div>
+          <div class="stages" role="tablist" aria-label="Climate ECG 진단 단계" id="stageTabs"></div>
+          <div id="stagePanel" class="stage-panel" role="tabpanel" tabindex="0" aria-live="polite">
+            <div class="stage-explainer">
+              <span id="stageTag" class="tag">CORE PREDICTION</span>
+              <h3 id="stageTitle">상권은 얼마나 크게 흔들렸을까?</h3>
+              <p id="stageDescription">모델 지표를 불러오는 중입니다.</p>
+              <div class="stage-fact"><span id="stageStatLabel">지표</span><strong id="stageStat">Loading</strong><small id="stageCaution">비인과적, 회고적 해석입니다.</small></div>
+            </div>
+            <div class="stage-visual">
+              <div class="stage-visual-head"><span id="diagramCaption">진단 신호</span><span class="tiny">PRESENTATION DIAGRAM</span></div>
+              <svg id="stageDiagram" viewBox="0 0 480 210" role="img" aria-label="설명을 위한 개념 그래프">
+                <defs><pattern id="lightgrid" width="40" height="35" patternUnits="userSpaceOnUse"><path d="M40 0H0V35" fill="none" stroke="var(--color-chart-grid)" stroke-width=".6"></path></pattern></defs>
+                <rect width="480" height="210" fill="url(#lightgrid)"></rect><path d="M0 75H480" stroke="var(--color-muted)" stroke-dasharray="5 6"></path><rect id="diagramHighlight" x="113" y="0" width="87" height="210" fill="var(--color-rose-2)" opacity=".3"></rect><path id="stagePath" d="M0 78L35 73L70 82L100 75L120 93L137 37L157 182L181 126L205 148L235 124L265 116L295 102L325 99L355 88L385 91L420 78L450 82L480 75" fill="none" stroke="var(--color-ink)" stroke-width="3" stroke-linejoin="round"></path><circle id="diagramPoint" cx="157" cy="182" r="6" fill="var(--color-salmon)"></circle>
+              </svg>
+              <div class="stage-visual-foot"><span>기준선 대비 반응 개념도</span><span id="diagramLabel">충격 감지 구간</span></div>
+              <p>그래프 모양은 개념 설명용이며, 실제 관측 시계열이나 후보 위험도가 아닙니다.</p>
+            </div>
+          </div>
+          <div class="journey-foot"><span>기후 스트레스</span><i aria-hidden="true">→</i><span>상권 반응</span><i aria-hidden="true">→</i><span>취약성 해석</span><i aria-hidden="true">→</i><strong>사람의 지원 검토</strong></div>
         </div>
-        <div class="table-wrap" id="scarTable"></div>
       </section>
 
-      <section class="panel" id="loss-priority">
+      <section id="evidence" class="evidence section wrap" aria-labelledby="evidenceTitle">
+        <p class="section-kicker">03 / EVIDENCE, NOT PROMISES</p>
         <div class="section-heading">
-          <p class="eyebrow">05 / Lower-right Chamber</p>
-          <h2>Loss Priority support flow</h2>
-          <p>Ranking layer judged by top-k capture and lift, not audited won-level forecasts.</p>
+          <h2 id="evidenceTitle">모델이 포착한 신호,<br>그리고 성능의 경계.</h2>
+          <p>Shock Pulse, Weather-conditioned Shock, Recovery Clock, Loss Priority 성과를 현재 modeling bundle에서 직접 표시합니다.</p>
         </div>
-        <div class="metric-grid metric-grid--compact" id="lossMetrics"></div>
-        <div class="table-wrap" id="lossPriorityTable"></div>
+        <div class="evidence-grid">
+          <article class="model-card" id="shockCard"></article>
+          <article class="capture-card" id="lossCard"></article>
+        </div>
+        <div class="weather-strip" id="weatherStrip"></div>
+        <div class="table-card" id="performanceTable"></div>
+        <p class="source-note">이 화면은 웹에서 새로 학습하거나 실시간 예측하지 않습니다. 현재 정적 aggregate bundle의 테스트/평가 지표만 렌더링합니다.</p>
       </section>
 
-      <section class="panel" id="triage-score">
-        <div class="section-heading">
-          <p class="eyebrow">06 / Diagnosis Output</p>
-          <h2>Combined heart triage candidates</h2>
-          <p>Combines predicted shock risk, recovery risk, and observed climate scar score for decision support.</p>
+      <section id="priority" class="priority section" aria-labelledby="priorityTitle">
+        <div class="wrap">
+          <p class="section-kicker">04 / FROM SIGNAL TO REVIEW</p>
+          <div class="section-heading">
+            <h2 id="priorityTitle">먼저 살펴볼 상권을,<br>한눈에.</h2>
+            <p>실제 modeling bundle의 <code>triage_top20</code>와 <code>loss_priority_top20</code>만 표시합니다. 예시 후보 데이터는 사용하지 않습니다.</p>
+          </div>
+          <div class="board">
+            <div class="board-top">
+              <div><span class="status-dot" aria-hidden="true"></span><h3>지원 후보 진단 보드</h3><span id="dataBadge" class="example-badge">aggregate bundle</span></div>
+              <div class="segmented" role="group" aria-label="후보 데이터 유형"><button type="button" id="modeTriage" class="active" aria-pressed="true">Triage</button><button type="button" id="modeLoss" aria-pressed="false">Loss Priority</button></div>
+            </div>
+            <div id="boardNotice" class="board-notice">표시되는 지역·업종은 현재 public modeling bundle의 aggregate 결과입니다. 최종 지원 대상이 아니며 사람의 검토가 필요합니다.</div>
+            <div class="board-controls"><label>업종 <select id="industryFilter"><option value="all">전체 업종</option></select></label><label>검색 <input id="candidateSearch" type="search" placeholder="지역 또는 업종" maxlength="80"></label><span id="candidateCount" aria-live="polite">Loading</span></div>
+            <div class="board-content">
+              <div class="candidate-table-wrap"><table class="candidate-table"><caption class="sr-only">지역과 업종별 기후 ECG 우선순위 후보</caption><thead id="candidateHead"></thead><tbody id="candidateRows"></tbody></table><div id="emptyState" class="empty-state" hidden><span>⊕</span><h4>표시할 후보가 없습니다</h4><p>현재 bundle 또는 검색 조건을 확인해주세요.</p></div><p class="table-note">상위 20개 aggregate 후보 중 최대 10개 표시 · 자동 지원 결정 아님</p></div>
+              <aside id="candidateDetail" class="candidate-detail" aria-live="polite"></aside>
+            </div>
+          </div>
         </div>
-        <div class="table-wrap" id="triageTable"></div>
       </section>
 
-      <section class="panel panel--wide" id="model-performance">
+      <section id="scar" class="scar section wrap" aria-labelledby="scarTitle">
+        <p class="section-kicker">05 / TRIAGE + SCAR SIGNALS</p>
         <div class="section-heading">
-          <p class="eyebrow">07 / Retrospective Lab</p>
-          <h2>Model performance panel</h2>
-          <p>Model metrics are extracted from the copied modeling aggregate bundle when available.</p>
+          <h2 id="scarTitle">반복 취약성의 흉터를,<br>표면으로 꺼내다.</h2>
+          <p>현재 analysis bundle의 <code>regional_dashboard</code>와 <code>vulnerability_matrix</code>에서 지역 대시보드와 Climate Scar 후보를 표시합니다.</p>
         </div>
-        <div class="table-wrap" id="performanceTable"></div>
+        <div class="scar-grid">
+          <div class="table-card" id="regionalTable"></div>
+          <div class="table-card" id="scarTable"></div>
+        </div>
       </section>
 
-      <section class="panel panel--wide panel--guardrails" id="guardrails">
-        <div class="section-heading">
-          <p class="eyebrow">08 / Clinical Guardrails</p>
-          <h2>What this diagnosis does not claim</h2>
-          <p>Visible framing is part of the artifact, not a footnote.</p>
+      <section id="guardrails" class="principles section wrap" aria-labelledby="guardrailsTitle">
+        <p class="section-kicker">06 / RESPONSIBLE INTERPRETATION</p>
+        <div class="principles-layout">
+          <div>
+            <h2 id="guardrailsTitle">좋은 진단은,<br>한계까지 말합니다.</h2>
+            <p class="body-copy">FlowShock는 정책 의사결정을 돕는 정적 분석 MVP입니다. 아래 경계를 화면에 계속 노출합니다.</p>
+            <div class="research-stamp"><span>RESEARCH MVP</span><strong>회고적 분석 · 정적 웹</strong><small>Same-day / retrospective evaluation</small></div>
+          </div>
+          <div class="principle-list" id="guardrailCards"></div>
         </div>
-        <div class="guardrail-grid" id="guardrailCards"></div>
+      </section>
+
+      <section class="closing">
+        <div class="wrap"><span class="tiny">A CLEARER SIGNAL. A MORE CONSIDERED DECISION.</span><h2>상권의 신호를 읽고,<br>지원의 순서를 고민하다.</h2><a class="button lime" href="#diagnosis">Climate ECG 다시 살펴보기 ↗</a><svg viewBox="0 0 600 100" aria-hidden="true"><path d="M0 50H170L190 35L210 80L235 8L260 95L285 50H600" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg></div>
       </section>
     </main>
 
-    <footer class="shell footer">
-      <p>Static MVP. No backend, no raw data access, no live/prospective claims.</p>
-    </footer>
-
-    <noscript>
-      <div class="noscript">This dashboard needs JavaScript to read the copied aggregate JSON bundles.</div>
-    </noscript>
+    <footer class="footer wrap"><a class="brand" href="#top">FlowShock<i>ECG</i></a><span>Runtime: static assets + two public aggregate bundles only.</span><span>기후 스트레스 → 상권 반응 → 지원 검토</span><a href="#top">처음으로 ↑</a></footer>
+    <noscript><div class="noscript">이 대시보드는 aggregate JSON bundle을 읽기 위해 JavaScript가 필요합니다.</div></noscript>
+    <div id="loadStatus" class="sr-only" role="status"></div>
     <script src="./app.js"></script>
   </body>
 </html>
-
-
